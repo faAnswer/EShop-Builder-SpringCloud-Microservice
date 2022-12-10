@@ -5,6 +5,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.faAnswer.jwt.JwtToken;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 @Slf4j
@@ -28,42 +31,37 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Value("${jwt.secret}")
     private String secret;
 
+    private Pattern pattern = Pattern.compile("(?<=Bearer\\s).*");
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        final String[] requestToken = new String[1];
-
-        try{
-
-            Arrays.stream(request.getCookies())
-                    .filter(cookie -> cookie.getName().equals("Authorization"))
-                    .forEach(cookie ->
-                            requestToken[0] = cookie.getValue()
-                    );
+        String jwtToken = request.getHeader("Authorization");
 
 
-        } catch (NullPointerException e) {
-
-            log.info("Missing Data in JWT Token");
-            chain.doFilter(request, response);
-            return;
-        }
         // JWT Token is in the form "Bearer token". Remove Bearer word and get
         // only the Token
-        if (requestToken[0]== null) {
-            log.info("JWT Token Not Found");
+        if (jwtToken == null) {
+
+            response.addHeader("Message", "JWT Token Not Found");
+
             chain.doFilter(request, response);
             return;
         }
-        String jwtToken = requestToken[0];
+
+        Matcher matcher = pattern.matcher(jwtToken);
+
+        while (matcher.find()){
+
+            jwtToken = matcher.group();
+        }
         JwtToken jwtTokenUtil = new JwtToken(this.secret);
 
         String username = null;
 
         if (!jwtTokenUtil.valid(jwtToken)) {
-
-
+            response.addHeader("Message", "Invalid JWT Token");
             chain.doFilter(request, response);
             return;
 
@@ -73,33 +71,30 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
 
             username = (String) jwtTokenUtil.getPayload(jwtToken, "username");
+
             authorizeList = (List<LinkedHashMap<String, String>>) jwtTokenUtil.getPayload(jwtToken, "authorize");
 
         } catch (MalformedJwtException e) {
+            response.addHeader("Message", "Invalid JWT Token");
 
-            log.info("Invaild JWT Token");
             chain.doFilter(request, response);
             return;
         } catch (IllegalArgumentException e) {
-
-            log.info("Unable to get JWT Token");
+            response.addHeader("Message", "Unable to get JWT Token");
             chain.doFilter(request, response);
             return;
         } catch (ExpiredJwtException e) {
-
-            log.info("JWT Token has expired");
+            response.addHeader("Message", "JWT Token has expired");
             chain.doFilter(request, response);
             return;
         } catch (NullPointerException e) {
-
-            log.info("Missing Data in JWT Token");
+            response.addHeader("Message", "Missing Data in JWT Token");
             chain.doFilter(request, response);
             return;
         }
 
         if (username == null || authorizeList.isEmpty()) {
-
-            log.info("Missing Data in JWT Token");
+            response.addHeader("Message", "Missing Payload in JWT Token");
             chain.doFilter(request, response);
             return;
 
@@ -133,8 +128,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         // Spring Security Configurations successfully.
 
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
-//        response.setHeader("Access-Control-Allow-Origin", "*");
 
 
         chain.doFilter(request, response);

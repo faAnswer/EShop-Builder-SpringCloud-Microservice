@@ -17,23 +17,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import org.tecky.uaaservice.security.filter.JwtRequestFilter;
 import org.tecky.uaaservice.services.impl.UserDetailsServiceImpl;
-
-import java.util.Arrays;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -64,14 +57,16 @@ public class WebSecurityConfig {
     }
 
 
+
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         log.info("FilterChain");
 
-         http
-                 .cors(withDefaults())
+        http
+                 .cors()
+                    .and()
                  .csrf()
                     .disable()
                  .authorizeRequests()
@@ -81,7 +76,9 @@ public class WebSecurityConfig {
                     .antMatchers("/login.html").permitAll()
                     .antMatchers("/api/user/login").permitAll()
                      .antMatchers("/api/auth/**").permitAll()
-                     //.antMatchers("/api/oauth/**").permitAll()
+                    .antMatchers("/hello").permitAll()
+
+                 //.antMatchers("/api/oauth/**").permitAll()
                     .antMatchers("/*.js").permitAll()
                     .antMatchers("/**/*.js").permitAll()
                     .antMatchers("/*.css").permitAll()
@@ -90,29 +87,11 @@ public class WebSecurityConfig {
                     .antMatchers("/**/*.ico").permitAll()
                     .antMatchers("/*.jpg").permitAll()
                     .antMatchers("/**/*.jpg").permitAll()
-                    .anyRequest().authenticated()
-                    .and();
+                    .anyRequest().authenticated();
+
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-
-        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-        source.registerCorsConfiguration("/**", configuration);
-
-        return source;
-    }
-
-
-
 }

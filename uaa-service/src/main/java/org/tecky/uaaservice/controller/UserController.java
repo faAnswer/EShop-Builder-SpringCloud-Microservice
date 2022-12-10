@@ -2,6 +2,7 @@ package org.tecky.uaaservice.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.faAnswer.jwt.JwtToken;
+import org.faAnswer.web.util.CustomException;
 import org.faAnswer.web.util.json.JSONResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +29,7 @@ import java.util.Map;
 @RestController
 @Slf4j
 @RequestMapping("/api/auth")
-@CrossOrigin("*")
+@CrossOrigin(originPatterns = "*", allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -45,13 +46,13 @@ public class UserController {
 
 
     @GetMapping(value = "/hello")
-    public String hello() throws Exception{
+    public String hello() {
 
         return "hello";
     }
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> register(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public ResponseEntity<?> register(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) {
 
         log.info("register");
 
@@ -67,7 +68,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public ResponseEntity<?> login(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) {
 
         log.info("authLogin");
 
@@ -82,10 +83,14 @@ public class UserController {
 
         JwtResponseImpl token = new JwtResponseImpl(jwtToken.generateToken());
 
-        return JSONResponse.ok("Authorization", token.getToken());
+        return JSONResponse
+                .builder()
+                .setPayLoad("Authorization", token.getToken())
+                .setPayLoad("username", userDetails.getUsername())
+                .create(200);
     }
 
-    private void authenticate(String username, String password, HttpServletRequest request) throws Exception {
+    private void authenticate(String username, String password, HttpServletRequest request) {
         try {
             UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -93,11 +98,11 @@ public class UserController {
 
         } catch (DisabledException e) {
 
-            throw new Exception("USER_DISABLED", e);
+            throw new CustomException(401, "Username or password incorrect");
 
         } catch (BadCredentialsException e) {
 
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new CustomException(401, "User is not authorized");
         }
     }
 }
