@@ -24,6 +24,7 @@ import org.tecky.uaaservice.services.intf.IRegService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -55,8 +56,14 @@ public class UserController {
 
         log.info("register");
 
+        if(request.getHeader("client_id") == null) {
+
+            throw new CustomException(403, "Client ID is required in headers");
+        }
+
         UserEntity userEntity = new UserEntity();
 
+        userEntity.setClientId(request.getHeader("client_id"));
         userEntity.setUsername(userInfo.get("username"));
         userEntity.setShapassword(userInfo.get("password"));
         userEntity.setEmail(userInfo.get("email"));
@@ -75,22 +82,23 @@ public class UserController {
 
             throw new CustomException(403, "Client ID is required in headers");
         }
-        
+
         authenticate(userInfo.get("username"), userInfo.get("password"), request);
 
         UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(userInfo.get("username"));
 
         JwtToken jwtToken = new JwtToken(this.secret);
 
+        jwtToken.setPayload("client_id", request.getHeader("client_id"));
         jwtToken.setPayload("username", userDetails.getUsername());
         jwtToken.setPayload("authorize", userDetails.getAuthorities());
 
         JwtResponseImpl token = new JwtResponseImpl(jwtToken.generateToken());
-
         return ResponseObject
                 .builder()
                 .setPayLoad("Authorization", token.getToken())
                 .setPayLoad("username", userDetails.getUsername())
+                .setPayLoad("role", Optional.of(userDetails.getAuthorities()).get().toString())
                 .create(200);
 
     }
