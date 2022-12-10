@@ -1,9 +1,10 @@
 package org.tecky.uaaservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.faAnswer.jwt.JwtToken;
 import org.faAnswer.web.util.CustomException;
-import org.faAnswer.web.util.json.JSONResponse;
+import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -21,7 +21,6 @@ import org.tecky.uaaservice.security.services.JwtResponseImpl;
 import org.tecky.uaaservice.services.impl.UserDetailsServiceImpl;
 import org.tecky.uaaservice.services.intf.IRegService;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -52,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> register(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> register(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
 
         log.info("register");
 
@@ -68,10 +67,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
 
         log.info("authLogin");
 
+        if(request.getHeader("client_id") == null) {
+
+            throw new CustomException(403, "Client ID is required in headers");
+        }
+        
         authenticate(userInfo.get("username"), userInfo.get("password"), request);
 
         UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(userInfo.get("username"));
@@ -83,11 +87,12 @@ public class UserController {
 
         JwtResponseImpl token = new JwtResponseImpl(jwtToken.generateToken());
 
-        return JSONResponse
+        return ResponseObject
                 .builder()
                 .setPayLoad("Authorization", token.getToken())
                 .setPayLoad("username", userDetails.getUsername())
                 .create(200);
+
     }
 
     private void authenticate(String username, String password, HttpServletRequest request) {

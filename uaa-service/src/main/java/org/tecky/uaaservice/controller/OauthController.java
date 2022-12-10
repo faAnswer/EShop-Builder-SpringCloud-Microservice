@@ -1,17 +1,13 @@
 package org.tecky.uaaservice.controller;
 
-import com.alibaba.nacos.shaded.org.checkerframework.checker.units.qual.A;
 import lombok.extern.slf4j.Slf4j;
 import org.faAnswer.web.util.json.JSONResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.tecky.uaaservice.security.services.JwtResponseImpl;
 import org.tecky.uaaservice.services.impl.AccessTokenServiceImpl;
-import org.tecky.uaaservice.services.impl.UserDetailsServiceImpl;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

@@ -15,7 +15,6 @@
         <option value="$PROJECT_DIR$/view-server/pom.xml" />
         <option value="$PROJECT_DIR$/user-resource/pom.xml" />
         <option value="$PROJECT_DIR$/storage-service/pom.xml" />
-        <option value="$PROJECT_DIR$/payment-service/pom.xml" />
         <option value="$PROJECT_DIR$/inventory-service/pom.xml" />
       </list>
     </option>

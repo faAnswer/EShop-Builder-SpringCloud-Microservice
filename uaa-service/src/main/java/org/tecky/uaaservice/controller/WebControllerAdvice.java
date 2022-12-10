@@ -1,9 +1,11 @@
 package org.tecky.uaaservice.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.faAnswer.web.util.CustomException;
 import org.faAnswer.web.util.json.JSONResponse;
+import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.FieldError;
@@ -22,7 +24,7 @@ import java.util.Map;
 public class WebControllerAdvice {
 
     @ExceptionHandler
-    public ResponseEntity<?> errorHandler(Exception ex) {
+    public ResponseEntity<?> errorHandler(Exception ex) throws JsonProcessingException {
 
         if (ex instanceof MethodArgumentNotValidException) {
 
@@ -37,21 +39,23 @@ public class WebControllerAdvice {
                 map.put(err.getField(), err.getDefaultMessage());
             }
 
-            return JSONResponse
+            return ResponseObject
                     .builder()
-                    .setPayLoad("message", map)
+                    .setPayLoad(map)
                     .create(400);
+
         }
 
         if (ex.getClass() == CustomException.class) {
 
-            return JSONResponse
+            return ResponseObject
                     .builder()
                     .setPayLoad("message", ex.getMessage())
                     .create(((CustomException) ex).getCode());
+
         }
 
-        return JSONResponse
+        return ResponseObject
                 .builder()
                 .setPayLoad("message", ex.getMessage())
                 .create(500);
