@@ -23,6 +23,7 @@
     <bytecodeTargetLevel>
       <module name="auth-service" target="1.8" />
       <module name="gateway" target="1.8" />
+      <module name="JwtToken" target="19" />
       <module name="payment-service" target="1.8" />
       <module name="service-nacos" target="1.8" />
       <module name="springcloud-nacos-consumer" target="1.8" />
