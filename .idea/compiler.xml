@@ -11,6 +11,7 @@
         <module name="cloud-nohorny" />
         <module name="user-resource" />
         <module name="payment-service" />
+        <module name="inventory-service" />
         <module name="common" />
         <module name="nacos-config" />
         <module name="user-service" />
@@ -29,8 +30,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="JwtToken" options="-parameters" />
       <module name="cloud-nohorny" options="-parameters" />
       <module name="common" options="-parameters" />
+      <module name="inventory-service" options="-parameters" />
       <module name="view-server" options="-parameters" />
     </option>
   </component>

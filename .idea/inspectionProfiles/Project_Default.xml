@@ -6,6 +6,7 @@
         <set>
           <option value="Authentication" />
           <option value="redirect_uri" />
+          <option value="Message" />
         </set>
       </option>
     </inspection_tool>
