@@ -49,7 +49,7 @@ public class CategoryController {
 
             throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/category");
         }
-        
+
         return res;
     }
 }
