@@ -25,6 +25,13 @@ public class CategoryServiceImpl implements ICategoryService {
 
         List<CategoryDetailEntity> categoryDetailEntityList = categoryDetailEntityRepository.findAllCategoryByClientId(clientId);
 
-        return ConversionUtil.convertM2M(CategoryDTO.class, categoryDetailEntityList);
+        List<CategoryDTO> res = ConversionUtil.convertM2M(CategoryDTO.class, categoryDetailEntityList);
+
+        for(CategoryDTO category: res) {
+
+            category.setClientId(clientId);
+        }
+
+        return res;
     }
 }
