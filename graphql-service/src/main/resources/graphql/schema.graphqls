@@ -1,5 +1,5 @@
 type Query{
-    clientByClentId: ClientDTO
+    clientByClentId(clientId: ID!): ClientDTO
 }
 type ClientDTO{
     clientId: ID!

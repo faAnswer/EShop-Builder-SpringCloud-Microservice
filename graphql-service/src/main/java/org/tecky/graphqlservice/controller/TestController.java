@@ -42,7 +42,7 @@ public class TestController {
                 .addPara("clientId", clientDTO.getClientId())
                 .setURL("http://localhost:9052/api/v1/category/")
                 .send(HttpMethod.GET);
-        
+
         List<CategoryDTO> categoryDTOList = (List<CategoryDTO>) ResponseListObject.convert2ListObject(res);
 
         return categoryDTOList;
