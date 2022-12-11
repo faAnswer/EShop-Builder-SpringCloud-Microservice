@@ -6,16 +6,16 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/common/pom.xml" />
-        <option value="$PROJECT_DIR$/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/nacos-config/pom.xml" />
         <option value="$PROJECT_DIR$/uaa-service/pom.xml" />
         <option value="$PROJECT_DIR$/../JwtToken/pom.xml" />
         <option value="$PROJECT_DIR$/../lib/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
-        <option value="$PROJECT_DIR$/view-server/pom.xml" />
         <option value="$PROJECT_DIR$/user-resource/pom.xml" />
         <option value="$PROJECT_DIR$/storage-service/pom.xml" />
         <option value="$PROJECT_DIR$/inventory-service/pom.xml" />
+        <option value="$PROJECT_DIR$/client-side-service/pom.xml" />
+        <option value="$PROJECT_DIR$/graphql-service/pom.xml" />
       </list>
     </option>
   </component>
