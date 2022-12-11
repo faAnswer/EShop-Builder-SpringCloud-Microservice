@@ -15,9 +15,9 @@ public class CategoryEntity {
 
     @Id
     @Column(name = "client_id")
-    private int clientId;
+    private String clientId;
 
     @Id
-    @Column(name = "type_id")
+    @JoinColumn(name = "type_id")
     private int typeId;
 }

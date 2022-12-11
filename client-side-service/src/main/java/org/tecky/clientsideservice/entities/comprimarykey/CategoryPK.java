@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Data
 public class CategoryPK implements Serializable {
 
+
     private String clientId;
     private int typeId;
 }

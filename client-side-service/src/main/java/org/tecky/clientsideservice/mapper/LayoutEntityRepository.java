@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface LayoutEntityRepository extends JpaRepository<LayoutEntity, String> {
 
-    public List<LayoutEntity> findByClientId(String clientId);
+
 
 }
