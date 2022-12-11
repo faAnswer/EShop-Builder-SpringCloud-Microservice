@@ -18,7 +18,6 @@ public class TestController {
 
         categoryDetailEntityRepository.findAllCategoryByClientId("ABCDE");
 
-
         return "test";
 
     }
