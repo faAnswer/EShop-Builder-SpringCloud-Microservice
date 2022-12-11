@@ -8,13 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="user-resource" />
-        <module name="lib" />
-        <module name="user-service" />
-        <module name="storage-service" />
         <module name="cloud-nohorny" />
         <module name="inventory-service" />
+        <module name="lib" />
         <module name="common" />
         <module name="nacos-config" />
+        <module name="user-service" />
+        <module name="storage-service" />
         <module name="view-server" />
         <module name="uaa-service" />
         <module name="gateway" />
@@ -22,6 +22,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="auth-service" target="1.8" />
+      <module name="JwtToken" target="19" />
       <module name="payment-service" target="1.8" />
       <module name="service-nacos" target="1.8" />
       <module name="springcloud-nacos-consumer" target="1.8" />
