@@ -15,4 +15,6 @@ public class CategoryDTO implements Serializable {
 
         this.clientId = id;
     }
+    public CategoryDTO() {
+    }
 }
