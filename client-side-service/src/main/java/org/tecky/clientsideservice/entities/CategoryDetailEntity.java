@@ -1,4 +1,4 @@
-package org.tecky.inventoryservice.entities;
+package org.tecky.clientsideservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class CategoryDetailEntity {
     @Column(name = "category_id")
     private int categoryId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "category_name")
+    private String categoryName;
 
 }

@@ -1,0 +1,23 @@
+type Query{
+    clientByClentId: ClientDTO
+}
+type ClientDTO{
+    clientId: ID!
+    category: [CategoryDTO]
+}
+type CategoryDTO{
+    categoryId: ID
+    categoryName: String
+    categoryType: [CategoryTypeDTO]
+}
+type CategoryTypeDTO{
+    typeId: ID
+    typeName: String
+    product: [ProductDTO]
+}
+type ProductDTO{
+    productId: ID
+    productName: String
+    productDescription: String
+    availableQty: Int
+}

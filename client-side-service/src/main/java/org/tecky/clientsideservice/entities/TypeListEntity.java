@@ -2,16 +2,17 @@ package org.tecky.clientsideservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.tecky.clientsideservice.entities.comprimarykey.TypeListPK;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "t_category")
-@IdClass(org.tecky.clientsideservice.entities.comprimarykey.CategoryPK.class)
+@Table(name = "t_type_list")
+@IdClass(TypeListPK.class)
 
-public class CategoryEntity {
+public class TypeListEntity {
 
     @Id
     @Column(name = "client_id")

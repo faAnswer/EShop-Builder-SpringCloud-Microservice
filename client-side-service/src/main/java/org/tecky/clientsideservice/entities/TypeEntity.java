@@ -1,4 +1,4 @@
-package org.tecky.inventoryservice.entities;
+package org.tecky.clientsideservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "t_type")
-@IdClass(org.tecky.inventoryservice.entities.comprimarykey.TypeEntityPK.class)
+@IdClass(org.tecky.clientsideservice.entities.comprimarykey.TypeEntityPK.class)
 public class TypeEntity {
 
     @Id
