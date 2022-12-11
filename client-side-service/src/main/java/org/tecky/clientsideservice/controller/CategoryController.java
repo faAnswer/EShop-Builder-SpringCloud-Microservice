@@ -47,7 +47,7 @@ public class CategoryController {
             throw new CustomException(500, "Error in Service : GET /api/v1/category");
         }
 
-        if(clienId == null) {
+        if(categoryDTOList == null) {
 
             throw new CustomException(400, "clientid is wrong : GET /api/v1/category");
         }
