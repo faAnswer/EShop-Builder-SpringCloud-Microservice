@@ -2,6 +2,7 @@ package org.tecky.productservice.mapper;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
 import org.tecky.productservice.entities.TypeEntity;
 
 import java.util.List;

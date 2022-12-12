@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tecky.productservice.entities.TypeEntity;
 import org.tecky.productservice.mapper.TypeEntityRepository;
-import org.tecky.productservice.service.intf.ICategoryService;
-import org.tecky.common.dto.CategoryDTO;
+
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
