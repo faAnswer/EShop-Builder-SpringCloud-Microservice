@@ -21,12 +21,26 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     GroupEntityRepository groupEntityRepository;
 
+    @Autowired
+    CategoryChecker categoryChecker;
 
     @Override
-    public ResponseEntity<?> insertProductGroup(PostGroupDTO postGroupDTO) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
+    public ResponseEntity<?> insertProductGroup(PostGroupDTO postGroupDTO) throws JsonProcessingException {
 
+        if(!categoryChecker.containsCategoryId(postGroupDTO.getTypeId())){
 
-        GroupEntity groupEntity = ConversionUtil.convertS2S(GroupEntity.class, postGroupDTO);
+            throw new CustomException(400, "Error in ProductServiceImpl: Invalid TypeId");
+        }
+        GroupEntity groupEntity;
+
+        try{
+
+            groupEntity = ConversionUtil.convertS2S(GroupEntity.class, postGroupDTO);
+
+        } catch (Exception e){
+
+            throw new CustomException(500, "Error in ProductServiceImpl insertProductGroup ConversionUtil");
+        }
 
         try{
 
@@ -34,7 +48,7 @@ public class ProductServiceImpl implements IProductService {
 
         } catch (Exception e){
 
-            throw new CustomException(500, "Error in Insert Product Group");
+            throw new CustomException(500, "Error in ProductServiceImpl insertProductGroup saveAndFlush");
         }
 
         return ResponseObject
