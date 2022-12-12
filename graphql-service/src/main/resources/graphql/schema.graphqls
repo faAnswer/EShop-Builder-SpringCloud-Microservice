@@ -14,6 +14,7 @@ type CategoryDTO{
 }
 type CategoryTypeDTO{
     typeId: ID
+    clientId: String
     typeName: String
     productGroup(clientId: ID): [ProductGroupDTO]
 }

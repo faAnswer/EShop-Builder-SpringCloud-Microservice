@@ -9,5 +9,12 @@ public class CategoryTypeDTO implements Serializable {
 
     private Integer typeId;
     private String typeName;
+    private String clientId;
 
+    public CategoryTypeDTO(String clientId) {
+
+        this.clientId = clientId;
+    }
+    public CategoryTypeDTO() {
+    }
 }

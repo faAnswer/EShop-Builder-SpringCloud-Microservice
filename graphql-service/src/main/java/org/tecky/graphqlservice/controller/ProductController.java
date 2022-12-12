@@ -66,6 +66,7 @@ public class ProductController {
     public List<CategoryTypeDTO> categoryType(CategoryDTO categoryDTO) throws JsonProcessingException, ClassNotFoundException {
 
         ResponseEntity<?> res;
+        List<CategoryTypeDTO> categoryTypeDTOList;
 
         if(categoryDTO.getClientId() == null){
 
@@ -74,6 +75,8 @@ public class ProductController {
                     .setURL(this.productService + "api/v1/types/")
                     .send(HttpMethod.GET);
 
+            categoryTypeDTOList = (List<CategoryTypeDTO>) ResponseListObject.convert2ListObject(res);
+
         } else {
 
             res = new RestTempBuilder(MediaType.APPLICATION_JSON)
@@ -81,10 +84,16 @@ public class ProductController {
                     .addPara("clientId", categoryDTO.getClientId())
                     .setURL(this.productService + "api/v1/type/")
                     .send(HttpMethod.GET);
+
+
+            categoryTypeDTOList = (List<CategoryTypeDTO>) ResponseListObject.convert2ListObject(res);
+
+            for(CategoryTypeDTO categoryTypeDTO: categoryTypeDTOList){
+
+                categoryTypeDTO.setClientId(categoryDTO.getClientId());
+
+            }
         }
-
-
-        List<CategoryTypeDTO> categoryTypeDTOList = (List<CategoryTypeDTO>) ResponseListObject.convert2ListObject(res);
 
         return categoryTypeDTOList;
     }

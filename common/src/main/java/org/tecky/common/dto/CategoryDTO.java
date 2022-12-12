@@ -7,13 +7,13 @@ import java.io.Serializable;
 @Data
 public class CategoryDTO implements Serializable {
 
-    private int categoryId;
+    private Integer categoryId;
     private String categoryName;
     private String clientId;
 
-    public CategoryDTO(String id) {
+    public CategoryDTO(String clientId) {
 
-        this.clientId = id;
+        this.clientId = clientId;
     }
     public CategoryDTO() {
     }
