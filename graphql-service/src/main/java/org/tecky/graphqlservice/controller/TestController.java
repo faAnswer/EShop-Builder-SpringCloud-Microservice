@@ -23,8 +23,8 @@ import java.util.List;
 @Controller
 public class TestController {
 
-    @NacosValue(value = "${product-service:string}", autoRefreshed = true)
-    private String productService;
+    @NacosValue(value = "${product.service}", autoRefreshed = true)
+    String productService;
 
     @QueryMapping
     public ClientDTO clientByClentId(@Argument String clientId) {
