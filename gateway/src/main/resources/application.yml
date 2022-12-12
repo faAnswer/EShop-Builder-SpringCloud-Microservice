@@ -8,3 +8,7 @@ spring:
             - Path=/product/api/**
           filters:
             - RewritePath=/product/(?<segment>.*), /$\{segment}
+        - id: graphql-service
+          uri: lb://graphql-service
+          predicates:
+            - Path=/graphql
