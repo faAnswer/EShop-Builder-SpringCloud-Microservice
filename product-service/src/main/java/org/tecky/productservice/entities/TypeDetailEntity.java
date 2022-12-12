@@ -16,7 +16,7 @@ public class TypeDetailEntity implements Serializable {
 
     @Id
     @Column(name = "type_id")
-    private int typeId;
+    private Integer typeId;
 
     @Column(name = "type_name")
     private String typeName;

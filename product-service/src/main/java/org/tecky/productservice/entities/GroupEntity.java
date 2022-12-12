@@ -16,9 +16,9 @@ public class GroupEntity implements Serializable {
 
     @Id
     @Column(name = "group_id")
-    private int groupId;
+    private Integer groupId;
 
     @JoinColumn(name = "product_id")
-    private int productId;
+    private Integer productId;
 
 }

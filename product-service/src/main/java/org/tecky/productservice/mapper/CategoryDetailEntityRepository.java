@@ -12,5 +12,7 @@ public interface CategoryDetailEntityRepository extends JpaRepository<CategoryDe
     @Query(nativeQuery = true, value = "SELECT tcd.category_ID, tcd.category_name FROM t_group_detail AS tgd INNER JOIN t_type AS tt ON tt.type_ID = tgd.type_ID INNER JOIN t_category_detail AS tcd ON tcd.category_ID = tt.category_ID WHERE tgd.client_ID = ?1")
     public List<CategoryDetailEntity> findAllCategoryByClientId(String clientId);
 
+    @Query(value = "SELECT u FROM CategoryDetailEntity u")
+    public List<CategoryDetailEntity> findAll();
 
 }

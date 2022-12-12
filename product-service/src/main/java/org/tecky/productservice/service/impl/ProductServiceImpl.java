@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostGroupDTO;
 import org.tecky.productservice.entities.GroupEntity;
 import org.tecky.productservice.mapper.GroupEntityRepository;
+import org.tecky.productservice.service.CategoryChecker;
 import org.tecky.productservice.service.intf.IProductService;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,8 +21,13 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     GroupEntityRepository groupEntityRepository;
 
+    @Autowired
+    CategoryChecker categoryChecker;
+
     @Override
     public ResponseEntity<?> insertProductGroup(PostGroupDTO postGroupDTO) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
+
+        categoryChecker.containsKey()
 
         GroupEntity groupEntity = ConversionUtil.convertS2S(GroupEntity.class, postGroupDTO);
 

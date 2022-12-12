@@ -15,10 +15,10 @@ public class TypeEntity implements Serializable {
 
     @Id
     @Column(name = "type_id")
-    private int typeId;
+    private Integer typeId;
 
     @Id
     @JoinColumn(name = "category_id")
-    private int categoryId;
+    private Integer categoryId;
 
 }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class GroupEntityPK implements Serializable {
 
-    private int groupId;
-    private int productId;
+    private Integer groupId;
+    private Integer productId;
 
 }
