@@ -8,4 +8,7 @@ import java.util.List;
 public interface ICategoryService {
 
     public List<CategoryDTO> getCategory(String clientId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    public List<CategoryDTO> getCategory() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+
+
 }

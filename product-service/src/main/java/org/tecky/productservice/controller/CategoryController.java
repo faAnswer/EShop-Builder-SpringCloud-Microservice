@@ -23,12 +23,14 @@ public class CategoryController {
     ICategoryService iCategoryService;
 
     @GetMapping("/v1/category")
+    // return List<CategoryDTO>
     public ResponseEntity<?> getCategory(@RequestParam("clientId") String clienId, HttpServletRequest request, HttpServletResponse response)  {
 
         List<CategoryDTO> categoryDTOList;
         ResponseEntity<?> res;
 
         if(clienId == null) {
+
 
             throw new CustomException(400, "clientid not found in url : GET /api/v1/category");
         }
@@ -54,6 +56,38 @@ public class CategoryController {
         } catch(Exception e){
 
             throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/category");
+        }
+
+        return res;
+    }
+    @GetMapping("/v1/categories")
+    // return List<CategoryDTO>
+    public ResponseEntity<?> getCategory()  {
+
+        List<CategoryDTO> categoryDTOList;
+        ResponseEntity<?> res;
+
+        try{
+
+            categoryDTOList = iCategoryService.getCategory();
+
+        } catch(Exception e){
+
+            throw new CustomException(500, "Error in Service : GET /api/v1/categories");
+        }
+
+        if(categoryDTOList == null) {
+
+            throw new CustomException(400, "clientid is wrong : GET /api/v1/categories");
+        }
+
+        try{
+
+            res = ResponseListObject.builder().setObjectPayLoad(categoryDTOList).create(200);
+
+        } catch(Exception e){
+
+            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/categories");
         }
 
         return res;

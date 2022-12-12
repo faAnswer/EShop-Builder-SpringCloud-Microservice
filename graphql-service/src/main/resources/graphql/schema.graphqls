@@ -1,5 +1,6 @@
 type Query{
     clientByClentId(clientId: ID): ClientDTO
+    categoryList: [CategoryDTO]
 }
 type ClientDTO{
     clientId: ID!
@@ -13,11 +14,35 @@ type CategoryDTO{
 type CategoryTypeDTO{
     typeId: ID
     typeName: String
+    productGroup(clientId: ID): [ProductGroupDTO]
+}
+
+type ProductGroupDTO{
+    productGroupId: ID
+    clientId: String
+    productGroupName: String
+    productGroupDescription: String
+    picUrl: String
+    colaKey: String
+    colbKey: String
     product: [ProductDTO]
 }
+
 type ProductDTO{
     productId: ID
+    clientId: String
     productName: String
     productDescription: String
+    colaValue: String
+    colbValue: String
+    inventory: [InventoryDTO]
+}
+
+type InventoryDTO{
+    inventoryId: ID
+    clientId: String
+    productId: Int
+    onhandQty: Int
     availableQty: Int
+    accountingQty: Int
 }
