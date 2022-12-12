@@ -2,7 +2,9 @@ package org.tecky.common.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -12,8 +14,8 @@ public class PostGroupDTO implements Serializable {
     @NotBlank
     private String clientId;
 
-    @NotBlank
-    private int typeId;
+    @Min(0)
+    private Integer typeId;
 
     @NotBlank
     private String groupName;
