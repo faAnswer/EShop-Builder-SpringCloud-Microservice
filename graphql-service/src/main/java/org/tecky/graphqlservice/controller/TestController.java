@@ -4,6 +4,7 @@ package org.tecky.graphqlservice.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.faAnswer.web.util.RestTempBuilder;
 import org.faAnswer.web.util.json.ResponseListObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -20,6 +21,9 @@ import java.util.List;
 
 @Controller
 public class TestController {
+
+    @Value("${gateway.endpoint}")
+    String gatewayEndpoint;
 
     @QueryMapping
     public ClientDTO clientByClentId(@Argument String clientId) {
@@ -40,7 +44,7 @@ public class TestController {
 
         ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                 .addPara("clientId", clientDTO.getClientId())
-                .setURL("http://localhost:9052/api/v1/category/")
+                .setURL(gatewayEndpoint + "product/api/v1/category/")
                 .send(HttpMethod.GET);
 
         List<CategoryDTO> categoryDTOList = (List<CategoryDTO>) ResponseListObject.convert2ListObject(res);
