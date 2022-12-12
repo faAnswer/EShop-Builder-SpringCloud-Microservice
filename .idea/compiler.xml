@@ -14,10 +14,11 @@
         <module name="common" />
         <module name="nacos-config" />
         <module name="graphql-service" />
+        <module name="product-service" />
         <module name="storage-service" />
-        <module name="client-side-service" />
         <module name="uaa-service" />
         <module name="gateway" />
+        <module name="product-service34" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -33,12 +34,13 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="client-side-service" options="-parameters" />
       <module name="cloud-nohorny" options="-parameters" />
       <module name="common" options="-parameters" />
       <module name="graphql-service" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="lib" options="-parameters" />
+      <module name="product-service" options="-parameters" />
+      <module name="product-service34" options="-parameters" />
       <module name="view-server" options="-parameters" />
     </option>
   </component>
