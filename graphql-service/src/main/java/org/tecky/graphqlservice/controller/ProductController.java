@@ -67,7 +67,7 @@ public class ProductController {
 
         ResponseEntity<?> res;
 
-        if(categoryDTO.getClientId().equals("")){
+        if(categoryDTO.getClientId() == null){
 
             res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                     .addPara("categoryId", categoryDTO.getCategoryId())
@@ -79,7 +79,7 @@ public class ProductController {
             res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                     .addPara("categoryId", categoryDTO.getCategoryId())
                     .addPara("clientId", categoryDTO.getClientId())
-                    .setURL(this.productService + "api/v1/types/")
+                    .setURL(this.productService + "api/v1/type/")
                     .send(HttpMethod.GET);
         }
 
