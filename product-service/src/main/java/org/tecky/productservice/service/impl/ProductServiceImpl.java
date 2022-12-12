@@ -21,13 +21,10 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     GroupEntityRepository groupEntityRepository;
 
-    @Autowired
-    CategoryChecker categoryChecker;
 
     @Override
     public ResponseEntity<?> insertProductGroup(PostGroupDTO postGroupDTO) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
 
-        categoryChecker.containsKey()
 
         GroupEntity groupEntity = ConversionUtil.convertS2S(GroupEntity.class, postGroupDTO);
 

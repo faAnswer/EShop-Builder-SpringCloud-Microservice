@@ -13,18 +13,14 @@ import org.tecky.productservice.mapper.TypeEntityRepository;
 
 import java.util.*;
 
-@Service
 @Getter
 public class CategoryChecker {
 
-    @Autowired
-    TypeEntityRepository typeEntityRepository;
+    private TypeEntityRepository typeEntityRepository;
 
-    @Autowired
-    TypeDetailEntityRepository typeDetailEntityRepository;
+    private TypeDetailEntityRepository typeDetailEntityRepository;
 
-    @Autowired
-    CategoryDetailEntityRepository categoryDetailEntityRepository;
+    private CategoryDetailEntityRepository categoryDetailEntityRepository;
 
     //    V:TypeId, K: CategoryId
     private Map<Integer, Integer> typeMap = new HashMap<Integer, Integer>();
@@ -41,10 +37,17 @@ public class CategoryChecker {
 
     private Map<Integer, List<Integer>> categoryTypeIdMap = new HashMap<>();
 
-    public CategoryChecker(){
+    public CategoryChecker(TypeEntityRepository typeEntityRepository,
+                           TypeDetailEntityRepository typeDetailEntityRepository,
+                           CategoryDetailEntityRepository categoryDetailEntityRepository
+                           ){
+
+        this.typeEntityRepository = typeEntityRepository;
+        this.typeDetailEntityRepository = typeDetailEntityRepository;
+        this.categoryDetailEntityRepository = categoryDetailEntityRepository;
 
         //
-        List<CategoryDetailEntity> categoryDetailEntityList= categoryDetailEntityRepository.findAll();
+        List<CategoryDetailEntity> categoryDetailEntityList = this.categoryDetailEntityRepository.findAll();
 
         for(CategoryDetailEntity categoryDetailEntity : categoryDetailEntityList){
 
@@ -55,7 +58,7 @@ public class CategoryChecker {
         }
 
         //
-        List<TypeEntity> typeEntityList= typeEntityRepository.findAllValidType();
+        List<TypeEntity> typeEntityList = this.typeEntityRepository.findAllValidType();
 
         for(TypeEntity typeEntity : typeEntityList){
 
@@ -66,7 +69,7 @@ public class CategoryChecker {
         }
 
         //
-        List<TypeDetailEntity> typeDetailEntityList= typeDetailEntityRepository.findAll();
+        List<TypeDetailEntity> typeDetailEntityList = this.typeDetailEntityRepository.findAll();
 
         for(TypeDetailEntity typeDetailEntity : typeDetailEntityList){
 
