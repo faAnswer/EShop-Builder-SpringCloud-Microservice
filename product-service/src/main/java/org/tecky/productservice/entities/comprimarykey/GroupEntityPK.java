@@ -1,12 +1,13 @@
 package org.tecky.productservice.entities.comprimarykey;
 
 import lombok.Data;
+
 import java.io.Serializable;
 
 @Data
-public class TypeEntityPK implements Serializable {
+public class GroupEntityPK implements Serializable {
 
-    private int typeId;
-    private int categoryId;
+    private int groupId;
+    private int productId;
 
 }
