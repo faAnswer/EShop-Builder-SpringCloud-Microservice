@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.tecky.common.dto.CategoryDTO;
+import org.tecky.common.dto.CategoryTypeDTO;
 import org.tecky.common.dto.ClientDTO;
 
 import java.util.List;
@@ -60,4 +61,20 @@ public class ProductController {
 
         return categoryDTOList;
     }
+
+    @SchemaMapping
+    public List<CategoryTypeDTO> categoryType(CategoryDTO categoryDTO) throws JsonProcessingException, ClassNotFoundException {
+
+        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
+                .addPara("clientId", clientDTO.getClientId())
+                .setURL(this.productService + "api/v1/category/")
+                .send(HttpMethod.GET);
+
+        List<CategoryDTO> categoryDTOList = (List<CategoryDTO>) ResponseListObject.convert2ListObject(res);
+
+        return categoryDTOList;
+    }
+
+
+
 }

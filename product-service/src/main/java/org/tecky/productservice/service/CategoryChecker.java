@@ -37,6 +37,10 @@ public class CategoryChecker {
 
     private Map<Integer, List<Integer>> categoryTypeIdMap = new HashMap<>();
 
+    private Map<Integer, Map<Integer, String>> categoryTypeFullMap = new HashMap<>();
+
+
+
     public CategoryChecker(TypeEntityRepository typeEntityRepository,
                            TypeDetailEntityRepository typeDetailEntityRepository,
                            CategoryDetailEntityRepository categoryDetailEntityRepository
@@ -55,6 +59,8 @@ public class CategoryChecker {
 
             this.categoryTypeNameMap.put(categoryDetailEntity.getCategoryName(), new ArrayList<>());
             this.categoryTypeIdMap.put(categoryDetailEntity.getCategoryId(), new ArrayList<>());
+            this.categoryTypeFullMap.put(categoryDetailEntity.getCategoryId(), new HashMap<>());
+
         }
 
         //
@@ -80,6 +86,10 @@ public class CategoryChecker {
 
             List<String> arrayList = this.categoryTypeNameMap.get(categoryName);
             arrayList.add(typeDetailEntity.getTypeName());
+
+            Map<Integer, String> map = this.categoryTypeFullMap.get(categoryId);
+
+            map.put(typeDetailEntity.getTypeId(), typeDetailEntity.getTypeName());
         }
     }
 

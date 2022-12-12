@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Data
 public class CategoryTypeDTO implements Serializable {
 
-    private int typeId;
+    private Integer typeId;
     private String typeName;
 
 }
