@@ -37,7 +37,7 @@ public class ProductController {
     }
 
     @QueryMapping
-    public List<CategoryDTO> categoryList() {
+    public List<CategoryDTO> categoryList() throws JsonProcessingException, ClassNotFoundException{
 
         ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                 .setURL(this.productService + "api/v1/categories/")
@@ -47,7 +47,7 @@ public class ProductController {
 
         return categoryDTOList;
     }
-    
+
     @SchemaMapping
     public List<CategoryDTO> category(ClientDTO clientDTO) throws JsonProcessingException, ClassNotFoundException {
 
