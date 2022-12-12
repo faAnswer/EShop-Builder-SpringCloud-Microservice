@@ -22,7 +22,7 @@ import java.util.List;
 public class TestController {
 
     @QueryMapping
-    public ClientDTO clientByClentId(@Argument String id) {
+    public ClientDTO clientByClentId(@Argument String clientId) {
 
 //        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
 //                .addPara("clientId", id)
@@ -30,13 +30,13 @@ public class TestController {
 //                .send(HttpMethod.GET);
 
         ClientDTO client = new ClientDTO();
-        client.setClientId(id);
+        client.setClientId(clientId);
 
         return client;
     }
 
     @SchemaMapping
-    public List<CategoryDTO> categoryType(ClientDTO clientDTO) throws JsonProcessingException, ClassNotFoundException {
+    public List<CategoryDTO> category(ClientDTO clientDTO) throws JsonProcessingException, ClassNotFoundException {
 
         ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                 .addPara("clientId", clientDTO.getClientId())
@@ -47,4 +47,5 @@ public class TestController {
 
         return categoryDTOList;
     }
+
 }
