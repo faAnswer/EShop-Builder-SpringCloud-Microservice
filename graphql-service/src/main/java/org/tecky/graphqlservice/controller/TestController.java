@@ -1,6 +1,7 @@
 package org.tecky.graphqlservice.controller;
 
 
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.faAnswer.web.util.RestTempBuilder;
 import org.faAnswer.web.util.json.ResponseListObject;
@@ -22,8 +23,8 @@ import java.util.List;
 @Controller
 public class TestController {
 
-    @Value("${gateway.endpoint}")
-    String gatewayEndpoint;
+    @NacosValue(value = "${product-service:string}", autoRefreshed = true)
+    private String productService;
 
     @QueryMapping
     public ClientDTO clientByClentId(@Argument String clientId) {
@@ -44,7 +45,7 @@ public class TestController {
 
         ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                 .addPara("clientId", clientDTO.getClientId())
-                .setURL(gatewayEndpoint + "product/api/v1/category/")
+                .setURL(this.productService + "api/v1/category/")
                 .send(HttpMethod.GET);
 
         List<CategoryDTO> categoryDTOList = (List<CategoryDTO>) ResponseListObject.convert2ListObject(res);
