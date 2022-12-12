@@ -24,7 +24,7 @@ public class PostGroupDTO implements Serializable {
 
     private String picUrl;
 
-    private String colaKey = "DEFAULT";
+    private String colaKey = "選項 1";
 
-    private String colbKey;
+    private String colbKey = "選項 2";
 }

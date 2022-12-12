@@ -2,19 +2,19 @@ package org.tecky.productservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "t_group_detail")
-public class GroupDetailEntity {
+public class GroupDetailEntity implements Serializable {
 
     @Id
     @Column(name = "group_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int groupId;
 
     @Column(name = "colb_key")

@@ -6,12 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "t_type_detail")
-public class TypeDetailEntity {
+public class TypeDetailEntity implements Serializable {
 
     @Id
     @Column(name = "type_id")

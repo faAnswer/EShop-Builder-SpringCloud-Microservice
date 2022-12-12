@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "t_group")
 @IdClass(org.tecky.productservice.entities.comprimarykey.GroupEntityPK.class)
 
-public class GroupEntity {
+public class GroupEntity implements Serializable {
 
     @Id
     @Column(name = "group_id")
