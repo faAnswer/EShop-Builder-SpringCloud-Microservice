@@ -14,7 +14,7 @@ public class GroupDetailEntity implements Serializable {
 
     @Id
     @Column(name = "group_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer groupId;
 
     @Column(name = "colb_key")

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostGroupDTO;
+import org.tecky.productservice.entities.GroupDetailEntity;
 import org.tecky.productservice.entities.GroupEntity;
+import org.tecky.productservice.mapper.GroupDetailEntityRepository;
 import org.tecky.productservice.mapper.GroupEntityRepository;
 import org.tecky.productservice.service.CategoryChecker;
 import org.tecky.productservice.service.intf.IProductService;
@@ -19,7 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 public class ProductServiceImpl implements IProductService {
 
     @Autowired
-    GroupEntityRepository groupEntityRepository;
+    GroupDetailEntityRepository groupDetailEntityRepository;
 
     @Autowired
     CategoryChecker categoryChecker;
@@ -31,11 +33,11 @@ public class ProductServiceImpl implements IProductService {
 
             throw new CustomException(400, "Error in ProductServiceImpl: Invalid TypeId");
         }
-        GroupEntity groupEntity;
+        GroupDetailEntity groupDetailEntity;
 
         try{
 
-            groupEntity = ConversionUtil.convertS2S(GroupEntity.class, postGroupDTO);
+            groupDetailEntity = ConversionUtil.convertS2S(GroupDetailEntity.class, postGroupDTO);
 
         } catch (Exception e){
 
@@ -44,7 +46,7 @@ public class ProductServiceImpl implements IProductService {
 
         try{
 
-            groupEntityRepository.saveAndFlush(groupEntity);
+            groupDetailEntityRepository.saveAndFlush(groupDetailEntity);
 
         } catch (Exception e){
 
