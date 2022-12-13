@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostGroupDTO;
+import org.tecky.common.dto.PostProductDTO;
 import org.tecky.productservice.entities.GroupDetailEntity;
-import org.tecky.productservice.entities.GroupEntity;
+import org.tecky.productservice.entities.ProductDetailEntity;
 import org.tecky.productservice.mapper.GroupDetailEntityRepository;
-import org.tecky.productservice.mapper.GroupEntityRepository;
+import org.tecky.productservice.mapper.ProductDetailEntityRepository;
 import org.tecky.productservice.service.CategoryChecker;
 import org.tecky.productservice.service.intf.IProductService;
 
@@ -25,6 +26,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Autowired
     CategoryChecker categoryChecker;
+
+    @Autowired
+    ProductDetailEntityRepository productDetailEntityRepository;
 
     @Override
     public ResponseEntity<?> insertProductGroup(PostGroupDTO postGroupDTO) throws JsonProcessingException {
@@ -52,6 +56,39 @@ public class ProductServiceImpl implements IProductService {
 
             throw new CustomException(500, "Error in ProductServiceImpl insertProductGroup saveAndFlush");
         }
+
+        return ResponseObject
+                .builder()
+                .setPayLoad("message", "Create successful")
+                .create(201);
+    }
+
+    @Override
+    public ResponseEntity<?> insertProduct(PostProductDTO postProductDTO) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
+
+        GroupDetailEntity groupDetailEntity = groupDetailEntityRepository.findByGroupId(postProductDTO.getGroupId());
+
+        if(!groupDetailEntity.getClientId().equals(postProductDTO.getClientId())){
+
+            throw new CustomException(400, "Error in ProductServiceImpl insertProduct: Invalid ClientId");
+        }
+
+        ProductDetailEntity productDetailEntity = new ProductDetailEntity();
+
+        productDetailEntity.setColaValue(postProductDTO.getColaValue());
+        productDetailEntity.setColbValue(postProductDTO.getColbValue());
+        productDetailEntity.setGroupId(groupDetailEntity.getGroupId());
+
+
+        try{
+
+            productDetailEntityRepository.saveAndFlush(productDetailEntity);
+
+        } catch (Exception e){
+
+            throw new CustomException(500, "Error in ProductServiceImpl insertProduct saveAndFlush");
+        }
+
 
         return ResponseObject
                 .builder()

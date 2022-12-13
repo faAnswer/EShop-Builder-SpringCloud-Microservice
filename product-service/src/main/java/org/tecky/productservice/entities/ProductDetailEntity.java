@@ -2,10 +2,8 @@ package org.tecky.productservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -16,6 +14,7 @@ public class ProductDetailEntity implements Serializable {
 
     @Id
     @Column(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
     @Column(name = "colb_value")
@@ -23,5 +22,8 @@ public class ProductDetailEntity implements Serializable {
 
     @Column(name = "cola_value")
     private String colaValue;
+
+    @Column(name = "group_id")
+    private Integer groupId;
 
 }
