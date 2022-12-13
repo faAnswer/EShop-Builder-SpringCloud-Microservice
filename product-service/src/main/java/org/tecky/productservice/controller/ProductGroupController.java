@@ -26,7 +26,7 @@ public class ProductGroupController {
             response = iProductService.insertProductGroup(postGroupDTO);
         } catch (Exception e) {
 
-            throw new CustomException(500, "Error POST/api/v1/group");
+            throw new CustomException(500, "Error POST/api/v1/group" + e.getMessage());
         }
 
         return response;
@@ -41,7 +41,7 @@ public class ProductGroupController {
             response = iProductService.insertProduct(postProductDTO);
         } catch (Exception e) {
 
-            throw new CustomException(500, "Error POST/api/v1/product");
+            throw new CustomException(500, "Error POST/api/v1/product" + e.getMessage());
         }
 
         return response;

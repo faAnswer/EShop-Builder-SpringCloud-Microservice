@@ -33,7 +33,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ResponseEntity<?> insertProductGroup(PostGroupDTO postGroupDTO) throws JsonProcessingException {
 
-        if(!categoryChecker.containsCategoryId(postGroupDTO.getTypeId())){
+        if(!categoryChecker.containsTypeId(postGroupDTO.getTypeId())){
 
             throw new CustomException(400, "Error in ProductServiceImpl: Invalid TypeId");
         }
