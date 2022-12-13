@@ -22,9 +22,9 @@ public class CategoryController {
     @Autowired
     ICategoryService iCategoryService;
 
-    @GetMapping("/v1/category")
+    @GetMapping("/v1/client/categories")
     // return List<CategoryDTO>
-    public ResponseEntity<?> getCategory(@RequestParam("clientId") String clienId, HttpServletRequest request, HttpServletResponse response)  {
+    public ResponseEntity<?> getCategories(@RequestParam("clientId") String clienId, HttpServletRequest request, HttpServletResponse response)  {
 
         List<CategoryDTO> categoryDTOList;
         ResponseEntity<?> res;
@@ -37,7 +37,7 @@ public class CategoryController {
 
         try{
 
-            categoryDTOList = iCategoryService.getCategory(clienId);
+            categoryDTOList = iCategoryService.getCategories(clienId);
 
         } catch(Exception e){
 
@@ -62,14 +62,14 @@ public class CategoryController {
     }
     @GetMapping("/v1/categories")
     // return List<CategoryDTO>
-    public ResponseEntity<?> getCategory()  {
+    public ResponseEntity<?> getCategories()  {
 
         List<CategoryDTO> categoryDTOList;
         ResponseEntity<?> res;
 
         try{
 
-            categoryDTOList = iCategoryService.getCategory();
+            categoryDTOList = iCategoryService.getCategories();
 
         } catch(Exception e){
 
@@ -92,4 +92,38 @@ public class CategoryController {
 
         return res;
     }
+
+    @GetMapping("/v1/category")
+    // return CategoryDTO
+    public ResponseEntity<?> getCategory(@RequestParam("categoryId") String clienId, HttpServletRequest request, HttpServletResponse response)  {
+
+        CategoryDTO categoryDTO;
+        ResponseEntity<?> res;
+
+        try{
+
+            categoryDTO = iCategoryService.getCategories();
+
+        } catch(Exception e){
+
+            throw new CustomException(500, "Error in Service : GET /api/v1/categories");
+        }
+
+        if(categoryDTOList == null) {
+
+            throw new CustomException(400, "clientid is wrong : GET /api/v1/categories");
+        }
+
+        try{
+
+            res = ResponseListObject.builder().setObjectPayLoad(categoryDTOList).create(200);
+
+        } catch(Exception e){
+
+            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/categories");
+        }
+
+        return res;
+    }
+
 }

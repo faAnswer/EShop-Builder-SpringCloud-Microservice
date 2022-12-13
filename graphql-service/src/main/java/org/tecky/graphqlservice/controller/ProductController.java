@@ -49,12 +49,26 @@ public class ProductController {
         return categoryDTOList;
     }
 
+    @QueryMapping
+    public ClientDTO category(@Argument String clientId) {
+
+//        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
+//                .addPara("clientId", id)
+//                .setURL("http://localhost:9052/api/v1/category/")
+//                .send(HttpMethod.GET);
+
+        ClientDTO client = new ClientDTO();
+        client.setClientId(clientId);
+
+        return client;
+    }
+
     @SchemaMapping
     public List<CategoryDTO> category(ClientDTO clientDTO) throws JsonProcessingException, ClassNotFoundException {
 
         ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                 .addPara("clientId", clientDTO.getClientId())
-                .setURL(this.productService + "api/v1/category/")
+                .setURL(this.productService + "api/v1/client/categories/")
                 .send(HttpMethod.GET);
 
         List<CategoryDTO> categoryDTOList = (List<CategoryDTO>) ResponseListObject.convert2ListObject(res);

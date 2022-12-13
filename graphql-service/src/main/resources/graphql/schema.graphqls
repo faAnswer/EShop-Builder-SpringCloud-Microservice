@@ -1,6 +1,8 @@
 type Query{
     clientByClentId(clientId: ID): ClientDTO
     categoryList: [CategoryDTO]
+    category(categoryId: ID): CategoryDTO
+
 }
 type ClientDTO{
     clientId: ID!

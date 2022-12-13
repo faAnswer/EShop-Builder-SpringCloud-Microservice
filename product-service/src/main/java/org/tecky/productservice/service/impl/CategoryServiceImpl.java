@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
 
     @Override
-    public List<CategoryDTO> getCategory(String clientId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public List<CategoryDTO> getCategories(String clientId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         List<CategoryDetailEntity> categoryDetailEntityList = categoryDetailEntityRepository.findAllCategoryByClientId(clientId);
 
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public List<CategoryDTO> getCategory(){
+    public List<CategoryDTO> getCategories(){
 
         List<CategoryDTO> categoryDTOList = new ArrayList<CategoryDTO>();
 
