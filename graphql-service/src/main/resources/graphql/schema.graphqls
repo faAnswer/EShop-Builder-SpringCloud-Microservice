@@ -22,10 +22,12 @@ type CategoryTypeDTO{
 }
 
 type ProductGroupDTO{
-    productGroupId: ID
+    groupId: ID
+    typeId: Int
+    isvalid: Int
     clientId: String
-    productGroupName: String
-    productGroupDescription: String
+    groupName: String
+    groupDescription: String
     picUrl: String
     colaKey: String
     colbKey: String
@@ -34,15 +36,15 @@ type ProductGroupDTO{
 }
 
 type ProductSectionADTO{
-    productGroupId: ID
+    groupId: ID
     colaValue: String
     productSectionB:[ProductSectionBDTO]
 }
 
 type ProductSectionBDTO{
-    productGroupId: ID
+    groupId: ID
     colbValue: String
-    product:ProductDTO
+    product: ProductDTO
 }
 
 type ProductDTO{

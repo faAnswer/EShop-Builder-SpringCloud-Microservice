@@ -16,7 +16,7 @@ public class ProductGroupController {
     @Autowired
     IProductService iProductService;
 
-    @PostMapping(value = "/v1/group", consumes = "application/json")
+    @PostMapping(value = "/v1/products", consumes = "application/json")
     public ResponseEntity<?> postGroup(@RequestBody @Validated PostGroupDTO postGroupDTO){
 
         ResponseEntity<?> response;
@@ -26,7 +26,7 @@ public class ProductGroupController {
             response = iProductService.insertProductGroup(postGroupDTO);
         } catch (Exception e) {
 
-            throw new CustomException(500, "Error POST/api/v1/group" + e.getMessage());
+            throw new CustomException(500, "Error POST/api/v1/products" + e.getMessage());
         }
 
         return response;
@@ -47,4 +47,19 @@ public class ProductGroupController {
         return response;
     }
 
+    @GetMapping(value = "/v1/products", consumes = "application/json")
+    public ResponseEntity<?> getProduct(@RequestParam("groupId") Integer groupId){
+
+        ResponseEntity<?> response;
+
+        try {
+
+            response = iProductService.findProductGroup(groupId);
+        } catch (Exception e) {
+
+            throw new CustomException(500, "Error GET/api/v1/products" + e.getMessage());
+        }
+
+        return response;
+    }
 }

@@ -13,5 +13,6 @@ public interface IProductService {
 
     public ResponseEntity<?> insertProduct(PostProductDTO postProductDTO) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException;
 
+    public ResponseEntity<?> findProductGroup(Integer groupId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException;
 
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostGroupDTO;
 import org.tecky.common.dto.PostProductDTO;
+import org.tecky.common.dto.ProductGroupDTO;
 import org.tecky.productservice.entities.GroupDetailEntity;
 import org.tecky.productservice.entities.ProductDetailEntity;
 import org.tecky.productservice.mapper.GroupDetailEntityRepository;
@@ -94,5 +95,23 @@ public class ProductServiceImpl implements IProductService {
                 .builder()
                 .setPayLoad("message", "Create successful")
                 .create(201);
+    }
+    @Override
+    //ProductGroupDTO
+    public ResponseEntity<?> findProductGroup(Integer groupId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
+
+        GroupDetailEntity groupDetailEntity = groupDetailEntityRepository.findByGroupId(groupId);
+
+        if(groupDetailEntity == null || groupDetailEntity.getIsvalid() == 0){
+
+            throw new CustomException(404, "Error in ProductServiceImpl findProductGroup: Validation Product Not Found");
+        }
+
+        ProductGroupDTO productGroupDTO = ConversionUtil.convertS2S(ProductGroupDTO.class, groupDetailEntity);
+
+        return ResponseObject
+                .builder()
+                .setObjectPayLoad(productGroupDTO)
+                .create(200);
     }
 }

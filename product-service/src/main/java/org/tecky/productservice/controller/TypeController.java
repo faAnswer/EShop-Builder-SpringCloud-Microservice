@@ -32,7 +32,6 @@ public class TypeController {
 
         if(categoryId == null) {
 
-
             throw new CustomException(400, "categoryId not found in url : GET /api/v1/types");
         }
 
