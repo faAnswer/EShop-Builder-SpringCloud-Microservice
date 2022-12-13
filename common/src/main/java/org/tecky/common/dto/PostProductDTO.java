@@ -2,6 +2,7 @@ package org.tecky.common.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -11,7 +12,7 @@ public class PostProductDTO implements Serializable {
     @NotBlank
     private Integer groupId;
 
-    @NotBlank
+    @Min(0)
     private String clientId;
 
     private String colaValue = "默認";
