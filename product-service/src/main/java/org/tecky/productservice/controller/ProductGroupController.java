@@ -81,8 +81,8 @@ public class ProductGroupController {
         return response;
     }
 
-    @GetMapping(value = "/v1/products/select-a")
-    public ResponseEntity<?> getProductSelect(@RequestParam("groupId") Integer groupId){
+    @GetMapping(value = "/v1/products/properties")
+    public ResponseEntity<?> getProductProperties(@RequestParam("groupId") Integer groupId){
 
         ResponseEntity<?> response;
 

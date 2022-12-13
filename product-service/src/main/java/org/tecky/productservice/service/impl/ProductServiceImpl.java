@@ -140,4 +140,9 @@ public class ProductServiceImpl implements IProductService {
                 .setObjectPayLoad(productGroupDTOList)
                 .create(200);
     }
+
+    @Override
+    public ResponseEntity<?> findProductProperties(Integer groupId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
+        return null;
+    }
 }

@@ -31,16 +31,16 @@ type ProductGroupDTO{
     picUrl: String
     colaKey: String
     colbKey: String
-    sectionA: [SectionADTO]
+    property: [PropertyDTO]
 }
 
-type SectionADTO{
+type PropertyDTO{
     groupId: ID
     colaValue: String
-    sectionB:[SectionBDTO]
+    subProperty:[SubPropertyDTO]
 }
 
-type SectionBDTO{
+type SubPropertyDTO{
     groupId: ID
     colbValue: String
     product:[ProductDTO]
