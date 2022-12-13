@@ -18,7 +18,7 @@ type CategoryTypeDTO{
     typeId: ID
     clientId: String
     typeName: String
-    productGroup(clientId: ID): [ProductGroupDTO]
+    productGroup: [ProductGroupDTO]
 }
 
 type ProductGroupDTO{
@@ -31,20 +31,19 @@ type ProductGroupDTO{
     picUrl: String
     colaKey: String
     colbKey: String
-    productSectionList: [ProductSectionADTO]
-    product(selectA:String, selectB:String): ProductDTO
+    sectionA: [SectionADTO]
 }
 
-type ProductSectionADTO{
+type SectionADTO{
     groupId: ID
     colaValue: String
-    productSectionB:[ProductSectionBDTO]
+    sectionB:[SectionBDTO]
 }
 
-type ProductSectionBDTO{
+type SectionBDTO{
     groupId: ID
     colbValue: String
-    product: ProductDTO
+    product:[ProductDTO]
 }
 
 type ProductDTO{

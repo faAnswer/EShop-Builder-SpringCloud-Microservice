@@ -47,6 +47,24 @@ public class ProductGroupController {
         return response;
     }
 
+    @GetMapping(value = "/v1/products/{clientId}/{typeId}")
+    //List<>
+    public ResponseEntity<?> getProductGroupList(@PathVariable("clientId") String clientId,
+                                                 @PathVariable("typeId") Integer typeId){
+
+        ResponseEntity<?> response;
+
+        try {
+
+            response = iProductService.findProductGroupList(clientId, typeId);
+        } catch (Exception e) {
+
+            throw new CustomException(500, "Error GET/api/v1/products/{clientId}/{typeId}" + e.getMessage());
+        }
+
+        return response;
+    }
+
     @GetMapping(value = "/v1/products")
     public ResponseEntity<?> getProduct(@RequestParam("groupId") Integer groupId){
 
@@ -62,4 +80,22 @@ public class ProductGroupController {
 
         return response;
     }
+
+    @GetMapping(value = "/v1/products/select-a")
+    public ResponseEntity<?> getProductSelect(@RequestParam("groupId") Integer groupId){
+
+        ResponseEntity<?> response;
+
+        try {
+
+            response = iProductService.findProductGroup(groupId);
+        } catch (Exception e) {
+
+            throw new CustomException(500, "Error GET/api/v1/products" + e.getMessage());
+        }
+
+        return response;
+    }
+
+
 }

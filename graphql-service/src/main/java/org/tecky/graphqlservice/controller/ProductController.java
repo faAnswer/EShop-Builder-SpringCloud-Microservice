@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.tecky.common.dto.CategoryDTO;
 import org.tecky.common.dto.CategoryTypeDTO;
 import org.tecky.common.dto.ClientDTO;
+import org.tecky.common.dto.ProductGroupDTO;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class ProductController {
     }
 
     @QueryMapping
-    public List<CategoryDTO> categoryList() throws JsonProcessingException, ClassNotFoundException{
+    public List<CategoryDTO> categoryList() throws JsonProcessingException, ClassNotFoundException {
 
         ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                 .setURL(this.productService + "api/v1/categories/")
@@ -100,7 +101,7 @@ public class ProductController {
         ResponseEntity<?> res;
         List<CategoryTypeDTO> categoryTypeDTOList;
 
-        if(categoryDTO.getClientId() == null){
+        if (categoryDTO.getClientId() == null) {
 
             res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                     .addPara("categoryId", categoryDTO.getCategoryId())
@@ -120,7 +121,7 @@ public class ProductController {
 
             categoryTypeDTOList = (List<CategoryTypeDTO>) ResponseListObject.convert2ListObject(res);
 
-            for(CategoryTypeDTO categoryTypeDTO: categoryTypeDTOList){
+            for (CategoryTypeDTO categoryTypeDTO : categoryTypeDTOList) {
 
                 categoryTypeDTO.setClientId(categoryDTO.getClientId());
 
@@ -128,5 +129,20 @@ public class ProductController {
         }
 
         return categoryTypeDTOList;
+    }
+
+    @SchemaMapping
+    public List<ProductGroupDTO> productGroup(CategoryTypeDTO categoryTypeDTO) throws JsonProcessingException, ClassNotFoundException {
+
+        ResponseEntity<?> res;
+        List<ProductGroupDTO> productGroupDTOList;
+
+        res = new RestTempBuilder(MediaType.APPLICATION_JSON)
+                .setURL(this.productService + "api/v1/products/" + categoryTypeDTO.getClientId() + "/" + categoryTypeDTO.getTypeId())
+                .send(HttpMethod.GET);
+
+        productGroupDTOList = (List<ProductGroupDTO>) ResponseListObject.convert2ListObject(res);
+
+        return productGroupDTOList;
     }
 }

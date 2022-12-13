@@ -3,6 +3,7 @@ package org.tecky.productservice.service.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.faAnswer.web.util.CustomException;
 import org.faAnswer.web.util.dto.ConversionUtil;
+import org.faAnswer.web.util.json.ResponseListObject;
 import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import org.tecky.productservice.service.CategoryChecker;
 import org.tecky.productservice.service.intf.IProductService;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -112,6 +115,29 @@ public class ProductServiceImpl implements IProductService {
         return ResponseObject
                 .builder()
                 .setObjectPayLoad(productGroupDTO)
+                .create(200);
+    }
+
+    @Override
+    //List<ProductGroupDTO>
+    public ResponseEntity<?> findProductGroupList(String clientId, Integer typeId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
+
+        List<GroupDetailEntity> groupDetailEntityList;
+        List<ProductGroupDTO> productGroupDTOList;
+
+        groupDetailEntityList = groupDetailEntityRepository.findByTypeIdAndClientId(typeId, clientId);
+
+        if(groupDetailEntityList == null){
+
+            productGroupDTOList = new ArrayList<>();
+        } else {
+
+            productGroupDTOList = ConversionUtil.convertM2M(ProductGroupDTO.class, groupDetailEntityList);
+        }
+
+        return ResponseListObject
+                .builder()
+                .setObjectPayLoad(productGroupDTOList)
                 .create(200);
     }
 }
