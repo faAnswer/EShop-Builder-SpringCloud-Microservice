@@ -55,7 +55,7 @@ public class ProductController {
 
         ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
                 .addPara("categoryId", categoryId)
-                .setURL("http://localhost:9052/api/v1/category/")
+                .setURL(this.productService + "api/v1/category/")
                 .send(HttpMethod.GET);
 
         CategoryDTO categoryDTO = (CategoryDTO) ResponseObject.convert2Object(res);
