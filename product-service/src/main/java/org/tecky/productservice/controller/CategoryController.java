@@ -5,6 +5,7 @@ import org.faAnswer.web.util.json.ResponseListObject;
 import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class CategoryController {
 
     @GetMapping("/v1/client/categories")
     // return List<CategoryDTO>
-    public ResponseEntity<?> getCategories(@RequestParam("clientId") String clienId, HttpServletRequest request, HttpServletResponse response)  {
+    public ResponseEntity<?> getCategories(@RequestParam("clientId") String clienId)  {
 
         List<CategoryDTO> categoryDTOList;
         ResponseEntity<?> res;
@@ -42,7 +43,7 @@ public class CategoryController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in Service : GET /api/v1/category");
+            throw new CustomException(500, "Error in Service : GET /api/v1/category" + e.getMessage());
         }
 
         if(categoryDTOList == null) {
@@ -56,7 +57,7 @@ public class CategoryController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/category");
+            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/category" + e.getMessage());
         }
 
         return res;
@@ -74,7 +75,7 @@ public class CategoryController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in Service : GET /api/v1/categories");
+            throw new CustomException(500, "Error in Service : GET /api/v1/categories" + e.getMessage());
         }
 
         if(categoryDTOList == null) {
@@ -88,7 +89,7 @@ public class CategoryController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/categories");
+            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/categories" + e.getMessage());
         }
 
         return res;
@@ -107,7 +108,7 @@ public class CategoryController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in Service : GET /api/v1/category");
+            throw new CustomException(500, "Error in Service : GET /api/v1/category" + e.getMessage());
         }
 
         if(categoryDTO == null) {
@@ -121,7 +122,7 @@ public class CategoryController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/category");
+            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/category" + e.getMessage());
         }
 
         return res;

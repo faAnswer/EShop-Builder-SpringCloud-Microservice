@@ -3,6 +3,7 @@ package org.tecky.productservice.service.impl;
 import org.faAnswer.web.util.CustomException;
 import org.faAnswer.web.util.dto.ConversionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.CategoryTypeDTO;
 import org.tecky.productservice.entities.CategoryDetailEntity;

@@ -26,4 +26,6 @@ public class ProductDetailEntity implements Serializable {
     @Column(name = "group_id")
     private Integer groupId;
 
+    @Column(name = "isvalid")
+    private Integer isvalid;
 }

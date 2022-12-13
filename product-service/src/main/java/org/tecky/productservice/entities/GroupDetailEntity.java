@@ -38,4 +38,6 @@ public class GroupDetailEntity implements Serializable {
     @Column(name = "client_id")
     private String clientId;
 
+    @Column(name = "isvalid")
+    private Integer isvalid;
 }

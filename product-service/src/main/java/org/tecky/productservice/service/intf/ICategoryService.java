@@ -1,5 +1,6 @@
 package org.tecky.productservice.service.intf;
 
+import org.springframework.security.core.Authentication;
 import org.tecky.common.dto.CategoryDTO;
 import org.tecky.common.dto.CategoryTypeDTO;
 

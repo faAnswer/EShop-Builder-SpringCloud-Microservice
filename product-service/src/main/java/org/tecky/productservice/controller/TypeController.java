@@ -42,7 +42,7 @@ public class TypeController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in Service : GET /api/v1/types");
+            throw new CustomException(500, "Error in Service : GET /api/v1/types" + e.getMessage());
         }
 
         try{
@@ -51,7 +51,7 @@ public class TypeController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/types");
+            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/types" + e.getMessage());
         }
 
         return res;
@@ -83,7 +83,7 @@ public class TypeController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in Service : GET /api/v1/type");
+            throw new CustomException(500, "Error in Service : GET /api/v1/type" + e.getMessage());
         }
 
         try{
@@ -92,7 +92,7 @@ public class TypeController {
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/type");
+            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/type" + e.getMessage());
         }
 
         return res;
