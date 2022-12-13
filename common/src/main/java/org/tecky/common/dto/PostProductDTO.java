@@ -9,10 +9,10 @@ import java.io.Serializable;
 @Data
 public class PostProductDTO implements Serializable {
 
-    @NotBlank
+    @Min(0)
     private Integer groupId;
 
-    @Min(0)
+    @NotBlank
     private String clientId;
 
     private String colaValue = "默認";
