@@ -2,6 +2,7 @@ package org.tecky.uaaservice.services.impl;
 
 import com.alibaba.nacos.shaded.org.checkerframework.checker.units.qual.A;
 import lombok.extern.slf4j.Slf4j;
+import org.faAnswer.web.util.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import org.tecky.uaaservice.mapper.RoleEntityRespository;
 import org.tecky.uaaservice.mapper.UserEntityRepository;
 import org.tecky.uaaservice.mapper.UserRoleEntityRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,10 +37,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     RoleEntityRespository roleEntityRespository;
 
+    @Autowired
+    HttpServletRequest httpServletRequest;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        UserEntity userEntity = userEntityRepository.findByUsername(username);
+
+        if(httpServletRequest.getHeader("client_id") == null) {
+
+            throw new CustomException(403, "Client ID is required in headers");
+        }
+
+        UserEntity userEntity = userEntityRepository.findByUsernameAndClientId(username, httpServletRequest.getHeader("client_id"));
 
         if(userEntity == null) {
 

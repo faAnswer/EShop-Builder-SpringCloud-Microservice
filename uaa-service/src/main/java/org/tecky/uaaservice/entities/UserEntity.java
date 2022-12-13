@@ -16,6 +16,9 @@ public class UserEntity {
     @Id
     private int uid;
 
+    @Column(name = "client_id")
+    private String clientId;
+
     @Column(name = "shapassword")
     private String shapassword;
 

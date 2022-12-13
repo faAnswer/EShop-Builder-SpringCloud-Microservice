@@ -1,8 +1,10 @@
 package org.tecky.uaaservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.faAnswer.jwt.JwtToken;
-import org.faAnswer.web.util.json.JSONResponse;
+import org.faAnswer.web.util.CustomException;
+import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -20,15 +21,15 @@ import org.tecky.uaaservice.security.services.JwtResponseImpl;
 import org.tecky.uaaservice.services.impl.UserDetailsServiceImpl;
 import org.tecky.uaaservice.services.intf.IRegService;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @Slf4j
 @RequestMapping("/api/auth")
-@CrossOrigin("*")
+@CrossOrigin(originPatterns = "*", allowCredentials = "true")
 public class UserController {
 
     @Autowired
@@ -45,18 +46,24 @@ public class UserController {
 
 
     @GetMapping(value = "/hello")
-    public String hello() throws Exception{
+    public String hello() {
 
         return "hello";
     }
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> register(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public ResponseEntity<?> register(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
 
         log.info("register");
 
+        if(request.getHeader("client_id") == null) {
+
+            throw new CustomException(403, "Client ID is required in headers");
+        }
+
         UserEntity userEntity = new UserEntity();
 
+        userEntity.setClientId(request.getHeader("client_id"));
         userEntity.setUsername(userInfo.get("username"));
         userEntity.setShapassword(userInfo.get("password"));
         userEntity.setEmail(userInfo.get("email"));
@@ -67,9 +74,14 @@ public class UserController {
     }
 
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public ResponseEntity<?> login(@RequestBody Map<String, String> userInfo, HttpServletRequest request, HttpServletResponse response) throws JsonProcessingException {
 
         log.info("authLogin");
+
+        if(request.getHeader("client_id") == null) {
+
+            throw new CustomException(403, "Client ID is required in headers");
+        }
 
         authenticate(userInfo.get("username"), userInfo.get("password"), request);
 
@@ -77,15 +89,21 @@ public class UserController {
 
         JwtToken jwtToken = new JwtToken(this.secret);
 
+        jwtToken.setPayload("client_id", request.getHeader("client_id"));
         jwtToken.setPayload("username", userDetails.getUsername());
         jwtToken.setPayload("authorize", userDetails.getAuthorities());
 
         JwtResponseImpl token = new JwtResponseImpl(jwtToken.generateToken());
+        return ResponseObject
+                .builder()
+                .setPayLoad("Authorization", token.getToken())
+                .setPayLoad("username", userDetails.getUsername())
+                .setPayLoad("role", Optional.of(userDetails.getAuthorities()).get().toString())
+                .create(200);
 
-        return JSONResponse.ok("Authorization", token.getToken());
     }
 
-    private void authenticate(String username, String password, HttpServletRequest request) throws Exception {
+    private void authenticate(String username, String password, HttpServletRequest request) {
         try {
             UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -93,11 +111,11 @@ public class UserController {
 
         } catch (DisabledException e) {
 
-            throw new Exception("USER_DISABLED", e);
+            throw new CustomException(401, "Username or password incorrect");
 
         } catch (BadCredentialsException e) {
 
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new CustomException(401, "User is not authorized");
         }
     }
 }
