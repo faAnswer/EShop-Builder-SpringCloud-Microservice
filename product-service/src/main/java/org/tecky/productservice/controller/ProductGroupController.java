@@ -47,7 +47,7 @@ public class ProductGroupController {
         return response;
     }
 
-    @GetMapping(value = "/v1/products", consumes = "application/json")
+    @GetMapping(value = "/v1/products")
     public ResponseEntity<?> getProduct(@RequestParam("groupId") Integer groupId){
 
         ResponseEntity<?> response;
