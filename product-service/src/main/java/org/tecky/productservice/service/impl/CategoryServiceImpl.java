@@ -70,6 +70,23 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
+    public CategoryDTO getCategory(Integer categoryId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+        if(!categoryChecker.getCategoryNameMap().containsKey(categoryId)) {
+
+            throw new CustomException(400, "Error in Product-Service CategoryServiceImpl: Wrong categoryId");
+        }
+
+
+        CategoryDTO categoryDTO = new CategoryDTO();
+
+        categoryDTO.setCategoryId(categoryId);
+        categoryDTO.setCategoryName(categoryChecker.getCategoryNameMap().get(categoryId));
+
+        return categoryDTO;
+    }
+
+    @Override
     public List<CategoryTypeDTO> getTypeByCategoryId(Integer categoryId) {
 
         List<CategoryTypeDTO> categoryTypeDTOList = new ArrayList<>();

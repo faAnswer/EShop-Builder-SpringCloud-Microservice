@@ -4,6 +4,7 @@ import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.faAnswer.web.util.RestTempBuilder;
 import org.faAnswer.web.util.json.ResponseListObject;
+import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
@@ -50,18 +51,35 @@ public class ProductController {
     }
 
     @QueryMapping
-    public ClientDTO category(@Argument String clientId) {
+    public CategoryDTO category(@Argument Integer categoryId) throws JsonProcessingException {
 
-//        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-//                .addPara("clientId", id)
-//                .setURL("http://localhost:9052/api/v1/category/")
-//                .send(HttpMethod.GET);
+        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
+                .addPara("categoryId", categoryId)
+                .setURL("http://localhost:9052/api/v1/category/")
+                .send(HttpMethod.GET);
 
-        ClientDTO client = new ClientDTO();
-        client.setClientId(clientId);
+        CategoryDTO categoryDTO = (CategoryDTO) ResponseObject.convert2Object(res);
 
-        return client;
+
+        return categoryDTO;
     }
+
+//    @QueryMapping
+//    public CategoryDTO categoryId(@Argument String categoryId) {
+//
+////        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
+////                .addPara("clientId", id)
+////                .setURL("http://localhost:9052/api/v1/category/")
+////                .send(HttpMethod.GET);
+//
+//
+//
+//        ClientDTO client = new ClientDTO();
+//        client.setClientId(clientId);
+//
+//        return client;
+//    }
+
 
     @SchemaMapping
     public List<CategoryDTO> category(ClientDTO clientDTO) throws JsonProcessingException, ClassNotFoundException {

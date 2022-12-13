@@ -10,7 +10,7 @@ public interface ICategoryService {
 
     public List<CategoryDTO> getCategories(String clientId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
     public List<CategoryDTO> getCategories() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
-    public CategoryDTO getCategory(String clientId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
+    public CategoryDTO getCategory(Integer categoryId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException;
 
     public List<CategoryTypeDTO> getTypeByCategoryId(Integer categoryId);
     public List<CategoryTypeDTO> getTypeByCategoryId(Integer categoryId, String clientId);

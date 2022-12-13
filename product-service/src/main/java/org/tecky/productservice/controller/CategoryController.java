@@ -2,6 +2,7 @@ package org.tecky.productservice.controller;
 
 import org.faAnswer.web.util.CustomException;
 import org.faAnswer.web.util.json.ResponseListObject;
+import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,32 +96,32 @@ public class CategoryController {
 
     @GetMapping("/v1/category")
     // return CategoryDTO
-    public ResponseEntity<?> getCategory(@RequestParam("categoryId") String clienId, HttpServletRequest request, HttpServletResponse response)  {
+    public ResponseEntity<?> getCategory(@RequestParam("categoryId") Integer categoryId, HttpServletRequest request, HttpServletResponse response)  {
 
         CategoryDTO categoryDTO;
         ResponseEntity<?> res;
 
         try{
 
-            categoryDTO = iCategoryService.getCategories();
+            categoryDTO = iCategoryService.getCategory(categoryId);
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in Service : GET /api/v1/categories");
+            throw new CustomException(500, "Error in Service : GET /api/v1/category");
         }
 
-        if(categoryDTOList == null) {
+        if(categoryDTO == null) {
 
-            throw new CustomException(400, "clientid is wrong : GET /api/v1/categories");
+            throw new CustomException(400, "clientid is wrong : GET /api/v1/category");
         }
 
         try{
 
-            res = ResponseListObject.builder().setObjectPayLoad(categoryDTOList).create(200);
+            res = ResponseObject.builder().setObjectPayLoad(categoryDTO).create(200);
 
         } catch(Exception e){
 
-            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/categories");
+            throw new CustomException(500, "Error in ResponseEntity : GET /api/v1/category");
         }
 
         return res;

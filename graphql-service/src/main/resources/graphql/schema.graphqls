@@ -9,7 +9,7 @@ type ClientDTO{
     category: [CategoryDTO]
 }
 type CategoryDTO{
-    categoryId: ID
+    categoryId(categoryId: ID): ID
     clientId: String
     categoryName: String
     categoryType: [CategoryTypeDTO]

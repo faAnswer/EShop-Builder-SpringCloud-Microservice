@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="JwtToken" />
         <module name="user-resource" />
         <module name="cloud-nohorny" />
         <module name="inventory-service" />
@@ -23,7 +24,6 @@
     <bytecodeTargetLevel>
       <module name="auth-service" target="1.8" />
       <module name="client-side-service" target="19" />
-      <module name="JwtToken" target="19" />
       <module name="payment-service" target="1.8" />
       <module name="product-service34" target="19" />
       <module name="service-nacos" target="1.8" />
@@ -35,6 +35,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="JwtToken" options="-parameters" />
       <module name="client-side-service" options="-parameters" />
       <module name="cloud-nohorny" options="-parameters" />
       <module name="common" options="-parameters" />
