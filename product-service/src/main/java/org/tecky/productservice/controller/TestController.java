@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class TestController {
 
+    @Autowired
     ProductDetailEntityRepository productDetailEntityRepository;
 
     @GetMapping("/v1/test")

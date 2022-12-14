@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostGroupDTO;
 import org.tecky.common.dto.PostProductDTO;
 import org.tecky.common.dto.ProductGroupDTO;
+import org.tecky.common.dto.PropertyDTO;
 import org.tecky.productservice.entities.GroupDetailEntity;
 import org.tecky.productservice.entities.ProductDetailEntity;
 import org.tecky.productservice.mapper.GroupDetailEntityRepository;
@@ -20,7 +21,9 @@ import org.tecky.productservice.service.intf.IProductService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -143,6 +146,20 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseEntity<?> findProductProperties(Integer groupId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
-        return null;
+
+        List<PropertyDTO> propertyDTOList = new ArrayList<PropertyDTO>();
+        Set<String> properties = new HashSet<String>();
+
+        List<ProductDetailEntity> productDetailEntityList = productDetailEntityRepository.findByGroupIdAndIsvalidIs(groupId, 1);
+
+        for(ProductDetailEntity productDetailEntity: productDetailEntityList){
+
+            properties.add(productDetailEntity.getColaValue());
+        }
+
+        return ResponseListObject
+                .builder()
+                .setObjectPayLoad(propertyDTOList)
+                .create(200);
     }
 }
