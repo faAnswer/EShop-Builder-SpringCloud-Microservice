@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "t_client")
 @SecondaryTable(name = "t_user")
-public class UserSecClientEntity {
+public class ClientSecUserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +29,6 @@ public class UserSecClientEntity {
 
     @Column(name = "role_id", table = "t_user")
     private int roleId;
-
-//    @Column(name = "client_uid" , table = "t_user")
-//    private int clientUuid;
 
     @Column(name = "shapassword" , table = "t_user")
     private String shapassword;
