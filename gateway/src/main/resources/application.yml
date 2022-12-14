@@ -12,3 +12,9 @@ spring:
           uri: lb://graphql-service
           predicates:
             - Path=/graphql
+        - id: uaa-service
+          uri: lb://uaa-service
+          predicates:
+            - Path=/uua/api/**
+          filters:
+            - RewritePath=/uua/(?<segment>.*), /$\{segment}

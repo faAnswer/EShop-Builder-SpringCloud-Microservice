@@ -18,9 +18,7 @@ public class ClientController {
     @Autowired
     IClientService iClientService;
 
-
-
-    @PostMapping("/v1/client/register")
+    @PostMapping(value = "/v1/client/register", consumes = "application/json")
     public ResponseEntity<?> register(@Validated @RequestBody PostClientRegDTO postClientRegDTO){
 
         ResponseEntity<?> res;
@@ -36,7 +34,7 @@ public class ClientController {
 
                 httpCode = ((CustomException) e).getCode();
             }
-            throw new CustomException(httpCode, "Error in POST/v1/client/register" + e.getMessage());
+            throw new CustomException(httpCode, "Error in POST/v1/client/register" + "\n" + e.getMessage());
         }
 
         return res;
