@@ -18,11 +18,11 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationProvider authenticationProvider(){
-
-
-    }
+//    @Bean
+//    public AuthenticationProvider authenticationProvider(){
+//
+//
+//    }
 
 
     @Bean

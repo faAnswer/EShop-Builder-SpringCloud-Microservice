@@ -40,28 +40,28 @@ public class ClientController {
 
         return res;
     }
-
-    @PostMapping(value = "/v1/login", consumes = "application/json")
-    public ResponseEntity<?> login(@Validated @RequestBody PostClientLoginDTO postClientLoginDTO){
-
-        ResponseEntity<?> res;
-
-        try{
-
-            res = iClientService.clientRegister(postClientRegDTO);
-        } catch (Exception e){
-
-            Integer httpCode = 500;
-
-            if(e instanceof CustomException){
-
-                httpCode = ((CustomException) e).getCode();
-            }
-            throw new CustomException(httpCode, "Error in POST/v1/client/register" + "\n" + e.getMessage());
-        }
-
-        return res;
-    }
+//
+//    @PostMapping(value = "/v1/login", consumes = "application/json")
+//    public ResponseEntity<?> login(@Validated @RequestBody PostClientLoginDTO postClientLoginDTO){
+//
+//        ResponseEntity<?> res;
+//
+//        try{
+//
+//            res = iClientService.clientRegister(postClientRegDTO);
+//        } catch (Exception e){
+//
+//            Integer httpCode = 500;
+//
+//            if(e instanceof CustomException){
+//
+//                httpCode = ((CustomException) e).getCode();
+//            }
+//            throw new CustomException(httpCode, "Error in POST/v1/client/register" + "\n" + e.getMessage());
+//        }
+//
+//        return res;
+//    }
 
 
 }

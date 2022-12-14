@@ -13,8 +13,8 @@ import javax.persistence.Table;
 @Table(name = "t_user")
 public class UserM2SClientEntity extends UserEntity{
 
-    @ManyToOne
-    @JoinColumn(name = "client_uid")
-    private ClientEntity clientEntity;
+//    @ManyToOne
+//    @JoinColumn(name = "client_uid")
+//    private ClientEntity clientEntity;
 
 }
