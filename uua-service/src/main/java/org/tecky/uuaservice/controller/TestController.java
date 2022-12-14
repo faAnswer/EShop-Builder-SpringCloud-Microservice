@@ -6,19 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tecky.uuaservice.entities.compk.RoleAuthEntityPK;
 import org.tecky.uuaservice.mapper.RoleAuthEntityRepository;
+import org.tecky.uuaservice.mapper.RoleAuthS2OScopeEntityRepository;
 
 @RestController
 @RequestMapping("/api")
 public class TestController {
 
     @Autowired
-    RoleAuthEntityRepository roleAuthEntityRepository;
+    RoleAuthS2OScopeEntityRepository roleAuthS2OScopeEntityRepository;
 
     @GetMapping("/v1/test")
     public String getTest(){
-        RoleAuthEntityPK roleAuthEntityPK = new RoleAuthEntityPK();
-        roleAuthEntityPK.setRoleId(1);
-        roleAuthEntityPK.setClientUid(5);
 
         return "test";
     }

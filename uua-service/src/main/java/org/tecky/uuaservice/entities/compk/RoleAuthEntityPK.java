@@ -8,5 +8,5 @@ import java.io.Serializable;
 public class RoleAuthEntityPK implements Serializable {
 
     private int clientUid;
-    private int roleId;
+    private int scopeId;
 }
