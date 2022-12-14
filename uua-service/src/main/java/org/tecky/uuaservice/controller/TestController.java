@@ -11,12 +11,13 @@ import org.tecky.uuaservice.mapper.ClientSecUserEntityRepository;
 @RequestMapping("/api")
 public class TestController {
 
+    @Autowired
+    ClientSecUserEntityRepository clientSecUserEntityRepository;
 
     @GetMapping("/v1/test")
     public String getTest(){
 
-        ClientSecUserEntity clientSecUserEntity = new ClientSecUserEntity();
-
+        clientSecUserEntityRepository.findByClientIdAndEmail("admin", "Admin@Admin.com");
         return "test";
     }
 }

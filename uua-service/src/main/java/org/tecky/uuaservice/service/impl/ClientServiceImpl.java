@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.tecky.common.dto.PostClientLoginDTO;
 import org.tecky.common.dto.PostClientRegDTO;
 import org.tecky.uuaservice.entities.ClientSecUserEntity;
 import org.tecky.uuaservice.mapper.ClientEntityRepository;
@@ -31,7 +32,7 @@ public class ClientServiceImpl implements IClientService {
     ClientSecUserEntityRepository clientSecUserEntityRepository;
 
     @Override
-    public ResponseEntity<?> clientRegister(PostClientRegDTO postClientRegDTO) throws JsonProcessingException {
+    public ResponseEntity<?> rootRegister(PostClientRegDTO postClientRegDTO) throws JsonProcessingException {
 
         ClientSecUserEntity clientSecUserEntity;
 
@@ -71,5 +72,16 @@ public class ClientServiceImpl implements IClientService {
                 .builder()
                 .setPayLoad("message", "Registration successful")
                 .create(201);
+    }
+
+    @Override
+    public ResponseEntity<?> clientLogin(PostClientLoginDTO postClientLoginDTO) throws JsonProcessingException {
+
+
+
+
+
+
+        return null;
     }
 }
