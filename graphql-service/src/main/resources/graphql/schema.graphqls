@@ -33,7 +33,6 @@ type ProductGroupDTO{
     colbKey: String
     property: [PropertyDTO]
 }
-
 type PropertyDTO{
     groupId: ID
     colaValue: String

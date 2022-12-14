@@ -7,7 +7,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/common/pom.xml" />
         <option value="$PROJECT_DIR$/nacos-config/pom.xml" />
-        <option value="$PROJECT_DIR$/uaa-service/pom.xml" />
         <option value="$PROJECT_DIR$/../JwtToken/pom.xml" />
         <option value="$PROJECT_DIR$/../lib/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
@@ -16,6 +15,7 @@
         <option value="$PROJECT_DIR$/inventory-service/pom.xml" />
         <option value="$PROJECT_DIR$/graphql-service/pom.xml" />
         <option value="$PROJECT_DIR$/product-service/pom.xml" />
+        <option value="$PROJECT_DIR$/uua-service/pom.xml" />
       </list>
     </option>
   </component>

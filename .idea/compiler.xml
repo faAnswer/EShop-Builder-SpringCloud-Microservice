@@ -13,11 +13,11 @@
         <module name="inventory-service" />
         <module name="lib" />
         <module name="common" />
+        <module name="uua-service" />
         <module name="nacos-config" />
         <module name="graphql-service" />
         <module name="product-service" />
         <module name="storage-service" />
-        <module name="uaa-service" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
@@ -28,6 +28,7 @@
       <module name="product-service34" target="19" />
       <module name="service-nacos" target="1.8" />
       <module name="springcloud-nacos-consumer" target="1.8" />
+      <module name="uaa-service" target="1.8" />
       <module name="user-service" target="1.8" />
       <module name="view-server" target="19" />
       <module name="view-service" target="1.8" />
@@ -44,6 +45,7 @@
       <module name="lib" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="product-service34" options="-parameters" />
+      <module name="uua-service" options="-parameters" />
       <module name="view-server" options="-parameters" />
     </option>
   </component>
