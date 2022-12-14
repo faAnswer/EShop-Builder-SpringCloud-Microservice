@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.tecky.uuaservice.mapper.ClientSecUserEntityRepository;
 
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService  {
 
     @Autowired
     ClientSecUserEntityRepository clientSecUserEntityRepository;
@@ -20,19 +20,19 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.clientId = clientId;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        User user;
-
-        clientSecUserEntityRepository.findByClientIdAndEmail(this.clientId, email);
-
-
-
-
-
-
-
-        return user;
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//
+//        User user;
+//
+//        clientSecUserEntityRepository.findByClientIdAndEmail(this.clientId, email);
+//
+//
+//
+//
+//
+//
+//
+//        return user;
+//    }
 }

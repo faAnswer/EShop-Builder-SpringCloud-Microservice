@@ -4,20 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.tecky.uuaservice.entities.ClientSecUserEntity;
-import org.tecky.uuaservice.mapper.ClientSecUserEntityRepository;
+import org.tecky.uuaservice.entities.compk.RoleAuthEntityPK;
+import org.tecky.uuaservice.mapper.RoleAuthEntityRepository;
 
 @RestController
 @RequestMapping("/api")
 public class TestController {
 
     @Autowired
-    ClientSecUserEntityRepository clientSecUserEntityRepository;
+    RoleAuthEntityRepository roleAuthEntityRepository;
 
     @GetMapping("/v1/test")
     public String getTest(){
+        RoleAuthEntityPK roleAuthEntityPK = new RoleAuthEntityPK();
+        roleAuthEntityPK.setRoleId(1);
+        roleAuthEntityPK.setClientUid(5);
 
-        clientSecUserEntityRepository.findByClientIdAndEmail("admin", "Admin@Admin.com");
         return "test";
     }
 }
