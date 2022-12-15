@@ -16,6 +16,7 @@
         <option value="$PROJECT_DIR$/graphql-service/pom.xml" />
         <option value="$PROJECT_DIR$/product-service/pom.xml" />
         <option value="$PROJECT_DIR$/uua-service/pom.xml" />
+        <option value="$PROJECT_DIR$/mvc-web-common/pom.xml" />
       </list>
     </option>
   </component>

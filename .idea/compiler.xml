@@ -7,18 +7,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="JwtToken" />
         <module name="user-resource" />
-        <module name="cloud-nohorny" />
-        <module name="inventory-service" />
         <module name="lib" />
-        <module name="common" />
-        <module name="uua-service" />
-        <module name="nacos-config" />
         <module name="graphql-service" />
         <module name="product-service" />
         <module name="storage-service" />
+        <module name="JwtToken" />
+        <module name="cloud-nohorny" />
+        <module name="inventory-service" />
+        <module name="common" />
+        <module name="uua-service" />
+        <module name="nacos-config" />
         <module name="gateway" />
+        <module name="mvc-web-common" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -43,6 +44,7 @@
       <module name="graphql-service" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="lib" options="-parameters" />
+      <module name="mvc-web-common" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="product-service34" options="-parameters" />
       <module name="uua-service" options="-parameters" />

@@ -24,4 +24,11 @@ public class TestController {
 
         return "test";
     }
+
+    @GetMapping("/v1/test/security")
+    public String security(){
+
+        return "OK";
+    }
+
 }
