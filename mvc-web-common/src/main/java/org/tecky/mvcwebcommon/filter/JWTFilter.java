@@ -60,7 +60,6 @@ public class JWTFilter extends OncePerRequestFilter {
         }
 
 
-
         if (!JWTUtil.valid(this.secret, jwtToken)) {
 
             response.addHeader("Message", "Invalid JWT Token");
@@ -136,7 +135,7 @@ public class JWTFilter extends OncePerRequestFilter {
         // Spring Security Configurations successfully.
 
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        
+
         chain.doFilter(request, response);
     }
 }
