@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostClientLoginDTO;
@@ -85,6 +84,7 @@ public class ClientServiceImpl implements IClientService {
         }
 
         clientSecUserEntity.setShapassword(passwordEncoder.encode(postClientRegDTO.getPassword()));
+        clientSecUserEntity.setRoleId(1);
 
         clientSecUserEntityRepository.saveAndFlush(clientSecUserEntity);
 
@@ -113,7 +113,10 @@ public class ClientServiceImpl implements IClientService {
         ClientSecUserEntity clientSecUserEntity = clientSecUserEntityRepository
                 .findByClientIdAndEmail(postClientLoginDTO.getClientId(), postClientLoginDTO.getEmail());
 
-        List<GrantedAuthority> grantedAuthorityList = authentication.getAuthorities().stream().toList();
+        List<String> scopeList = new ArrayList<>();
+
+        authentication.getAuthorities()
+                .forEach(element -> scopeList.add(element.getAuthority()));
 
         String jwt = JWTUtil
                 .builder(this.jwtSecret)
@@ -121,7 +124,7 @@ public class ClientServiceImpl implements IClientService {
                 .setPayload("uid", clientSecUserEntity.getUid())
                 .setPayload("clientId", clientSecUserEntity.getClientId())
                 .setPayload("clientUid", clientSecUserEntity.getClientUid())
-                .setPayload("scope", grantedAuthorityList)
+                .setPayload("scope", scopeList)
                 .generateToken();
 
         return ResponseObject
