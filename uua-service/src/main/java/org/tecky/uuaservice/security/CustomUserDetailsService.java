@@ -50,7 +50,9 @@ public class CustomUserDetailsService implements UserDetailsService{
 
             grantedAuthorityList.add(new SimpleGrantedAuthority(roleAuthS2OScopeEntity.getScopeEntity().getScopeName()));
         }
-        user = new User(email, clientSecUserEntity.getShapassword(), grantedAuthorityList);
+
+
+        user = new User(String.valueOf(clientSecUserEntity.getUid()), clientSecUserEntity.getShapassword(), grantedAuthorityList);
 
         return user;
     }

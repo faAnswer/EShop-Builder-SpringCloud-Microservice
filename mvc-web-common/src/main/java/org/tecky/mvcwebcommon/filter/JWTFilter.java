@@ -77,12 +77,12 @@ public class JWTFilter extends OncePerRequestFilter {
         ArrayList<String> authorizeList;
 
         JWTUtil jwtTokenUtil = new JWTUtil(this.secret, jwtToken);
-        String username = null;
+        Integer uid = null;
 
 
         try {
 
-            username = (String) jwtTokenUtil.getPayload("username");
+            uid = (Integer) jwtTokenUtil.getPayload("uid");
 
             authorizeList = (ArrayList<String>) jwtTokenUtil.getPayload("scope");
 
@@ -105,7 +105,7 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (username == null || authorizeList.isEmpty()) {
+        if (uid == null || authorizeList.isEmpty()) {
 
             response.addHeader("Message", "Missing Payload in JWT Token");
             chain.doFilter(request, response);
@@ -127,7 +127,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
 //        // if token is valid configure Spring Security to manually set
 //        // authentication
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(uid, null, authorities);
         usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
         // After setting the Authentication in the context, we specify

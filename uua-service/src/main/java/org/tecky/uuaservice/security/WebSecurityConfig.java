@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -61,8 +62,10 @@ public class WebSecurityConfig {
                 .cors()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/api/v1/test/security").authenticated()
+                    .antMatchers("/api/v1/test/security").hasAuthority("SCOPE_BASIC_MEMBERSHIP")
                     .anyRequest().permitAll();
+
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(oncePerRequestFilter(), UsernamePasswordAuthenticationFilter.class);
 
