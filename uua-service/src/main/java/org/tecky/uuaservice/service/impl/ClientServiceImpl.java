@@ -138,7 +138,7 @@ public class ClientServiceImpl implements IClientService {
                 .builder()
                 .setPayLoad("username", clientSecUserEntity.getUsername())
                 .setPayLoad("role", role)
-                .setPayLoad("Authentication", jwt)
+                .setPayLoad("Authorization", jwt)
                 .create(200);
     }
 }

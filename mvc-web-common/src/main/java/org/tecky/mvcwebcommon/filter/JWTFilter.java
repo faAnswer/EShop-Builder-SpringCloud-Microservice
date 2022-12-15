@@ -75,7 +75,7 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        List<LinkedHashMap<String, String>> authorizeList;
+        ArrayList<String> authorizeList;
 
         JWTUtil jwtTokenUtil = new JWTUtil(this.secret, jwtToken);
         String username = null;
@@ -85,7 +85,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
             username = (String) jwtTokenUtil.getPayload("username");
 
-            authorizeList = (List<LinkedHashMap<String, String>>) jwtTokenUtil.getPayload("scope");
+            authorizeList = (ArrayList<String>) jwtTokenUtil.getPayload("scope");
 
         } catch (MalformedJwtException e) {
             response.addHeader("Message", "Invalid JWT Token");
@@ -119,20 +119,15 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        LinkedHashMap<String, String> linkedHashMap = authorizeList.get(0);
-
-        Set<String> keys = linkedHashMap.keySet();
-
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        for (String key : keys) {
+        for (String auth : authorizeList) {
 
-            authorities.add(new SimpleGrantedAuthority(linkedHashMap.get(key)));
+            authorities.add(new SimpleGrantedAuthority(auth));
         }
 
 //        // if token is valid configure Spring Security to manually set
 //        // authentication
-
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
         usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

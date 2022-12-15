@@ -38,8 +38,6 @@ public class WebSecurityConfig {
         return new JWTFilter(this.jwtSecret);
     }
 
-
-
     @Bean
     public AuthenticationManager authenticationProvider(){
 
