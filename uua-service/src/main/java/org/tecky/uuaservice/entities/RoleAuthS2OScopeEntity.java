@@ -2,17 +2,22 @@ package org.tecky.uuaservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.tecky.uuaservice.entities.compk.TestPK;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "t_role_auth")
-@IdClass(value = org.tecky.uuaservice.entities.compk.RoleAuthEntityPK.class)
-public class RoleAuthS2OScopeEntity extends RoleAuthEntity{
+public class RoleAuthS2OScopeEntity{
 
+    @Id
+    @Column(name = "role_id")
+    private int roleId;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "scopeId")
     private ScopeEntity scopeEntity;
 }

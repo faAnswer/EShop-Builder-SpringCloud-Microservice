@@ -20,5 +20,4 @@ public class RoleAuthEntity {
     @Id
     @JoinColumn(name = "scope_id")
     private int scopeId;
-
 }
