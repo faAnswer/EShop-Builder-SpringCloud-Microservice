@@ -1,13 +1,17 @@
 package org.tecky.uuaservice.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.faAnswer.jwt.JWTUtil;
 import org.faAnswer.web.util.CustomException;
 import org.faAnswer.web.util.dto.ConversionUtil;
 import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostClientLoginDTO;
@@ -19,8 +23,15 @@ import org.tecky.uuaservice.mapper.UserEntityRepository;
 import org.tecky.uuaservice.security.CustomUserDetailsService;
 import org.tecky.uuaservice.service.intf.IClientService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+
 @Service
 public class ClientServiceImpl implements IClientService {
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -99,9 +110,24 @@ public class ClientServiceImpl implements IClientService {
             throw new CustomException(401, "Username or password incorrect");
         }
 
+        ClientSecUserEntity clientSecUserEntity = clientSecUserEntityRepository
+                .findByClientIdAndEmail(postClientLoginDTO.getClientId(), postClientLoginDTO.getEmail());
+
+        List<GrantedAuthority> grantedAuthorityList = authentication.getAuthorities().stream().toList();
+
+        String jwt = JWTUtil
+                .builder(this.jwtSecret)
+                .setPayload("username", clientSecUserEntity.getUsername())
+                .setPayload("uid", clientSecUserEntity.getUid())
+                .setPayload("clientId", clientSecUserEntity.getClientId())
+                .setPayload("clientUid", clientSecUserEntity.getClientUid())
+                .setPayload("scope", grantedAuthorityList)
+                .generateToken();
+
         return ResponseObject
                 .builder()
-                .setPayLoad("message", "Login successful")
+                .setPayLoad("username", clientSecUserEntity.getUsername())
+                .setPayLoad("Authentication", jwt)
                 .create(200);
     }
 }
