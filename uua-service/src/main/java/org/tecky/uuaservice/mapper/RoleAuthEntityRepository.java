@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface RoleAuthEntityRepository extends JpaRepository<RoleAuthEntity, String> {
 
-    public RoleAuthEntity findByRoleId(Integer roleId);
+    public List<RoleAuthEntity> findByRoleId(Integer roleId);
+    public List<RoleAuthEntity> findAllByRoleId(Integer roleId);
 
 }

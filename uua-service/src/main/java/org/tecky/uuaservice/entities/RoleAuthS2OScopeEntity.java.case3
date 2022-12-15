@@ -4,14 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "t_role_auth")
+@IdClass(value = org.tecky.uuaservice.entities.compk.RoleAuthEntityPK.class)
 public class RoleAuthS2OScopeEntity{
 
-    @Column(name = "role_id", table = "t_role_auth")
+    @Id
+    @Column(name = "role_id")
     private int roleId;
 
     @Id
@@ -19,8 +22,8 @@ public class RoleAuthS2OScopeEntity{
     private int scopeId;
 
     @OneToOne
-    @JoinColumn(name = "scope_id")
     private ScopeEntity scopeEntity;
 
-//    Work
+//Unknown column 'roleauths2x0_.scope_entity_scope_id' in 'field list'
+//Like Case 1
 }

@@ -13,13 +13,13 @@ import org.tecky.common.dto.PostClientRegDTO;
 import org.tecky.uuaservice.service.intf.IClientService;
 
 @RestController
-@RequestMapping("/admin/api")
+@RequestMapping("/api")
 public class ClientController {
 
     @Autowired
     IClientService iClientService;
 
-    @PostMapping(value = "/v1/register", consumes = "application/json")
+    @PostMapping(value = "/v1/admin/register", consumes = "application/json")
     public ResponseEntity<?> register(@Validated @RequestBody PostClientRegDTO postClientRegDTO){
 
         ResponseEntity<?> res;
@@ -41,7 +41,7 @@ public class ClientController {
         return res;
     }
 
-    @PostMapping(value = "/v1/login", consumes = "application/json")
+    @PostMapping(value = "/v1/admin/login", consumes = "application/json")
     public ResponseEntity<?> login(@Validated @RequestBody PostClientLoginDTO postClientLoginDTO){
 
         ResponseEntity<?> res;

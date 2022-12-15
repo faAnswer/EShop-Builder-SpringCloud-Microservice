@@ -18,6 +18,6 @@ public class RoleAuthEntity {
     private int roleId;
 
     @Id
-    @JoinColumn(name = "scope_id")
+    @Column(name = "scope_id")
     private int scopeId;
 }

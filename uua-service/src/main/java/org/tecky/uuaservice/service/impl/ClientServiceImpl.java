@@ -87,10 +87,10 @@ public class ClientServiceImpl implements IClientService {
     public ResponseEntity<?> clientLogin(PostClientLoginDTO postClientLoginDTO) throws JsonProcessingException {
 
         this.customUserDetailsService.setClientId(postClientLoginDTO.getClientId());
-
+        UsernamePasswordAuthenticationToken authentication;
         try{
 
-            UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) authenticationManager
+            authentication = (UsernamePasswordAuthenticationToken) authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(postClientLoginDTO.getEmail(),
                             postClientLoginDTO.getPassword()));
 

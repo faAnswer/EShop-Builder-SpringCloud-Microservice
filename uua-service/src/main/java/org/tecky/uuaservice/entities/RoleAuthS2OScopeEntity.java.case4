@@ -4,14 +4,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "t_role_auth")
+@IdClass(value = org.tecky.uuaservice.entities.compk.RoleAuthEntityPK.class)
 public class RoleAuthS2OScopeEntity{
 
-    @Column(name = "role_id", table = "t_role_auth")
+    @Id
+    @Column(name = "role_id")
     private int roleId;
 
     @Id
@@ -22,5 +25,6 @@ public class RoleAuthS2OScopeEntity{
     @JoinColumn(name = "scope_id")
     private ScopeEntity scopeEntity;
 
-//    Work
+//Repeated column in mapping for entity: org.tecky.uuaservice.entities.RoleAuthS2OScopeEntity column: scope_id (should be mapped with insert="false" update="false")
+//Unlike Case2
 }

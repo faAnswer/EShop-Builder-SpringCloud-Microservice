@@ -19,8 +19,7 @@ public class RoleAuthS2OScopeEntity{
     private int scopeId;
 
     @OneToOne
-    @JoinColumn(name = "scope_id")
     private ScopeEntity scopeEntity;
 
-//    Work
+//    Unknown column 'roleauths2x0_.scope_entity_scope_id' in 'field list'
 }

@@ -9,4 +9,7 @@ public interface RoleAuthS2OScopeEntityRepository extends JpaRepository<RoleAuth
 
     public List<RoleAuthS2OScopeEntity> findByRoleId(Integer roleId);
 
+//    public List<RoleAuthS2OScopeEntity> findByTestPK(TestPK testPK);
+
+
 }
