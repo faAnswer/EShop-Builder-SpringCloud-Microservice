@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RoleEntityRepository extends JpaRepository<RoleEntity, String> {
 
-    public List<RoleEntity> findByRoleId(Integer roleId);
+    public RoleEntity findByRoleId(Integer roleId);
 
 }

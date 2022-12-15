@@ -11,6 +11,8 @@ import org.tecky.uuaservice.mapper.RoleAuthS2OScopeEntityRepository;
 @RequestMapping("/api")
 public class TestController {
 
+
+
     @Autowired
     RoleAuthS2OScopeEntityRepository roleAuthS2OScopeEntityRepository;
     @Autowired

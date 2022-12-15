@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostClientLoginDTO;
@@ -18,13 +17,13 @@ import org.tecky.common.dto.PostClientRegDTO;
 import org.tecky.uuaservice.entities.ClientSecUserEntity;
 import org.tecky.uuaservice.mapper.ClientEntityRepository;
 import org.tecky.uuaservice.mapper.ClientSecUserEntityRepository;
+import org.tecky.uuaservice.mapper.RoleEntityRepository;
 import org.tecky.uuaservice.mapper.UserEntityRepository;
 import org.tecky.uuaservice.security.CustomUserDetailsService;
 import org.tecky.uuaservice.service.intf.IClientService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class ClientServiceImpl implements IClientService {
@@ -46,6 +45,9 @@ public class ClientServiceImpl implements IClientService {
 
     @Autowired
     CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    RoleEntityRepository roleEntityRepository;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -118,18 +120,24 @@ public class ClientServiceImpl implements IClientService {
         authentication.getAuthorities()
                 .forEach(element -> scopeList.add(element.getAuthority()));
 
+
+        String role = roleEntityRepository.findByRoleId(clientSecUserEntity.getRoleId()).getRoleName();
+
+
         String jwt = JWTUtil
                 .builder(this.jwtSecret)
-                .setPayload("username", clientSecUserEntity.getUsername())
-                .setPayload("uid", clientSecUserEntity.getUid())
-                .setPayload("clientId", clientSecUserEntity.getClientId())
-                .setPayload("clientUid", clientSecUserEntity.getClientUid())
-                .setPayload("scope", scopeList)
+                .setPayLoad("username", clientSecUserEntity.getUsername())
+                .setPayLoad("uid", clientSecUserEntity.getUid())
+                .setPayLoad("clientId", clientSecUserEntity.getClientId())
+                .setPayLoad("clientUid", clientSecUserEntity.getClientUid())
+                .setPayLoad("role", role)
+                .setPayLoad("scope", scopeList)
                 .generateToken();
 
         return ResponseObject
                 .builder()
                 .setPayLoad("username", clientSecUserEntity.getUsername())
+                .setPayLoad("role", role)
                 .setPayLoad("Authentication", jwt)
                 .create(200);
     }
