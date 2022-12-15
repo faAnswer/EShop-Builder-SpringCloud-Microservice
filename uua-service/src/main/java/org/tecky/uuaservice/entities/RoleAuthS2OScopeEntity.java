@@ -21,6 +21,4 @@ public class RoleAuthS2OScopeEntity{
     @OneToOne
     @JoinColumn(name = "scope_id")
     private ScopeEntity scopeEntity;
-
-//    Work
 }
