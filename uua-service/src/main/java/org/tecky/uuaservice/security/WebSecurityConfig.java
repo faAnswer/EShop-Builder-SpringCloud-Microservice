@@ -8,7 +8,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.tecky.mvcwebcommon.filter.JWTFilter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class WebSecurityConfig {
@@ -46,6 +48,7 @@ public class WebSecurityConfig {
         provider.setUserDetailsService(customUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
 
+
         return new ProviderManager(provider);
     }
 
@@ -60,7 +63,6 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                     .antMatchers("/api/v1/test/security").authenticated()
                     .anyRequest().permitAll();
-
 
         http.addFilterBefore(oncePerRequestFilter(), UsernamePasswordAuthenticationFilter.class);
 
