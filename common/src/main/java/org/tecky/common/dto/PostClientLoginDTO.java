@@ -1,8 +1,12 @@
 package org.tecky.common.dto;
 
-import javax.validation.constraints.Pattern;
+import lombok.Data;
 
-public class PostClientLoginDTO {
+import javax.validation.constraints.Pattern;
+import java.io.Serializable;
+
+@Data
+public class PostClientLoginDTO implements Serializable {
 
     @Pattern(regexp = "^[a-zA-Z0-9]{5,10}$",
             message = "Client Id must be 5 to 10 characters long")

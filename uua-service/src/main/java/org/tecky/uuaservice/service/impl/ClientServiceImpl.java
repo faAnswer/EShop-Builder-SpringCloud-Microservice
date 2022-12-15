@@ -6,6 +6,8 @@ import org.faAnswer.web.util.dto.ConversionUtil;
 import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostClientLoginDTO;
@@ -14,6 +16,7 @@ import org.tecky.uuaservice.entities.ClientSecUserEntity;
 import org.tecky.uuaservice.mapper.ClientEntityRepository;
 import org.tecky.uuaservice.mapper.ClientSecUserEntityRepository;
 import org.tecky.uuaservice.mapper.UserEntityRepository;
+import org.tecky.uuaservice.security.CustomUserDetailsService;
 import org.tecky.uuaservice.service.intf.IClientService;
 
 @Service
@@ -30,6 +33,12 @@ public class ClientServiceImpl implements IClientService {
 
     @Autowired
     ClientSecUserEntityRepository clientSecUserEntityRepository;
+
+    @Autowired
+    CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @Override
     public ResponseEntity<?> rootRegister(PostClientRegDTO postClientRegDTO) throws JsonProcessingException {
@@ -77,11 +86,22 @@ public class ClientServiceImpl implements IClientService {
     @Override
     public ResponseEntity<?> clientLogin(PostClientLoginDTO postClientLoginDTO) throws JsonProcessingException {
 
+        this.customUserDetailsService.setClientId(postClientLoginDTO.getClientId());
 
+        try{
 
+            UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken) authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(postClientLoginDTO.getEmail(),
+                            postClientLoginDTO.getPassword()));
 
+        } catch (Exception e){
 
+            throw new CustomException(401, "Username or password incorrect");
+        }
 
-        return null;
+        return ResponseObject
+                .builder()
+                .setPayLoad("message", "Login successful")
+                .create(200);
     }
 }
