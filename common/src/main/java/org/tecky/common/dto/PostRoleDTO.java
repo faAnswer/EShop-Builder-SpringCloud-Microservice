@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class PostRoleDTO implements Serializable {
 
-    @Pattern(regexp = "^[A-Z]{3,20}$",
+    @Pattern(regexp = "^ROLE_[A-Z]{3,20}$",
              message = "Role Name must be 3 to 20 characters long upper case letters")
     private String roleName;
 

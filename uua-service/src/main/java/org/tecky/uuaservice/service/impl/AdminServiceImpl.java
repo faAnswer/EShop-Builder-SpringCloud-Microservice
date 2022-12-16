@@ -92,7 +92,7 @@ public class AdminServiceImpl implements IAdminService {
 
         String roleName = postRoleDTO.getRoleName();
 
-        if(roleName.equals("ROOT") || roleName.equals("USER")){
+        if(roleName.equals("ROLE_ROOT") || roleName.equals("ROLE_USER")){
 
             throw new CustomException(400, "Role name is not allowed: " + roleName);
         }
@@ -136,7 +136,7 @@ public class AdminServiceImpl implements IAdminService {
 
         String roleName = postRoleDTO.getRoleName();
 
-        if(roleName.equals("ROOT") || roleName.equals("USER")){
+        if(roleName.equals("ROLE_ROOT") || roleName.equals("ROLE_USER")){
 
             throw new CustomException(400, "Scope cannot modify: " + roleName);
         }
@@ -173,7 +173,7 @@ public class AdminServiceImpl implements IAdminService {
 
         String roleName = postRoleDTO.getRoleName();
 
-        if(roleName.equals("ROOT") || roleName.equals("USER")){
+        if(roleName.equals("ROLE_ROOT") || roleName.equals("ROLE_USER")){
 
             throw new CustomException(400, "Scope cannot modify: " + roleName);
         }
