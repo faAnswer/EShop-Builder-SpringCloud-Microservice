@@ -62,4 +62,27 @@ public class AdminController {
 
         return res;
     }
+
+    @PostMapping(value ="/v1/admin/scope", consumes = "application/json")
+    public ResponseEntity<?> createScope(@Validated @RequestBody PostRoleDTO postRoleDTO){
+
+        ResponseEntity<?> res;
+
+        try{
+
+            res = iAdminService.createScope(postRoleDTO);
+        } catch (Exception e){
+
+            Integer httpCode = 500;
+
+            if(e instanceof CustomException){
+
+                httpCode = ((CustomException) e).getCode();
+            }
+            throw new CustomException(httpCode, "Error in POST/api/v1/admin/scope" + "\n" + e.getMessage());
+        }
+
+        return res;
+    }
+
 }

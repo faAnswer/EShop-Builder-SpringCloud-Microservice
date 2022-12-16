@@ -101,7 +101,7 @@ public class AdminServiceImpl implements IAdminService {
 
         if(clientEntity == null){
 
-            throw new CustomException(400, "Invalid Client ID");
+            throw new CustomException(404, "Target Client ID tot found");
         }
 
         Integer clientUid = clientEntity.getClientUid();
@@ -132,16 +132,38 @@ public class AdminServiceImpl implements IAdminService {
     @Override
     public ResponseEntity<?> createScope(PostRoleDTO postRoleDTO) throws JsonProcessingException {
 
+        ClientEntity clientEntity;
 
+        String roleName = postRoleDTO.getRoleName();
 
+        if(roleName.equals("ROOT") || roleName.equals("USER")){
 
+            throw new CustomException(400, "Scope cannot modify: " + roleName);
+        }
 
+        clientEntity = clientEntityRepository.findByClientId(postRoleDTO.getClientId());
 
+        if(clientEntity == null){
 
+            throw new CustomException(404, "Target Client ID tot found");
+        }
 
+        Integer clientUid = clientEntity.getClientUid();
 
+        RoleEntity roleEntity;
+        roleEntity = roleEntityRepository.findByRoleNameAndClientUid(roleName, clientUid);
 
-        return null;
+        if(roleEntity == null){
+
+            throw new CustomException(404, "Target Role tot found");
+        }
+
+        createScope(postRoleDTO, roleEntity.getRoleId());
+
+        return ResponseObject
+                .builder()
+                .setPayLoad("message", "Create successful")
+                .create(201);
     }
 
     public void createScope(PostRoleDTO postRoleDTO, Integer roleId) throws JsonProcessingException {
