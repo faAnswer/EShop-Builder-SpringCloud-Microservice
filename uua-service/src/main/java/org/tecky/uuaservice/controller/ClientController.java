@@ -35,13 +35,13 @@ public class ClientController {
 
                 httpCode = ((CustomException) e).getCode();
             }
-            throw new CustomException(httpCode, "Error in POST/admin/api/v1/client/register" + "\n" + e.getMessage());
+            throw new CustomException(httpCode, "Error in POST/api/v1/client/register" + "\n" + e.getMessage());
         }
 
         return res;
     }
 
-    @PostMapping(value = "/v1/admin/login", consumes = "application/json")
+    @PostMapping(value = "/v1/login", consumes = "application/json")
     public ResponseEntity<?> login(@Validated @RequestBody PostClientLoginDTO postClientLoginDTO){
 
         ResponseEntity<?> res;
@@ -57,7 +57,7 @@ public class ClientController {
 
                 httpCode = ((CustomException) e).getCode();
             }
-            throw new CustomException(httpCode, "Error in POST/admin/api/v1/login" + "\n" + e.getMessage());
+            throw new CustomException(httpCode, "Error in POST/api/v1/login" + "\n" + e.getMessage());
         }
 
         return res;
