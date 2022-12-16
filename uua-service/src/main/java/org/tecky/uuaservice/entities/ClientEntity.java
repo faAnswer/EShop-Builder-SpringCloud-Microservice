@@ -2,10 +2,8 @@ package org.tecky.uuaservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -15,6 +13,7 @@ public class ClientEntity {
 
     @Id
     @Column(name = "client_uid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int clientUid;
 
     @Column(name = "client_name")
