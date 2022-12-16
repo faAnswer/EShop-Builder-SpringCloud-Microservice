@@ -196,7 +196,7 @@ public class AdminServiceImpl implements IAdminService {
         }
 
 
-        roleAuthEntityRepository.deleteByRoleIdAndScopeIdContains(roleEntity.getRoleId(), postRoleDTO.getScopeIdList());
+        roleAuthEntityRepository.deleteByRoleIdAndScopeIdIn(roleEntity.getRoleId(), postRoleDTO.getScopeIdList());
 
         return ResponseObject
                 .builder()

@@ -15,7 +15,6 @@ public class RoleAuthEntity {
 
     @Id
     @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
 
     @Id
