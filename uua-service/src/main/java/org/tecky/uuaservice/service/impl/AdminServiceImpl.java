@@ -101,7 +101,7 @@ public class AdminServiceImpl implements IAdminService {
 
         if(clientEntity == null){
 
-            throw new CustomException(404, "Target Client ID tot found");
+            throw new CustomException(404, "Target Client ID not found");
         }
 
         Integer clientUid = clientEntity.getClientUid();
@@ -145,7 +145,7 @@ public class AdminServiceImpl implements IAdminService {
 
         if(clientEntity == null){
 
-            throw new CustomException(404, "Target Client ID tot found");
+            throw new CustomException(404, "Target Client ID not found");
         }
 
         Integer clientUid = clientEntity.getClientUid();
@@ -155,7 +155,7 @@ public class AdminServiceImpl implements IAdminService {
 
         if(roleEntity == null){
 
-            throw new CustomException(404, "Target Role tot found");
+            throw new CustomException(404, "Target Role not found");
         }
 
         createScope(postRoleDTO, roleEntity.getRoleId());
@@ -164,6 +164,44 @@ public class AdminServiceImpl implements IAdminService {
                 .builder()
                 .setPayLoad("message", "Create successful")
                 .create(201);
+    }
+
+    @Override
+    public ResponseEntity<?> delScope(PostRoleDTO postRoleDTO) throws JsonProcessingException {
+
+        ClientEntity clientEntity;
+
+        String roleName = postRoleDTO.getRoleName();
+
+        if(roleName.equals("ROOT") || roleName.equals("USER")){
+
+            throw new CustomException(400, "Scope cannot modify: " + roleName);
+        }
+
+        clientEntity = clientEntityRepository.findByClientId(postRoleDTO.getClientId());
+
+        if(clientEntity == null){
+
+            throw new CustomException(404, "Target Client ID not found");
+        }
+
+        Integer clientUid = clientEntity.getClientUid();
+
+        RoleEntity roleEntity;
+        roleEntity = roleEntityRepository.findByRoleNameAndClientUid(roleName, clientUid);
+
+        if(roleEntity == null){
+
+            throw new CustomException(404, "Target Role not found");
+        }
+
+
+        roleAuthEntityRepository.deleteByRoleIdAndScopeIdContains(roleEntity.getRoleId(), postRoleDTO.getScopeIdList());
+
+        return ResponseObject
+                .builder()
+                .setPayLoad("message", "Delete successful")
+                .create(204);
     }
 
     public void createScope(PostRoleDTO postRoleDTO, Integer roleId) throws JsonProcessingException {

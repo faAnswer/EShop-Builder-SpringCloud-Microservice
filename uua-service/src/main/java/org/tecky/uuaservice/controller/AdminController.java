@@ -4,10 +4,7 @@ import org.faAnswer.web.util.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.tecky.common.dto.PostAdminRegDTO;
 import org.tecky.common.dto.PostRoleDTO;
 import org.tecky.uuaservice.service.intf.IAdminService;
@@ -84,5 +81,25 @@ public class AdminController {
 
         return res;
     }
+    @DeleteMapping(value ="/v1/admin/scope", consumes = "application/json")
+    public ResponseEntity<?> delScope(@Validated @RequestBody PostRoleDTO postRoleDTO){
 
+        ResponseEntity<?> res;
+
+        try{
+
+            res = iAdminService.delScope(postRoleDTO);
+        } catch (Exception e){
+
+            Integer httpCode = 500;
+
+            if(e instanceof CustomException){
+
+                httpCode = ((CustomException) e).getCode();
+            }
+            throw new CustomException(httpCode, "Error in DELETE/api/v1/admin/scope" + "\n" + e.getMessage());
+        }
+
+        return res;
+    }
 }

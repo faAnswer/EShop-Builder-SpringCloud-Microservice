@@ -12,4 +12,8 @@ public interface IAdminService {
     public ResponseEntity<?> createRole(PostRoleDTO postRoleDTO) throws JsonProcessingException;
 
     public ResponseEntity<?> createScope(PostRoleDTO postRoleDTO) throws JsonProcessingException;
+
+    public ResponseEntity<?> delScope(PostRoleDTO postRoleDTO) throws JsonProcessingException;
+
+
 }

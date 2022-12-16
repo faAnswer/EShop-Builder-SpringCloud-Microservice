@@ -13,6 +13,4 @@ public interface RoleEntityRepository extends JpaRepository<RoleEntity, String> 
 
     public RoleEntity findByRoleNameAndClientUid(@Param("roleName") String roleName, @Param("clientUid") Integer clientUid);
 
-
-
 }
