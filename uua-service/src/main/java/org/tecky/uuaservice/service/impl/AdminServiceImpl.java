@@ -9,13 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PostAdminRegDTO;
-import org.tecky.uuaservice.entities.ClientEntity;
-import org.tecky.uuaservice.entities.ClientSecUserEntity;
-import org.tecky.uuaservice.entities.UserEntity;
-import org.tecky.uuaservice.mapper.ClientEntityRepository;
-import org.tecky.uuaservice.mapper.ClientSecUserEntityRepository;
-import org.tecky.uuaservice.mapper.UserEntityRepository;
+import org.tecky.common.dto.PostRoleDTO;
+import org.tecky.uuaservice.entities.*;
+import org.tecky.uuaservice.mapper.*;
 import org.tecky.uuaservice.service.intf.IAdminService;
+
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements IAdminService {
@@ -31,6 +30,15 @@ public class AdminServiceImpl implements IAdminService {
 
     @Autowired
     ClientSecUserEntityRepository clientSecUserEntityRepository;
+
+    @Autowired
+    RoleEntityRepository roleEntityRepository;
+
+    @Autowired
+    RoleAuthEntityRepository roleAuthEntityRepository;
+
+    @Autowired
+    ScopeEntityRepository scopeEntityRepository;
 
     @Override
     public ResponseEntity<?> adminRegister(PostAdminRegDTO postAdminRegDTO) throws JsonProcessingException {
@@ -76,4 +84,83 @@ public class AdminServiceImpl implements IAdminService {
                 .setPayLoad("message", "Registration successful")
                 .create(201);
     }
+
+    @Override
+    public ResponseEntity<?> createRole(PostRoleDTO postRoleDTO) throws JsonProcessingException {
+
+        ClientEntity clientEntity;
+
+        String roleName = postRoleDTO.getRoleName();
+
+        if(roleName.equals("ROOT") || roleName.equals("USER")){
+
+            throw new CustomException(400, "Role name is not allowed: " + roleName);
+        }
+
+        clientEntity = clientEntityRepository.findByClientId(postRoleDTO.getClientId());
+
+        if(clientEntity == null){
+
+            throw new CustomException(400, "Invalid Client ID");
+        }
+
+        Integer clientUid = clientEntity.getClientUid();
+
+        if(roleEntityRepository
+                .findByRoleNameAndClientUid(roleName, clientUid) != null){
+
+            throw new CustomException(409, "Role Name already exists");
+        }
+
+        RoleEntity roleEntity = new RoleEntity();
+
+        roleEntity.setRoleName(roleName);
+        roleEntity.setClientUid(clientUid);
+
+        roleEntity = roleEntityRepository.saveAndFlush(roleEntity);
+
+        return ResponseObject
+                .builder()
+                .setPayLoad("message", "Create successful")
+                .create(201);
+    }
+
+    @Override
+    public ResponseEntity<?> createScope(PostRoleDTO postRoleDTO) throws JsonProcessingException {
+
+
+
+
+
+
+
+
+
+
+        return null;
+    }
+
+    public boolean createScope(PostRoleDTO postRoleDTO, Integer roleId) throws JsonProcessingException {
+
+        List<Integer> scopeIdList = postRoleDTO.getScopeIdList();
+
+        for(Integer scopeId : scopeIdList){
+
+            if(scopeEntityRepository.findByScopeId(scopeId) == null){
+
+                throw new CustomException(400, "Scope ID is incorrect");
+            }
+
+            RoleAuthEntity roleAuthEntity = new RoleAuthEntity();
+
+            roleAuthEntity.setScopeId(scopeId);
+            roleAuthEntity.setRoleId(roleId);
+
+            roleAuthEntityRepository.saveAndFlush(roleAuthEntity);
+
+        }
+
+        return true;
+    }
+
 }
