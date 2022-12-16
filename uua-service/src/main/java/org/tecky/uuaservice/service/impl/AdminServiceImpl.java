@@ -117,7 +117,11 @@ public class AdminServiceImpl implements IAdminService {
         roleEntity.setRoleName(roleName);
         roleEntity.setClientUid(clientUid);
 
-        roleEntity = roleEntityRepository.saveAndFlush(roleEntity);
+        roleEntityRepository.saveAndFlush(roleEntity);
+
+        roleEntity = roleEntityRepository.findByRoleNameAndClientUid(roleName, clientUid);
+
+        createScope(postRoleDTO, roleEntity.getRoleId());
 
         return ResponseObject
                 .builder()
@@ -140,7 +144,7 @@ public class AdminServiceImpl implements IAdminService {
         return null;
     }
 
-    public boolean createScope(PostRoleDTO postRoleDTO, Integer roleId) throws JsonProcessingException {
+    public void createScope(PostRoleDTO postRoleDTO, Integer roleId) throws JsonProcessingException {
 
         List<Integer> scopeIdList = postRoleDTO.getScopeIdList();
 
@@ -159,8 +163,5 @@ public class AdminServiceImpl implements IAdminService {
             roleAuthEntityRepository.saveAndFlush(roleAuthEntity);
 
         }
-
-        return true;
     }
-
 }
