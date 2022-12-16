@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Table(name = "t_role_auth")
-@SecondaryTable(name = "t_scope")
 public class RoleAuthS2OScopeEntity{
 
     @Column(name = "role_id", table = "t_role_auth")
@@ -20,20 +19,7 @@ public class RoleAuthS2OScopeEntity{
     @Column(name = "scope_id")
     private int scopeId;
 
-    @Column(name = "scope_description", table = "t_scope")
-    private String scopeDescription;
-
-    @Column(name = "scope_name", table = "t_scope")
-    private String scopeName;
-
-//    @OneToOne
-//    private ScopeEntity scopeEntity;
-//
-//    Unknown column 'roleauths2x0_.scope_entity_scope_id' in 'field list'
-
-//    @OneToOne
-//    @JoinColumn(name = "scope_id")
-//    private ScopeEntity scopeEntity;
-
-
+    @OneToOne
+    @JoinColumn(name = "scope_id")
+    private ScopeEntity scopeEntity;
 }
