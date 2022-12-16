@@ -10,23 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tecky.common.dto.PostClientLoginDTO;
 import org.tecky.common.dto.PostClientRegDTO;
-import org.tecky.uuaservice.service.intf.IClientService;
+import org.tecky.uuaservice.service.intf.IUserService;
 
 @RestController
 @RequestMapping("/api")
 public class ClientController {
 
     @Autowired
-    IClientService iClientService;
+    IUserService iUserService;
 
-    @PostMapping(value = "/v1/admin/register", consumes = "application/json")
+    @PostMapping(value = "/v1/client/register", consumes = "application/json")
     public ResponseEntity<?> register(@Validated @RequestBody PostClientRegDTO postClientRegDTO){
 
         ResponseEntity<?> res;
 
         try{
 
-            res = iClientService.rootRegister(postClientRegDTO);
+            res = iUserService.rootRegister(postClientRegDTO);
         } catch (Exception e){
 
             Integer httpCode = 500;
@@ -48,7 +48,7 @@ public class ClientController {
 
         try{
 
-            res = iClientService.clientLogin(postClientLoginDTO);
+            res = iUserService.clientLogin(postClientLoginDTO);
         } catch (Exception e){
 
             Integer httpCode = 500;

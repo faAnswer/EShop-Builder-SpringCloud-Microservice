@@ -20,13 +20,13 @@ import org.tecky.uuaservice.mapper.ClientSecUserEntityRepository;
 import org.tecky.uuaservice.mapper.RoleEntityRepository;
 import org.tecky.uuaservice.mapper.UserEntityRepository;
 import org.tecky.uuaservice.security.CustomUserDetailsService;
-import org.tecky.uuaservice.service.intf.IClientService;
+import org.tecky.uuaservice.service.intf.IUserService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ClientServiceImpl implements IClientService {
+public class UserServiceImpl implements IUserService {
 
     @Value("${jwt.secret}")
     private String jwtSecret;
@@ -86,7 +86,7 @@ public class ClientServiceImpl implements IClientService {
         }
 
         clientSecUserEntity.setShapassword(passwordEncoder.encode(postClientRegDTO.getPassword()));
-        clientSecUserEntity.setRoleId(1);
+        clientSecUserEntity.setRoleId(0);
 
         clientSecUserEntityRepository.saveAndFlush(clientSecUserEntity);
 

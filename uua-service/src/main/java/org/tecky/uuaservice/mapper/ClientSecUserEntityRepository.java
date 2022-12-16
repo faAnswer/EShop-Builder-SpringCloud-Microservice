@@ -7,4 +7,8 @@ import org.tecky.uuaservice.entities.ClientSecUserEntity;
 public interface ClientSecUserEntityRepository extends JpaRepository<ClientSecUserEntity, String> {
 
     public ClientSecUserEntity findByClientIdAndEmail(@Param("clientId") String clientId, @Param("email") String email);
+
+    public ClientSecUserEntity findByClientIdAndUsername(@Param("clientId") String clientId, @Param("username") String username);
+
+
 }

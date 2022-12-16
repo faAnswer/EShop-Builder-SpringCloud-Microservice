@@ -63,7 +63,9 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeRequests()
                     .antMatchers("/api/v1/test/security").hasAuthority("SCOPE_BASIC_MEMBERSHIP")
-                    .anyRequest().permitAll();
+                    .antMatchers("/api/*/admin/**").hasAuthority("SCOPE_AUTHORIZATION")
+
+                .anyRequest().permitAll();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
