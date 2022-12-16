@@ -66,8 +66,7 @@ public class AdminServiceImpl implements IAdminService {
         }
 
 
-
-
+        userEntity.setClientUid(clientEntity.getClientUid());
         userEntity.setShapassword(this.passwordEncoder.encode(postAdminRegDTO.getPassword()));
 
         userEntityRepository.saveAndFlush(userEntity);
