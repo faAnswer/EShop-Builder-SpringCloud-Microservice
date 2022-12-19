@@ -27,16 +27,10 @@ public class InDetailEntity {
     @Column(name = "record_ref")
     private String recordRef;
 
-    @Column(name = "supplier")
-    private String supplier;
-
     @Column(name = "handler_uid")
     private int handlerUid;
 
     @Column(name = "addition_msg")
     private String additionMsg;
-
-    @Column(name = "supplier_contact")
-    private String supplierContact;
 
 }
