@@ -18,3 +18,15 @@ spring:
             - Path=/uua/api/**
           filters:
             - RewritePath=/uua/(?<segment>.*), /$\{segment}
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/inventory/api/**
+          filters:
+            - RewritePath=/inventory/(?<segment>.*), /$\{segment}
+        - id: warehouse-service
+          uri: lb://warehouse-service
+          predicates:
+            - Path=/warehouse/api/**
+          filters:
+            - RewritePath=/warehouse/(?<segment>.*), /$\{segment}
