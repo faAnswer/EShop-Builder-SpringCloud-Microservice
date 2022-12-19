@@ -2,13 +2,16 @@ package org.tecky.common.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class PostWarehouseInShipmentDTO implements Serializable {
 
     private String shippmentCompany;
 
+    @Min(1)
     private Integer warehouserId;
 
     private String shippmentNum;
@@ -17,9 +20,6 @@ public class PostWarehouseInShipmentDTO implements Serializable {
 
     private final String directionType = "in";
 
-
-
-
-
+    private List<PostWarehouseInDTO> postWarehouseInDTOList;
 
 }

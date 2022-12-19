@@ -33,7 +33,7 @@ public class WarehouseController {
 
                 httpCode = ((CustomException) e).getCode();
             }
-            throw new CustomException(httpCode, "" + "\n" + e.getMessage());
+            throw new CustomException(httpCode, "Error POST/api/v1/warehouse" + "\n" + e.getMessage());
         }
 
         return res;

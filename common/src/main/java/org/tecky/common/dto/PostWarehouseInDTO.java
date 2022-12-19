@@ -2,22 +2,26 @@ package org.tecky.common.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 @Data
 public class PostWarehouseInDTO implements Serializable{
 
     private String refPic;
 
-    private int inventoryId;
+    @Min(1)
+    private Integer inventoryId;
 
-    private int qty;
+    @Min(1)
+    private Integer qty;
 
     private String recordRef;
 
-    private int handlerUid;
+    @Min(1)
+    private Integer handlerUid;
 
     private String additionMsg;
 
-    private String shippmentId;
+    private Integer shippmentId;
 
 }
