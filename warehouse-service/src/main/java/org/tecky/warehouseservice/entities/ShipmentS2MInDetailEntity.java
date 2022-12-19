@@ -15,7 +15,7 @@ public class ShipmentS2MInDetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shippment_id")
-    private int shippmentId;
+    private Integer shippmentId;
 
     @Column(name = "shippment_company")
     private String shippmentCompany;

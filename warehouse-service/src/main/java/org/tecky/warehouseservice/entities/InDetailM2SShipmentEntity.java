@@ -14,28 +14,28 @@ public class InDetailM2SShipmentEntity {
     @Id
     @Column(name = "record_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int recordId;
+    private Integer recordId;
 
     @Column(name = "ref_pic")
     private String refPic;
 
     @Column(name = "inventory_id")
-    private int inventoryId;
+    private Integer inventoryId;
 
     @Column(name = "qty")
-    private int qty;
+    private Integer qty;
 
     @Column(name = "record_ref")
     private String recordRef;
 
     @Column(name = "handler_uid")
-    private int handlerUid;
+    private Integer handlerUid;
 
     @Column(name = "addition_msg")
     private String additionMsg;
 
     @Column(name = "shippment_id")
-    private String shippmentId;
+    private Integer shippmentId;
 
     @ManyToOne
     private InDetailM2SShipmentEntity inDetailM2SShipmentEntity;
