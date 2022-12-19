@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "t_in_detail")
-public class InDetailEntity {
+public class InDetailM2SShipmentEntity {
 
     @Id
     @Column(name = "record_id")
@@ -36,5 +36,8 @@ public class InDetailEntity {
 
     @Column(name = "shippment_id")
     private String shippmentId;
+
+    @ManyToOne
+    private InDetailM2SShipmentEntity inDetailM2SShipmentEntity;
 
 }

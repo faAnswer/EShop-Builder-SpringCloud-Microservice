@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "t_shipment")
-public class ShipmentEntity {
+public class ShipmentS2MInDetailEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +31,9 @@ public class ShipmentEntity {
 
     @Column(name = "direction_type")
     private String directionType;
+
+    @OneToMany(mappedBy="inDetailM2SShipmentEntity")
+    private List<InDetailM2SShipmentEntity> inDetailM2SShipmentEntityList;
+
 
 }
