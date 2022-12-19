@@ -32,7 +32,7 @@ public class ShipmentS2MInDetailEntity {
     @Column(name = "direction_type")
     private String directionType;
 
-    @OneToMany(mappedBy="inDetailM2SShipmentEntity")
+    @OneToMany(mappedBy="shipmentS2MInDetailEntity", cascade = CascadeType.ALL)
     private List<InDetailM2SShipmentEntity> inDetailM2SShipmentEntityList;
 
 

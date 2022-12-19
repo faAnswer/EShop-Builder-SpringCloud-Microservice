@@ -34,10 +34,8 @@ public class InDetailM2SShipmentEntity {
     @Column(name = "addition_msg")
     private String additionMsg;
 
-    @Column(name = "shippment_id")
-    private Integer shippmentId;
-
     @ManyToOne
-    private InDetailM2SShipmentEntity inDetailM2SShipmentEntity;
+    @JoinColumn(name = "shippment_id", referencedColumnName = "shippment_id")
+    private ShipmentS2MInDetailEntity shipmentS2MInDetailEntity;
 
 }
