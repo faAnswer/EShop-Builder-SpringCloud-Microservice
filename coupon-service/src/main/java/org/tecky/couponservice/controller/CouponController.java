@@ -3,7 +3,9 @@ package org.tecky.couponservice.controller;
 import org.faAnswer.web.util.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tecky.common.dto.PostCouponDTO;
@@ -17,7 +19,7 @@ public class CouponController {
     ICouponService iCouponService;
 
     @PostMapping("/v1/coupons")
-    public ResponseEntity<?> createCoupon(PostCouponDTO postCouponDTO){
+    public ResponseEntity<?> createCoupon(@Validated @RequestBody PostCouponDTO postCouponDTO){
 
         ResponseEntity<?> res;
 

@@ -4,28 +4,29 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "t_warehouse")
-public class WarehouseEntity {
+public class WarehouseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "warehouse_id")
-    private int warehouseId;
+    private Integer warehouseId;
 
     @Column(name = "warehouse_name")
     private String warehouseName;
 
     @Column(name = "warehouse_tel")
-    private int warehouseTel;
+    private Integer warehouseTel;
 
     @Column(name = "warehouse_address")
     private String warehouseAddress;
 
     @Column(name = "client_uid")
-    private int clientUid;
+    private Integer clientUid;
 
 }

@@ -11,14 +11,14 @@ import java.io.Serializable;
 public class PostWarehouseDTO implements Serializable {
 
     @Pattern(regexp = "^\\w{5,10}$",
-            message = "Client Id must be 3 to 20 characters long")
+            message = "Warehouse Name must be 3 to 20 characters long")
     private String warehouseName;
 
-    private int warehouseTel;
+    private Integer warehouseTel;
 
     @NotBlank
     private String warehouseAddress;
 
     @Min(0)
-    private int clientUid;
+    private Integer clientUid;
 }

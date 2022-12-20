@@ -26,8 +26,6 @@ public class PostCouponDTO implements Serializable {
 
     private String couponDescription;
 
-    @Pattern(regexp = "^[1234]{1}$",
-            message = "Type ID Invalid")
     private Integer typeId;
 
     private Integer var3;

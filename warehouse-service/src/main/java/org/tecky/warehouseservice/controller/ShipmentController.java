@@ -3,7 +3,9 @@ package org.tecky.warehouseservice.controller;
 import org.faAnswer.web.util.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tecky.common.dto.PostWarehouseDTO;
@@ -18,7 +20,7 @@ public class ShipmentController {
     IShipmentService iShipmentService;
 
     @PostMapping("/v1/in")
-    public ResponseEntity<?> createInShipment(PostWarehouseInShipmentDTO postWarehouseInShipmentDTO){
+    public ResponseEntity<?> createInShipment(@Validated @RequestBody PostWarehouseInShipmentDTO postWarehouseInShipmentDTO){
 
         ResponseEntity<?> res;
 
