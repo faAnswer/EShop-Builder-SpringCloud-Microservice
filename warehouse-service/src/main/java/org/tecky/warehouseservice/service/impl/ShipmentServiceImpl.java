@@ -51,7 +51,6 @@ public class ShipmentServiceImpl implements IShipmentService {
             inDetailM2SShipmentEntity.setShipmentS2MInDetailEntity(shipmentS2MInDetailEntity);
         }
 
-
         shipmentS2MInDetailEntity.setInDetailM2SShipmentEntityList(inDetailM2SShipmentEntityList);
 
         shipmentS2MInDetailEntityRepository.saveAndFlush(shipmentS2MInDetailEntity);
