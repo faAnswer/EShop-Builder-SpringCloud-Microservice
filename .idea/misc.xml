@@ -17,7 +17,7 @@
         <option value="$PROJECT_DIR$/product-service/pom.xml" />
         <option value="$PROJECT_DIR$/uua-service/pom.xml" />
         <option value="$PROJECT_DIR$/mvc-web-common/pom.xml" />
-        <option value="$PROJECT_DIR$/message-service/pom.xml" />
+        <option value="$PROJECT_DIR$/warehouse-service/pom.xml" />
       </list>
     </option>
   </component>
