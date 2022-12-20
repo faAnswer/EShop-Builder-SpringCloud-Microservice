@@ -25,7 +25,7 @@ public class CouponController {
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
-    @PostMapping("/v1/coupons")
+    @PostMapping("/v1/coupon")
     public ResponseEntity<?> createCoupon(@Validated @RequestBody PostCouponDTO postCouponDTO){
 
         ResponseEntity<?> res;
@@ -49,15 +49,34 @@ public class CouponController {
         return res;
     }
 
-    @KafkaListener(topics = KafkaTopicConfig.COUPON, groupId = KafkaConfig.GROUP_1)
-    public void consume(String message) throws JsonProcessingException {
+    @GetMapping("/v1/test")
+    public String patchCoupon(@RequestParam PostCouponDTO postCouponDTO){
 
-        ObjectMapper objectMapper = new ObjectMapper();
 
-        PostCouponDTO postCouponDTO = objectMapper.readValue(message, PostCouponDTO.class);
 
-        KafkaTopicConfig.string2Object(message, KafkaTopicConfig.map.get(KafkaTopicConfig.COUPON));
-
-        log.info(message);
+        return "OK";
     }
+
+
+
+//    @PatchMapping("/v1/coupon")
+//    public ResponseEntity<?> patchCoupon(@Validated @RequestBody PostCouponDTO postCouponDTO){
+//
+//
+//
+//
+//    }
+
+//    @KafkaListener(topics = KafkaTopicConfig.COUPON, groupId = KafkaConfig.GROUP_1)
+//    public void consume(String message) throws JsonProcessingException {
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//
+//        PostCouponDTO postCouponDTO = objectMapper.readValue(message, PostCouponDTO.class);
+//
+//        KafkaTopicConfig.string2Object(message, KafkaTopicConfig.map.get(KafkaTopicConfig.COUPON));
+//
+//        log.info(message);
+//    }
+
 }
