@@ -30,3 +30,9 @@ spring:
             - Path=/warehouse/api/**
           filters:
             - RewritePath=/warehouse/(?<segment>.*), /$\{segment}
+        - id: coupon-service
+          uri: lb://coupon-service
+          predicates:
+            - Path=/coupon/api/**
+          filters:
+            - RewritePath=/coupon/(?<segment>.*), /$\{segment}

@@ -20,7 +20,7 @@ public class CouponController {
     public ResponseEntity<?> createCoupon(PostCouponDTO postCouponDTO){
 
         ResponseEntity<?> res;
-        
+
         try {
 
             res = iCouponService.createCoupon(postCouponDTO);
