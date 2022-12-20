@@ -93,7 +93,7 @@ public class CouponServiceImpl implements ICouponService {
 
         CouponSecDetailEntity couponSecDetailEntity;
 
-        couponSecDetailEntity = couponSecDetailEntityRepository.findByCouponId(patchCouponDTO.getClientUid());
+        couponSecDetailEntity = couponSecDetailEntityRepository.findByCouponId(patchCouponDTO.getCouponId());
 
         if(couponSecDetailEntity == null){
 
