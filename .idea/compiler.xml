@@ -7,19 +7,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="user-resource" />
         <module name="lib" />
         <module name="graphql-service" />
         <module name="warehouse-service" />
+        <module name="coupon-service" />
         <module name="product-service" />
         <module name="storage-service" />
-        <module name="message-service" />
-        <module name="JwtToken" />
         <module name="cloud-nohorny" />
         <module name="inventory-service" />
         <module name="common" />
         <module name="uua-service" />
         <module name="nacos-config" />
+        <module name="order-service" />
         <module name="gateway" />
         <module name="mvc-web-common" />
         <module name="shipping-service" />
@@ -34,6 +33,7 @@
       <module name="shipping-service" target="19" />
       <module name="springcloud-nacos-consumer" target="1.8" />
       <module name="uaa-service" target="1.8" />
+      <module name="user-resource" target="1.8" />
       <module name="user-service" target="1.8" />
       <module name="view-server" target="19" />
       <module name="view-service" target="1.8" />
@@ -41,15 +41,16 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="JwtToken" options="-parameters" />
       <module name="client-side-service" options="-parameters" />
       <module name="cloud-nohorny" options="-parameters" />
       <module name="common" options="-parameters" />
+      <module name="coupon-service" options="-parameters" />
       <module name="graphql-service" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="lib" options="-parameters" />
       <module name="message-service" options="-parameters" />
       <module name="mvc-web-common" options="-parameters" />
+      <module name="order-service" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="product-service34" options="-parameters" />
       <module name="shipping-service" options="-parameters" />

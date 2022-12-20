@@ -3,9 +3,10 @@ package org.tecky.common.dto;
 import lombok.Data;
 
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 
 @Data
-public class PostClientRegDTO {
+public class PostClientRegDTO implements Serializable {
 
     @Pattern(regexp = "^[\\w\\s]{5,20}$",
             message = "Client Name must be 5 to 20 characters long")
