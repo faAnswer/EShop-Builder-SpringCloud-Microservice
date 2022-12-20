@@ -50,7 +50,7 @@ public class CouponController {
     }
 
     @GetMapping("/v1/test")
-    public String patchCoupon(@RequestParam PostCouponDTO postCouponDTO){
+    public String patchCoupon(PostCouponDTO postCouponDTO){
 
 
 
