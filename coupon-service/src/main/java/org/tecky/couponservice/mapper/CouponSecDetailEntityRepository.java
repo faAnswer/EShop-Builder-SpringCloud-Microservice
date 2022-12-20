@@ -8,4 +8,5 @@ public interface CouponSecDetailEntityRepository extends JpaRepository<CouponSec
 
     public CouponSecDetailEntity findByCouponNameAndClientUid(@Param("couponName") String couponName, @Param("clientUid") Integer clientUid);
 
+    public CouponSecDetailEntity findByCouponId(Integer couponId);
 }

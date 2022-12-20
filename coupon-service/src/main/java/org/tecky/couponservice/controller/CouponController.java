@@ -11,6 +11,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.tecky.common.config.KafkaTopicConfig;
+import org.tecky.common.dto.PatchCouponDTO;
 import org.tecky.common.dto.PostCouponDTO;
 import org.tecky.couponservice.config.KafkaConfig;
 import org.tecky.couponservice.service.intf.ICouponService;
@@ -41,7 +42,7 @@ public class CouponController {
 
                 httpCode = ((CustomException) e).getCode();
             }
-            throw new CustomException(httpCode, "" + "\n" + e.getMessage());
+            throw new CustomException(httpCode, "Error POST/api/v1/coupon" + "\n" + e.getMessage());
         }
 
         kafkaTemplate.send(KafkaTopicConfig.COUPON, postCouponDTO);
@@ -49,12 +50,26 @@ public class CouponController {
         return res;
     }
 
-    @GetMapping("/v1/test")
-    public String patchCoupon(PostCouponDTO postCouponDTO){
+    @GetMapping("/v1/discount")
+    public ResponseEntity<?> getDiscount(PatchCouponDTO patchCouponDTO){
 
+        ResponseEntity<?> res;
 
+        try {
 
-        return "OK";
+            res = iCouponService.getCouponDiscount(patchCouponDTO);
+        } catch (Exception e) {
+
+            Integer httpCode = 500;
+
+            if (e instanceof CustomException) {
+
+                httpCode = ((CustomException) e).getCode();
+            }
+            throw new CustomException(httpCode, "Error GET/api/v1/discount" + "\n" + e.getMessage());
+        }
+
+        return res;
     }
 
 
