@@ -42,18 +42,11 @@ public class CouponController {
             throw new CustomException(httpCode, "" + "\n" + e.getMessage());
         }
 
+        kafkaTemplate.send(KafkaTopicConfig.COUPON, postCouponDTO);
+
         return res;
     }
-
-    @GetMapping("/v1/kafka")
-    public String post() {
-
-
-        kafkaTemplate.send(KafkaTopicConfig.COUPON, "123");
-
-        return "Published done";
-    }
-
+    
     @KafkaListener(topics = KafkaTopicConfig.COUPON, groupId = KafkaConfig.GROUP_1)
     public void consume(String message) {
 
