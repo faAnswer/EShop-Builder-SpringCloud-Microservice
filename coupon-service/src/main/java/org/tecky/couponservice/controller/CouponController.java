@@ -1,5 +1,7 @@
 package org.tecky.couponservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.faAnswer.web.util.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,12 @@ public class CouponController {
     }
     
     @KafkaListener(topics = KafkaTopicConfig.COUPON, groupId = KafkaConfig.GROUP_1)
-    public void consume(String message) {
+    public void consume(String message) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        PostCouponDTO postCouponDTO = objectMapper.readValue(message, PostCouponDTO.class);
+
 
         log.info(message);
     }
