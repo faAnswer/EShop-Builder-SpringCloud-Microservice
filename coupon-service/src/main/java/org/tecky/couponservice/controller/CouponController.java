@@ -48,7 +48,7 @@ public class CouponController {
 
         return res;
     }
-    
+
     @KafkaListener(topics = KafkaTopicConfig.COUPON, groupId = KafkaConfig.GROUP_1)
     public void consume(String message) throws JsonProcessingException {
 
@@ -56,6 +56,7 @@ public class CouponController {
 
         PostCouponDTO postCouponDTO = objectMapper.readValue(message, PostCouponDTO.class);
 
+        KafkaTopicConfig.string2Object(message, KafkaTopicConfig.map.get(KafkaTopicConfig.COUPON));
 
         log.info(message);
     }
