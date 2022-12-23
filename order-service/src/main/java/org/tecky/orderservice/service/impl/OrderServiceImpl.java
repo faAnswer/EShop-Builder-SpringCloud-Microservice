@@ -4,11 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.faAnswer.web.util.CustomException;
+import org.faAnswer.web.util.MyRestTemplateBuilder;
 import org.faAnswer.web.util.dto.ConversionUtil;
-import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.tecky.common.dto.PostOrderDTO;
 import org.tecky.orderservice.entities.DetailM2SOrderEntity;
 import org.tecky.orderservice.entities.OrderS2MDetailEntity;
@@ -22,11 +25,14 @@ import java.util.List;
 public class OrderServiceImpl implements IOrderService {
 
     @Autowired
+    RestTemplate restTemplate;
+
+    @Autowired
     OrderS2MDetailEntityRepository orderS2MDetailEntityRepository;
 
 
     @Override
-    //@GlobalTransactional
+    @GlobalTransactional
     public ResponseEntity<?> createOrder(PostOrderDTO postOrderDTO) throws JsonProcessingException {
 
         log.info("Start GlobalTransaction createOrder");
@@ -51,12 +57,20 @@ public class OrderServiceImpl implements IOrderService {
 
         orderS2MDetailEntity = orderS2MDetailEntityRepository.saveAndFlush(orderS2MDetailEntity);
 
+        ResponseEntity<?> response = new MyRestTemplateBuilder(this.restTemplate, MediaType.APPLICATION_JSON)
+                .setURL("http://127.0.0.1:9999/coupon/api/v1/coupon")
+                .addPara("orderId", orderS2MDetailEntity.getOrderId())
+                .addPara("subtotal", 500)
+                .addPara("uid", orderS2MDetailEntity.getUid())
+                .addPara("couponId", orderS2MDetailEntity.getCouponId())
+                .addPara("clientUid", orderS2MDetailEntity.getClientUid())
+                .send(HttpMethod.PUT);
 
+        throw new CustomException(400, "Invalid");
 
-
-        return ResponseObject
-                .builder()
-                .setPayLoad("message", "Create Order successful")
-                .create(201);
+//        return ResponseObject
+//                .builder()
+//                .setPayLoad("message", "Create Order successful")
+//                .create(201);
     }
 }

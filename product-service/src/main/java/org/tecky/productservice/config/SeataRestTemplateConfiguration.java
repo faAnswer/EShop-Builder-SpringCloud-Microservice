@@ -28,7 +28,7 @@ public class SeataRestTemplateConfiguration {
         return new SeataRestTemplateInterceptor();
     }
     @Autowired(required = false)
-    private Collection<RestTemplate> restTemplates;
+    private RestTemplate restTemplates;
 
 //    @Autowired
 //    private SeataRestTemplateInterceptor seataRestTemplateInterceptor;
@@ -38,18 +38,9 @@ public class SeataRestTemplateConfiguration {
 
         if (this.restTemplates != null) {
 
-            Iterator var1 = this.restTemplates.iterator();
+            List<ClientHttpRequestInterceptor> interceptors = this.restTemplates.getInterceptors();
 
-            while (var1.hasNext()) {
-
-                RestTemplate restTemplate = (RestTemplate) var1.next();
-
-                List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>(restTemplate.getInterceptors());
-
-                interceptors.add(seataRestTemplateInterceptor());
-
-                restTemplate.setInterceptors(interceptors);
-            }
+            interceptors.add(seataRestTemplateInterceptor());
         }
     }
 }

@@ -51,7 +51,7 @@ public class CouponController {
     }
 
     @GetMapping("/v1/discount")
-    public ResponseEntity<?> getDiscount(PatchCouponDTO patchCouponDTO){
+    public ResponseEntity<?> getDiscount(@Validated PatchCouponDTO patchCouponDTO){
 
         ResponseEntity<?> res;
 
@@ -72,8 +72,8 @@ public class CouponController {
         return res;
     }
 
-    @PatchMapping(value = "/v1/coupon", consumes = "application/json")
-    public ResponseEntity<?> patchCoupon(PatchCouponDTO patchCouponDTO){
+    @PutMapping(value = "/v1/coupon", consumes = "application/json")
+    public ResponseEntity<?> patchCoupon(@Validated @RequestBody PatchCouponDTO patchCouponDTO){
 
         ResponseEntity<?> res;
 

@@ -17,8 +17,8 @@ import org.tecky.common.config.KafkaTopicConfig;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
-@EnableKafka
+//@Configuration
+//@EnableKafka
 public class KafkaConfig {
     public static final String GROUP_1 = "group_1";
     public static final String DEFAULT_SERVER = "8.219.92.30:9092";
