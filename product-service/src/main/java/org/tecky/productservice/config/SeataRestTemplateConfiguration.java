@@ -30,8 +30,8 @@ public class SeataRestTemplateConfiguration {
     @Autowired(required = false)
     private Collection<RestTemplate> restTemplates;
 
-    @Autowired
-    private SeataRestTemplateInterceptor seataRestTemplateInterceptor;
+//    @Autowired
+//    private SeataRestTemplateInterceptor seataRestTemplateInterceptor;
 
     @PostConstruct
     public void init() {
@@ -46,7 +46,7 @@ public class SeataRestTemplateConfiguration {
 
                 List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>(restTemplate.getInterceptors());
 
-                interceptors.add(this.seataRestTemplateInterceptor);
+                interceptors.add(seataRestTemplateInterceptor());
 
                 restTemplate.setInterceptors(interceptors);
             }

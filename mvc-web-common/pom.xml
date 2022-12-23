@@ -14,7 +14,7 @@
     <name>mvc-web-common</name>
     <description>mvc-web-common</description>
     <properties>
-        <java.version>19</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/io.seata/seata-spring-boot-starter -->
