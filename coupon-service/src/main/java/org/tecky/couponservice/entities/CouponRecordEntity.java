@@ -2,9 +2,12 @@ package org.tecky.couponservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.faAnswer.util.DateUtil;
+import org.faAnswer.util.MySQLDateUtil;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.ParseException;
 
 
 @Entity
@@ -12,6 +15,11 @@ import java.io.Serializable;
 @Setter
 @Table(name = "t_coupon_record")
 public class CouponRecordEntity implements Serializable {
+
+    public CouponRecordEntity() throws ParseException {
+
+        useDatetime = MySQLDateUtil.toDate(DateUtil.toDate());
+    }
 
     @Id
     @Column(name = "record_id", nullable = false)

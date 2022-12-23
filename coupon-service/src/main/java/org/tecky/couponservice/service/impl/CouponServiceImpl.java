@@ -12,9 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.tecky.common.dto.PatchCouponDTO;
 import org.tecky.common.dto.PostCouponDTO;
+import org.tecky.couponservice.entities.CouponRecordEntity;
 import org.tecky.couponservice.entities.CouponSecDetailEntity;
 import org.tecky.couponservice.entities.CouponTypeEntity;
 import org.tecky.couponservice.mapper.CouponEntityRepository;
+import org.tecky.couponservice.mapper.CouponRecordEntityRepository;
 import org.tecky.couponservice.mapper.CouponSecDetailEntityRepository;
 import org.tecky.couponservice.mapper.CouponTypeEntityRepository;
 import org.tecky.couponservice.service.intf.ICouponService;
@@ -35,6 +37,10 @@ public class CouponServiceImpl implements ICouponService {
 
     @Autowired
     CouponSecDetailEntityRepository couponSecDetailEntityRepository;
+
+    @Autowired
+    CouponRecordEntityRepository couponRecordEntityRepository;
+
 
     @Override
     public ResponseEntity<?> createCoupon(PostCouponDTO postCouponDTO) throws JsonProcessingException {
@@ -171,14 +177,26 @@ public class CouponServiceImpl implements ICouponService {
 
         Integer discount = Integer.valueOf(map.get("discount"));
 
+        CouponRecordEntity couponRecordEntity;
+
+        try {
+            couponRecordEntity = ConversionUtil.convertS2S(CouponRecordEntity.class, patchCouponDTO);
 
 
+        } catch (Exception e) {
+
+            throw new CustomException(500, "Error in CouponServiceImpl patchCoupon : ConversionUtil " + e.getMessage());
+        }
+
+        couponRecordEntity.setDiscount(discount);
+        couponRecordEntityRepository.saveAndFlush(couponRecordEntity);
+        couponEntityRepository.decrementQty(patchCouponDTO.getCouponId(), 1);
 
 
-
-
-
-        return null;
+        return ResponseObject
+                .builder()
+                .setPayLoad("message", "Apply Coupon successful")
+                .create(200);
     }
 
     private ResponseEntity<?> type1Coupon(CouponSecDetailEntity couponSecDetailEntity, PatchCouponDTO patchCouponDTO) throws JsonProcessingException {

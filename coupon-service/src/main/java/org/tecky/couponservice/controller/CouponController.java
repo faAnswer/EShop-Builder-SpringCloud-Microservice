@@ -26,7 +26,7 @@ public class CouponController {
     @Autowired
     private KafkaTemplate<String, Object> kafkaTemplate;
 
-    @PostMapping("/v1/coupon")
+    @PostMapping(value = "/v1/coupon", consumes = "application/json")
     public ResponseEntity<?> createCoupon(@Validated @RequestBody PostCouponDTO postCouponDTO){
 
         ResponseEntity<?> res;
@@ -72,26 +72,25 @@ public class CouponController {
         return res;
     }
 
+    @PatchMapping(value = "/v1/coupon", consumes = "application/json")
+    public ResponseEntity<?> patchCoupon(PatchCouponDTO patchCouponDTO){
 
+        ResponseEntity<?> res;
 
-//    @PatchMapping("/v1/coupon")
-//    public ResponseEntity<?> patchCoupon(@Validated @RequestBody PostCouponDTO postCouponDTO){
-//
-//
-//
-//
-//    }
+        try {
 
-//    @KafkaListener(topics = KafkaTopicConfig.COUPON, groupId = KafkaConfig.GROUP_1)
-//    public void consume(String message) throws JsonProcessingException {
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        PostCouponDTO postCouponDTO = objectMapper.readValue(message, PostCouponDTO.class);
-//
-//        KafkaTopicConfig.string2Object(message, KafkaTopicConfig.map.get(KafkaTopicConfig.COUPON));
-//
-//        log.info(message);
-//    }
+            res = iCouponService.patchCoupon(patchCouponDTO);
+        } catch (Exception e) {
 
+            Integer httpCode = 500;
+
+            if (e instanceof CustomException) {
+
+                httpCode = ((CustomException) e).getCode();
+            }
+            throw new CustomException(httpCode, "Error PATCH/api/v1/coupon" + "\n" + e.getMessage());
+        }
+
+        return res;
+    }
 }
