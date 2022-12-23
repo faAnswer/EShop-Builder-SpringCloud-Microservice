@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class CouponSecDetailEntity implements Serializable {
 
     @Id
-    @Column(name = "coupon_id")
+    @Column(name = "coupon_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer couponId;
 

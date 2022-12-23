@@ -1,8 +1,10 @@
 package org.tecky.couponservice.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.faAnswer.util.MySQLDateUtil;
 import org.faAnswer.web.util.CustomException;
+import org.faAnswer.web.util.RestTempBuilder;
 import org.faAnswer.web.util.dto.ConversionUtil;
 import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.tecky.couponservice.service.intf.ICouponService;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 @Service
@@ -157,6 +160,25 @@ public class CouponServiceImpl implements ICouponService {
         }
 
         return res;
+    }
+
+    @Override
+    public ResponseEntity<?> patchCoupon(PatchCouponDTO patchCouponDTO) throws JsonProcessingException {
+
+        ResponseEntity<?> res = getCouponDiscount(patchCouponDTO);
+
+        Map<String, String> map = (Map<String, String>) ResponseObject.convert2Object(res);
+
+        Integer discount = Integer.valueOf(map.get("discount"));
+
+
+
+
+
+
+
+
+        return null;
     }
 
     private ResponseEntity<?> type1Coupon(CouponSecDetailEntity couponSecDetailEntity, PatchCouponDTO patchCouponDTO) throws JsonProcessingException {

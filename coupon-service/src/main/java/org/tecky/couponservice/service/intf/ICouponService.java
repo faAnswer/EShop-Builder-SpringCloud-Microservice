@@ -11,4 +11,7 @@ public interface ICouponService {
 
     public ResponseEntity<?> getCouponDiscount(PatchCouponDTO patchCouponDTO) throws JsonProcessingException;
 
+    public ResponseEntity<?> patchCoupon(PatchCouponDTO patchCouponDTO) throws JsonProcessingException;
+
+
 }
