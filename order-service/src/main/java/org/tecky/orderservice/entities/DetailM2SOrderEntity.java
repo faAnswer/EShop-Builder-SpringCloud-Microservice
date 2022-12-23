@@ -13,6 +13,7 @@ public class DetailM2SOrderEntity {
 
     @Id
     @Column(name = "detail_Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer detailId;
 
     @Column(name = "amount")
@@ -23,9 +24,6 @@ public class DetailM2SOrderEntity {
 
     @Column(name = "qty")
     private Integer qty;
-
-    @Column(name = "order_id")
-    private Integer orderId;
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")

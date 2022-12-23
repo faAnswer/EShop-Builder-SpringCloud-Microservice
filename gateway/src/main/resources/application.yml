@@ -36,3 +36,9 @@ spring:
             - Path=/coupon/api/**
           filters:
             - RewritePath=/coupon/(?<segment>.*), /$\{segment}
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order/api/**
+          filters:
+            - RewritePath=/order/(?<segment>.*), /$\{segment}

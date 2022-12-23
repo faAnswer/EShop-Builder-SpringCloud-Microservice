@@ -26,7 +26,7 @@ public class OrderServiceImpl implements IOrderService {
 
 
     @Override
-    @GlobalTransactional
+    //@GlobalTransactional
     public ResponseEntity<?> createOrder(PostOrderDTO postOrderDTO) throws JsonProcessingException {
 
         log.info("Start GlobalTransaction createOrder");
@@ -49,7 +49,10 @@ public class OrderServiceImpl implements IOrderService {
 
         orderS2MDetailEntity.setDetailM2SOrderEntityList(detailM2SOrderEntityList);
 
-        orderS2MDetailEntityRepository.saveAndFlush(orderS2MDetailEntity);
+        orderS2MDetailEntity = orderS2MDetailEntityRepository.saveAndFlush(orderS2MDetailEntity);
+
+
+
 
         return ResponseObject
                 .builder()

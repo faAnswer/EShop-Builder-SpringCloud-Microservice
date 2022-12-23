@@ -13,7 +13,8 @@ import java.util.List;
 public class OrderS2MDetailEntity {
 
     @Id
-    @Column(name = "order_id", nullable = false)
+    @Column(name = "order_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderId;
 
     @Column(name = "shipping_amount")
