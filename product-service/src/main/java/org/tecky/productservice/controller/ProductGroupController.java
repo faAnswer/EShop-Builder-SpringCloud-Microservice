@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.tecky.common.api.productservice.ProductGroupAPI;
 import org.tecky.common.dto.PostGroupDTO;
 import org.tecky.common.dto.PostProductDTO;
 import org.tecky.productservice.service.intf.IProductService;
@@ -12,10 +13,11 @@ import org.tecky.productservice.service.intf.IProductService;
 
 @RestController
 @RequestMapping("/api")
-public class ProductGroupController {
+public class ProductGroupController implements ProductGroupAPI {
     @Autowired
     IProductService iProductService;
 
+    @Override
     @PostMapping(value = "/v1/products", consumes = "application/json")
     public ResponseEntity<?> postGroup(@RequestBody @Validated PostGroupDTO postGroupDTO){
 
@@ -31,6 +33,7 @@ public class ProductGroupController {
 
         return response;
     }
+    @Override
     @PostMapping(value = "/v1/product", consumes = "application/json")
     public ResponseEntity<?> postProduct(@RequestBody @Validated PostProductDTO postProductDTO){
 
@@ -47,6 +50,7 @@ public class ProductGroupController {
         return response;
     }
 
+    @Override
     @GetMapping(value = "/v1/products/{clientId}/{typeId}")
     //List<>
     public ResponseEntity<?> getProductGroupList(@PathVariable("clientId") String clientId,
@@ -65,6 +69,7 @@ public class ProductGroupController {
         return response;
     }
 
+    @Override
     @GetMapping(value = "/v1/products")
     public ResponseEntity<?> getProduct(@RequestParam("groupId") Integer groupId){
 
@@ -81,6 +86,7 @@ public class ProductGroupController {
         return response;
     }
 
+    @Override
     @GetMapping(value = "/v1/products/properties")
     public ResponseEntity<?> getProductProperties(@RequestParam("groupId") Integer groupId){
 

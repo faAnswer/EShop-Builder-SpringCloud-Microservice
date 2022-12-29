@@ -8,21 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.tecky.common.dto.CategoryDTO;
+import org.tecky.common.api.productservice.TypeAPI;
 import org.tecky.common.dto.CategoryTypeDTO;
 import org.tecky.productservice.service.intf.ICategoryService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class TypeController {
+public class TypeController implements TypeAPI {
 
     @Autowired
     ICategoryService iCategoryService;
 
+    @Override
     @GetMapping("/v1/types")
     // return List<CategoryTypeDTO>
     public ResponseEntity<?> getTypes(@RequestParam("categoryId") Integer categoryId)  {
@@ -56,6 +55,7 @@ public class TypeController {
         return res;
     }
 
+    @Override
     @GetMapping("/v1/type")
     // return List<CategoryTypeDTO>
     public ResponseEntity<?> getType(@RequestParam("categoryId") Integer categoryId,

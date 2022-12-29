@@ -5,11 +5,11 @@ import org.faAnswer.web.util.json.ResponseListObject;
 import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.tecky.common.api.productservice.CategoryAPI;
 import org.tecky.productservice.service.intf.ICategoryService;
 import org.tecky.common.dto.CategoryDTO;
 
@@ -19,11 +19,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class CategoryController {
+public class CategoryController implements CategoryAPI {
 
     @Autowired
     ICategoryService iCategoryService;
 
+    @Override
     @GetMapping("/v1/client/categories")
     // return List<CategoryDTO>
     public ResponseEntity<?> getCategories(@RequestParam("clientId") String clienId)  {
@@ -62,6 +63,7 @@ public class CategoryController {
 
         return res;
     }
+    @Override
     @GetMapping("/v1/categories")
     // return List<CategoryDTO>
     public ResponseEntity<?> getCategories()  {
@@ -95,6 +97,7 @@ public class CategoryController {
         return res;
     }
 
+    @Override
     @GetMapping("/v1/category")
     // return CategoryDTO
     public ResponseEntity<?> getCategory(@RequestParam("categoryId") Integer categoryId, HttpServletRequest request, HttpServletResponse response)  {
