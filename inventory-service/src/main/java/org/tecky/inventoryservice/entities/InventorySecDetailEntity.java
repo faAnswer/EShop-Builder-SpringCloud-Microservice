@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "t_inventory")
 @SecondaryTable(name = "t_inventory_detail")
-public class InventoryEntity {
+public class InventorySecDetailEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

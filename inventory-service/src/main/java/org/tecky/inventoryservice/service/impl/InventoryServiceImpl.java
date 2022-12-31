@@ -7,41 +7,72 @@ import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.tecky.common.dto.InventorySumDTO;
 import org.tecky.common.dto.PostInventoryDTO;
-import org.tecky.inventoryservice.entities.InventoryEntity;
-import org.tecky.inventoryservice.mapper.InventoryEntityRepository;
+import org.tecky.inventoryservice.entities.InventorySecDetailEntity;
+import org.tecky.inventoryservice.mapper.InventorySecDetailEntityRepository;
 import org.tecky.inventoryservice.service.intf.InventoryService;
+
+import java.util.List;
 
 @Service
 public class InventoryServiceImpl implements InventoryService {
 
     @Autowired
-    InventoryEntityRepository inventoryEntityRepository;
+    InventorySecDetailEntityRepository inventorySecDetailEntityRepository;
 
     @Override
     public ResponseEntity<?> createInventory(PostInventoryDTO postInventoryDTO) throws JsonProcessingException {
 
-        InventoryEntity inventoryEntity;
+        InventorySecDetailEntity inventorySecDetailEntity;
 
-        if(inventoryEntityRepository
+        if(inventorySecDetailEntityRepository
                 .findByProductIdAndBatchNo(postInventoryDTO.getProductId(), postInventoryDTO.getBatchNo()) != null){
 
             throw new CustomException(409, "Batch No. has already existed");
         }
 
         try {
-            inventoryEntity = ConversionUtil.convertS2S(InventoryEntity.class, postInventoryDTO);
+            inventorySecDetailEntity = ConversionUtil.convertS2S(InventorySecDetailEntity.class, postInventoryDTO);
 
         } catch (Exception e) {
 
             throw new CustomException(500, "Error InventoryServiceImpl createInventory: ConversionUtil");
         }
 
-        inventoryEntityRepository.saveAndFlush(inventoryEntity);
+        inventorySecDetailEntityRepository.saveAndFlush(inventorySecDetailEntity);
 
         return ResponseObject
                 .builder()
                 .setPayLoad("message", "Create Inventory successful")
                 .create(201);
+    }
+
+    @Override
+    //InventorySumDTO
+    public ResponseEntity<?> getSummary(Integer productId) throws JsonProcessingException {
+
+        List<InventorySecDetailEntity> inventorySecDetailEntityList = inventorySecDetailEntityRepository.findByProductId(productId);
+
+        if(inventorySecDetailEntityList == null){
+
+            throw new CustomException(404, "Product not found");
+        }
+
+        InventorySumDTO inventorySumDTO = new InventorySumDTO();
+
+        inventorySumDTO.setProductId(productId);
+
+        for(InventorySecDetailEntity inventorySecDetailEntity: inventorySecDetailEntityList){
+
+            inventorySumDTO.setAvailableQty(inventorySumDTO.getAvailableQty() + inventorySecDetailEntity.getAvailableQty());
+            inventorySumDTO.setAccountingQty(inventorySumDTO.getAccountingQty() + inventorySecDetailEntity.getAccountingQty());
+            inventorySumDTO.setOnhandQty(inventorySumDTO.getOnhandQty() + inventorySecDetailEntity.getOnhandQty());
+        }
+
+        return ResponseObject
+                .builder()
+                .setObjectPayLoad(inventorySumDTO)
+                .create(200);
     }
 }
