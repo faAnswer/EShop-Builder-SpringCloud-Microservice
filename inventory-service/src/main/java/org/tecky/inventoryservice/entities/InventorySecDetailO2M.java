@@ -46,5 +46,5 @@ public class InventorySecDetailO2M {
     private String batchNo;
 
     @OneToMany(mappedBy="inventorySecDetailO2M", cascade = CascadeType.ALL)
-    private List<AvailableDetailO2MEntity> availableDetailO2MEntity;
+    private List<AvailableDetailM2OEntity> availableDetailM2OEntity;
 }

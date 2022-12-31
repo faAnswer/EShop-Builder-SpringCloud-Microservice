@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "t_available_detail")
-public class AvailableDetailO2MEntity {
+public class AvailableDetailM2OEntity {
 
     @Id
     @Column(name = "ref_id")

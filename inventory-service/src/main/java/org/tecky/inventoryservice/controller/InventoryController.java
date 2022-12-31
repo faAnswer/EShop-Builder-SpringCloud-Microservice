@@ -63,20 +63,20 @@ public class InventoryController implements InventoryAPI {
 
         return res;
     }
-    @GetMapping(value = "/v1/onhand", params = {"productId"})
-    public ResponseEntity<?> getOnHandRecord(@RequestParam("productId") Integer productId) {
-
-
-    }
-    @GetMapping(value = "/v1/avail", params = {"productId"})
-    public ResponseEntity<?> getAvailRecord(@RequestParam("productId") Integer productId) {
-
-
-    }
-    @GetMapping(value = "/v1/acc", params = {"productId"})
-    public ResponseEntity<?> getAccRecord(@RequestParam("productId") Integer productId) {
-
-
-    }
+//    @GetMapping(value = "/v1/onhand", params = {"productId"})
+//    public ResponseEntity<?> getOnHandRecord(@RequestParam("productId") Integer productId) {
+//
+//
+//    }
+//    @GetMapping(value = "/v1/avail", params = {"productId"})
+//    public ResponseEntity<?> getAvailRecord(@RequestParam("productId") Integer productId) {
+//
+//
+//    }
+//    @GetMapping(value = "/v1/acc", params = {"productId"})
+//    public ResponseEntity<?> getAccRecord(@RequestParam("productId") Integer productId) {
+//
+//
+//    }
 
 }
