@@ -7,12 +7,15 @@ import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.tecky.common.dto.CategoryDTO;
+import org.tecky.common.dto.InventoryDTO;
 import org.tecky.common.dto.InventorySumDTO;
 import org.tecky.common.dto.PostInventoryDTO;
 import org.tecky.inventoryservice.entities.InventorySecDetailEntity;
 import org.tecky.inventoryservice.mapper.InventorySecDetailEntityRepository;
 import org.tecky.inventoryservice.service.intf.InventoryService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -53,6 +56,7 @@ public class InventoryServiceImpl implements InventoryService {
     public ResponseEntity<?> getSummary(Integer productId) throws JsonProcessingException {
 
         List<InventorySecDetailEntity> inventorySecDetailEntityList = inventorySecDetailEntityRepository.findByProductId(productId);
+        List<InventoryDTO> inventoryDTO = new ArrayList<InventoryDTO>();
 
         if(inventorySecDetailEntityList == null){
 
@@ -70,9 +74,22 @@ public class InventoryServiceImpl implements InventoryService {
             inventorySumDTO.setOnhandQty(inventorySumDTO.getOnhandQty() + inventorySecDetailEntity.getOnhandQty());
         }
 
+
+        try {
+
+            inventoryDTO = ConversionUtil.convertM2M(InventoryDTO.class, inventorySecDetailEntityList);
+
+        } catch (Exception e) {
+
+            throw new CustomException(500, "Error in InventoryServiceImpl getSummary: ConversionUtil");
+        }
+
+        inventorySumDTO.setInventories(inventoryDTO);
+
         return ResponseObject
                 .builder()
                 .setObjectPayLoad(inventorySumDTO)
                 .create(200);
     }
+
 }

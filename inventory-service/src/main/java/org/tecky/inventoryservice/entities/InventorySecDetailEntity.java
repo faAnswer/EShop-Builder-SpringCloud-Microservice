@@ -15,19 +15,19 @@ public class InventorySecDetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inventory_id")
-    private int inventoryId;
+    private Integer inventoryId;
 
     @Column(name = "product_id", table = "t_inventory")
-    private int productId;
+    private Integer productId;
 
     @Column(name = "accounting_qty", table = "t_inventory")
-    private int accountingQty;
+    private Integer accountingQty;
 
     @Column(name = "available_qty", table = "t_inventory")
-    private int availableQty;
+    private Integer availableQty;
 
     @Column(name = "onhand_qty", table = "t_inventory")
-    private int onhandQty;
+    private Integer onhandQty;
 
     @Column(name = "expiry_date", table = "t_inventory_detail")
     private String expiryDate;

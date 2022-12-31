@@ -15,18 +15,18 @@ public class AccountingDetailEntity {
 
     @Id
     @Column(name = "ref_id")
-    private int refId;
+    private Integer refId;
 
     @Column(name = "inventory_id")
-    private int inventoryId;
+    private Integer inventoryId;
 
     @Column(name = "payment_id")
-    private int paymentId;
+    private Integer paymentId;
 
     @Column(name = "accounting_diff")
-    private int accountingDiff;
+    private Integer accountingDiff;
 
     @Column(name = "order_id")
-    private int orderId;
+    private Integer orderId;
 
 }

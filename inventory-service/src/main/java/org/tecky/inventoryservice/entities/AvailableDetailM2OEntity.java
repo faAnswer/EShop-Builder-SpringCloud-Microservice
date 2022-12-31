@@ -13,13 +13,13 @@ public class AvailableDetailM2OEntity {
 
     @Id
     @Column(name = "ref_id")
-    private int refId;
+    private Integer refId;
 
     @Column(name = "available_diff")
-    private int availableDiff;
+    private Integer availableDiff;
 
     @Column(name = "order_id")
-    private int orderId;
+    private Integer orderId;
 
     @ManyToOne
     @JoinColumn(name = "inventory_id", referencedColumnName = "inventory_id")

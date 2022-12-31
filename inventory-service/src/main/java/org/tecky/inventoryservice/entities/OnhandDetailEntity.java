@@ -15,15 +15,15 @@ public class OnhandDetailEntity {
 
     @Id
     @Column(name = "ref_id")
-    private int refId;
+    private Integer refId;
 
     @Column(name = "onhand_diff")
-    private int onhandDiff;
+    private Integer onhandDiff;
 
     @Column(name = "inventory_id")
-    private int inventoryId;
+    private Integer inventoryId;
 
     @Column(name = "shipment_id")
-    private int shipmentId;
+    private Integer shipmentId;
 
 }

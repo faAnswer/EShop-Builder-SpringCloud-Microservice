@@ -59,4 +59,11 @@ type InventorySumDTO{
     onhandQty: Int
     availableQty: Int
     accountingQty: Int
+    inventories:[InventoryDTO]
+}
+type InventoryDTO{
+    inventoryId: Int
+    onhandQty: Int
+    availableQty: Int
+    accountingQty: Int
 }
