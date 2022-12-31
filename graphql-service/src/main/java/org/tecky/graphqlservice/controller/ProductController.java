@@ -106,18 +106,18 @@ public class ProductController {
         return productGroupDTOList;
     }
 
-//    @SchemaMapping
-//    public List<PropertyDTO> selectionA(ProductGroupDTO categoryTypeDTO) throws JsonProcessingException, ClassNotFoundException {
-//
-//        ResponseEntity<?> res;
-//        List<ProductGroupDTO> productGroupDTOList;
-//
-//        res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-//                .setURL(this.productService + "api/v1/products/" + categoryTypeDTO.getClientId() + "/" + categoryTypeDTO.getTypeId())
-//                .send(HttpMethod.GET);
-//
-//        productGroupDTOList = (List<ProductGroupDTO>) ResponseListObject.convert2ListObject(res);
-//
-//        return productGroupDTOList;
-//    }
+    @SchemaMapping
+    public List<PropertyDTO> selectionA(ProductGroupDTO categoryTypeDTO) throws JsonProcessingException, ClassNotFoundException {
+
+        ResponseEntity<?> res;
+        List<ProductGroupDTO> productGroupDTOList;
+
+        res = new RestTempBuilder(MediaType.APPLICATION_JSON)
+                .setURL(this.productService + "api/v1/products/" + categoryTypeDTO.getClientId() + "/" + categoryTypeDTO.getTypeId())
+                .send(HttpMethod.GET);
+
+        productGroupDTOList = (List<ProductGroupDTO>) ResponseListObject.convert2ListObject(res);
+
+        return productGroupDTOList;
+    }
 }

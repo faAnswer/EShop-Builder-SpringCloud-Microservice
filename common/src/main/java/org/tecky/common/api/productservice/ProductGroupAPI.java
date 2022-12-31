@@ -20,6 +20,4 @@ public interface ProductGroupAPI {
     @GetMapping(value = "/v1/products")
     ResponseEntity<?> getProduct(@RequestParam("groupId") Integer groupId);
 
-    @GetMapping(value = "/v1/products/details")
-    ResponseEntity<?> getProductsProperties(@RequestParam("groupId") Integer groupId);
 }

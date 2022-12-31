@@ -71,6 +71,7 @@ public class ProductGroupController implements ProductGroupAPI {
 
     @Override
     @GetMapping(value = "/v1/products")
+    //ProductGroupDTO
     public ResponseEntity<?> getProduct(@RequestParam("groupId") Integer groupId){
 
         ResponseEntity<?> response;
@@ -85,23 +86,4 @@ public class ProductGroupController implements ProductGroupAPI {
 
         return response;
     }
-
-    @Override
-    @GetMapping(value = "/v1/products/details")
-    public ResponseEntity<?> getProductsProperties(@RequestParam("groupId") Integer groupId){
-
-        ResponseEntity<?> response;
-
-        try {
-
-            response = iProductService.findProductGroup(groupId);
-        } catch (Exception e) {
-
-            throw new CustomException(500, "Error GET/api/v1/products" + e.getMessage());
-        }
-
-        return response;
-    }
-
-
 }
