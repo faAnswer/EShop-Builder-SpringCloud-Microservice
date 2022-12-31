@@ -106,7 +106,20 @@ public class ProductGroupController implements ProductGroupAPI {
     }
 
     @Override
-    public ResponseEntity<?> getSubProperty(Integer groupId, String p) {
-        return null;
+    @GetMapping(value = "/v1/subproperty")
+    //List<SubPropertyDTO>
+    public ResponseEntity<?> getSubProperty(@RequestParam("groupId") Integer groupId, @RequestParam("p") String p) {
+
+        ResponseEntity<?> response;
+
+        try {
+
+            response = iProductService.findProductSubProperties(groupId, p);
+        } catch (Exception e) {
+
+            throw new CustomException(500, "Error GET/api/v1/subproperty" + e.getMessage());
+        }
+
+        return response;
     }
 }

@@ -8,10 +8,7 @@ import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.tecky.common.dto.PostGroupDTO;
-import org.tecky.common.dto.PostProductDTO;
-import org.tecky.common.dto.ProductGroupDTO;
-import org.tecky.common.dto.PropertyDTO;
+import org.tecky.common.dto.*;
 import org.tecky.productservice.entities.GroupDetailEntity;
 import org.tecky.productservice.entities.ProductDetailEntity;
 import org.tecky.productservice.mapper.GroupDetailEntityRepository;
@@ -163,6 +160,28 @@ public class ProductServiceImpl implements IProductService {
         return ResponseListObject
                 .builder()
                 .setObjectPayLoad(propertyDTOList)
+                .create(200);
+    }
+
+    @Override
+    //List<SubPropertyDTO>
+    public ResponseEntity<?> findProductSubProperties(Integer groupId, String p) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
+
+        List<SubPropertyDTO> subPropertyDTOList;
+
+        List<ProductDetailEntity> productDetailEntityList = productDetailEntityRepository.findByGroupIdAndColaValue(groupId, p);
+
+        if(productDetailEntityList == null){
+
+            subPropertyDTOList = new ArrayList<>();
+        } else {
+
+            subPropertyDTOList = ConversionUtil.convertM2M(SubPropertyDTO.class, productDetailEntityList);
+        }
+
+        return ResponseListObject
+                .builder()
+                .setObjectPayLoad(subPropertyDTOList)
                 .create(200);
     }
 }
