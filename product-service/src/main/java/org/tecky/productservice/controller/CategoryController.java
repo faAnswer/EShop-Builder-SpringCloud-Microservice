@@ -100,7 +100,7 @@ public class CategoryController implements CategoryAPI {
     @Override
     @GetMapping("/v1/category")
     // return CategoryDTO
-    public ResponseEntity<?> getCategory(@RequestParam("categoryId") Integer categoryId, HttpServletRequest request, HttpServletResponse response)  {
+    public ResponseEntity<?> getCategory(@RequestParam("categoryId") Integer categoryId)  {
 
         CategoryDTO categoryDTO;
         ResponseEntity<?> res;

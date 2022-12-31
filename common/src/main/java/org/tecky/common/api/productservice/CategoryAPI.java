@@ -19,5 +19,5 @@ public interface CategoryAPI {
 
     @GetMapping("/v1/category")
         // return CategoryDTO
-    ResponseEntity<?> getCategory(@RequestParam("categoryId") Integer categoryId, HttpServletRequest request, HttpServletResponse response);
+    ResponseEntity<?> getCategory(@RequestParam("categoryId") Integer categoryId);
 }

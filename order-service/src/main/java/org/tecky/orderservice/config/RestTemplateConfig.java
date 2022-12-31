@@ -17,7 +17,6 @@ public class RestTemplateConfig {
     @Autowired
     SeataRestTemplateInterceptor seataRestTemplateInterceptor;
 
-
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();

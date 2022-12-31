@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.faAnswer.web.util.RestTempBuilder;
 import org.faAnswer.web.util.json.ResponseListObject;
 import org.faAnswer.web.util.json.ResponseObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
@@ -13,22 +14,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.tecky.common.dto.*;
+import org.tecky.graphqlservice.feign.FeignProductServiceAPI;
 
 import java.util.List;
 
 @Controller
 public class ProductController {
 
+    @Autowired
+    FeignProductServiceAPI feignProductServiceAPI;
+
     @NacosValue(value = "${product.service}", autoRefreshed = true)
     String productService;
 
     @QueryMapping
     public ClientDTO clientByClentId(@Argument String clientId) {
-
-//        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-//                .addPara("clientId", id)
-//                .setURL("http://localhost:9052/api/v1/category/")
-//                .send(HttpMethod.GET);
 
         ClientDTO client = new ClientDTO();
         client.setClientId(clientId);
@@ -39,9 +39,7 @@ public class ProductController {
     @QueryMapping
     public List<CategoryDTO> categoryList() throws JsonProcessingException, ClassNotFoundException {
 
-        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-                .setURL(this.productService + "api/v1/categories/")
-                .send(HttpMethod.GET);
+        ResponseEntity<?> res = feignProductServiceAPI.getCategories();
 
         List<CategoryDTO> categoryDTOList = (List<CategoryDTO>) ResponseListObject.convert2ListObject(res);
 
@@ -51,41 +49,16 @@ public class ProductController {
     @QueryMapping
     public CategoryDTO category(@Argument Integer categoryId) throws JsonProcessingException {
 
-        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-                .addPara("categoryId", categoryId)
-                .setURL(this.productService + "api/v1/category/")
-                .send(HttpMethod.GET);
-
+        ResponseEntity<?> res = feignProductServiceAPI.getCategory(categoryId);
         CategoryDTO categoryDTO = (CategoryDTO) ResponseObject.convert2Object(res);
-
 
         return categoryDTO;
     }
-
-//    @QueryMapping
-//    public CategoryDTO categoryId(@Argument String categoryId) {
-//
-////        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-////                .addPara("clientId", id)
-////                .setURL("http://localhost:9052/api/v1/category/")
-////                .send(HttpMethod.GET);
-//
-//
-//
-//        ClientDTO client = new ClientDTO();
-//        client.setClientId(clientId);
-//
-//        return client;
-//    }
-
-
     @SchemaMapping
     public List<CategoryDTO> category(ClientDTO clientDTO) throws JsonProcessingException, ClassNotFoundException {
 
-        ResponseEntity<?> res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-                .addPara("clientId", clientDTO.getClientId())
-                .setURL(this.productService + "api/v1/client/categories/")
-                .send(HttpMethod.GET);
+        ResponseEntity<?> res = feignProductServiceAPI.getCategories(clientDTO.getClientId());
+
 
         List<CategoryDTO> categoryDTOList = (List<CategoryDTO>) ResponseListObject.convert2ListObject(res);
 
@@ -100,21 +73,13 @@ public class ProductController {
 
         if (categoryDTO.getClientId() == null) {
 
-            res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-                    .addPara("categoryId", categoryDTO.getCategoryId())
-                    .setURL(this.productService + "api/v1/types/")
-                    .send(HttpMethod.GET);
+            res = feignProductServiceAPI.getTypes(categoryDTO.getCategoryId());
 
             categoryTypeDTOList = (List<CategoryTypeDTO>) ResponseListObject.convert2ListObject(res);
 
         } else {
 
-            res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-                    .addPara("categoryId", categoryDTO.getCategoryId())
-                    .addPara("clientId", categoryDTO.getClientId())
-                    .setURL(this.productService + "api/v1/type/")
-                    .send(HttpMethod.GET);
-
+            res = feignProductServiceAPI.getType(categoryDTO.getCategoryId(), categoryDTO.getClientId());
 
             categoryTypeDTOList = (List<CategoryTypeDTO>) ResponseListObject.convert2ListObject(res);
 
@@ -134,9 +99,7 @@ public class ProductController {
         ResponseEntity<?> res;
         List<ProductGroupDTO> productGroupDTOList;
 
-        res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-                .setURL(this.productService + "api/v1/products/" + categoryTypeDTO.getClientId() + "/" + categoryTypeDTO.getTypeId())
-                .send(HttpMethod.GET);
+        res = feignProductServiceAPI.getProductGroupList(categoryTypeDTO.getClientId(), categoryTypeDTO.getTypeId());
 
         productGroupDTOList = (List<ProductGroupDTO>) ResponseListObject.convert2ListObject(res);
 

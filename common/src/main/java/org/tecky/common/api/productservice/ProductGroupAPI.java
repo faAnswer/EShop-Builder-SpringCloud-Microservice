@@ -14,7 +14,6 @@ public interface ProductGroupAPI {
     ResponseEntity<?> postProduct(@RequestBody @Validated PostProductDTO postProductDTO);
 
     @GetMapping(value = "/v1/products/{clientId}/{typeId}")
-        //List<>
     ResponseEntity<?> getProductGroupList(@PathVariable("clientId") String clientId,
                                           @PathVariable("typeId") Integer typeId);
 

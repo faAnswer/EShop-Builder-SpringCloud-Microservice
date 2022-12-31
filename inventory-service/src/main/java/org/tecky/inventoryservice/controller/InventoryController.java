@@ -23,7 +23,7 @@ public class InventoryController {
     InventoryService inventoryService;
 
     @PostMapping(value = "/v1/inventory", consumes = "application/json")
-    public ResponseEntity<?> inventory(@RequestBody @Validated PostInventoryDTO postInventoryDTO){
+    public ResponseEntity<?> postInventory(@RequestBody @Validated PostInventoryDTO postInventoryDTO){
 
         ResponseEntity<?> res;
 
