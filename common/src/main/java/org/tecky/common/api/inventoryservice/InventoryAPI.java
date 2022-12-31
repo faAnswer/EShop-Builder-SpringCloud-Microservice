@@ -14,4 +14,8 @@ public interface InventoryAPI {
 
     @GetMapping(value = "/v1/qty", params = {"productId"})
     ResponseEntity<?> getQty(@RequestParam("productId") Integer productId);
+
+    @GetMapping(value = "/v1/records", params = {"inventoryId"})
+    ResponseEntity<?> getRecords(@RequestParam("inventoryId") Integer inventoryId);
+
 }

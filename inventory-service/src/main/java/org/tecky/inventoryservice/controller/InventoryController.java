@@ -63,6 +63,7 @@ public class InventoryController implements InventoryAPI {
 
         return res;
     }
+    @Override
     @GetMapping(value = "/v1/records", params = {"inventoryId"})
     public ResponseEntity<?> getRecords(@RequestParam("inventoryId") Integer inventoryId) {
 
@@ -84,7 +85,5 @@ public class InventoryController implements InventoryAPI {
         }
 
         return res;
-
-
     }
 }
