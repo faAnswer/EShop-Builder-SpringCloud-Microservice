@@ -14,6 +14,7 @@ import org.tecky.inventoryservice.mapper.InventorySecDetailEntityRepository;
 import org.tecky.inventoryservice.mapper.InventorySecDetailO2MRepository;
 import org.tecky.inventoryservice.service.intf.InventoryService;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,7 +115,7 @@ public class InventoryServiceImpl implements InventoryService {
         List<AvailQtyRecordDTO> availQtyRecordDTOList;
 
         try {
-
+            
             onHandQtyRecordDTOList = ConversionUtil.convertM2M(OnHandQtyRecordDTO.class, inventorySecDetailO2MEntity.getOnhandDetailM2OEntity());
             accQtyRecordDTOList = ConversionUtil.convertM2M(AccQtyRecordDTO.class, inventorySecDetailO2MEntity.getAccountingDetailM2OEntity());
             availQtyRecordDTOList = ConversionUtil.convertM2M(AvailQtyRecordDTO.class, inventorySecDetailO2MEntity.getAvailableDetailM2OEntity());
