@@ -87,8 +87,8 @@ public class ProductGroupController implements ProductGroupAPI {
     }
 
     @Override
-    @GetMapping(value = "/v1/products/properties")
-    public ResponseEntity<?> getProductProperties(@RequestParam("groupId") Integer groupId){
+    @GetMapping(value = "/v1/products/details")
+    public ResponseEntity<?> getProductsProperties(@RequestParam("groupId") Integer groupId){
 
         ResponseEntity<?> response;
 
