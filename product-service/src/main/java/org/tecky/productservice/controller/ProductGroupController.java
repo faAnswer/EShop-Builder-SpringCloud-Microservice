@@ -90,7 +90,7 @@ public class ProductGroupController implements ProductGroupAPI {
     @Override
     @GetMapping(value = "/v1/property")
     //List<PropertyDTO>
-    public ResponseEntity<?> getProperty(Integer groupId) {
+    public ResponseEntity<?> getProperty(@RequestParam("groupId") Integer groupId) {
 
         ResponseEntity<?> response;
 

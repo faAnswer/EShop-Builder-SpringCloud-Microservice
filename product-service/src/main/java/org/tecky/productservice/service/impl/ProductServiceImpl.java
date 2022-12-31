@@ -150,7 +150,7 @@ public class ProductServiceImpl implements IProductService {
 
         List<PropertyDTO> propertyDTOList;
 
-        List<ProductDetailEntity> productDetailEntityList = productDetailEntityRepository.findByGroupId(groupId);
+        List<ProductDetailEntity> productDetailEntityList = productDetailEntityRepository.findDistinctColaValueByGroupId(groupId);
 
         if(productDetailEntityList == null){
 
