@@ -7,12 +7,11 @@ import org.faAnswer.web.util.json.ResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.tecky.common.dto.CategoryDTO;
-import org.tecky.common.dto.InventoryDTO;
-import org.tecky.common.dto.InventorySumDTO;
-import org.tecky.common.dto.PostInventoryDTO;
+import org.tecky.common.dto.*;
 import org.tecky.inventoryservice.entities.InventorySecDetailEntity;
+import org.tecky.inventoryservice.entities.InventorySecDetailO2MEntity;
 import org.tecky.inventoryservice.mapper.InventorySecDetailEntityRepository;
+import org.tecky.inventoryservice.mapper.InventorySecDetailO2MRepository;
 import org.tecky.inventoryservice.service.intf.InventoryService;
 
 import java.util.ArrayList;
@@ -23,6 +22,9 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Autowired
     InventorySecDetailEntityRepository inventorySecDetailEntityRepository;
+
+    @Autowired
+    InventorySecDetailO2MRepository inventorySecDetailO2MRepository;
 
     @Override
     public ResponseEntity<?> createInventory(PostInventoryDTO postInventoryDTO) throws JsonProcessingException {
@@ -93,18 +95,58 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public ResponseEntity<?> getAvailRecord(Integer inventoryId) throws JsonProcessingException {
-        return null;
-    }
+    public ResponseEntity<?> getRecord(Integer inventoryId) throws JsonProcessingException {
 
-    @Override
-    public ResponseEntity<?> getAccRecord(Integer inventoryId) throws JsonProcessingException {
-        return null;
-    }
+        InventoryQtyRecordDTO inventoryQtyRecordDTO = new InventoryQtyRecordDTO();
 
-    @Override
-    public ResponseEntity<?> getOnHandRecord(Integer inventoryId) throws JsonProcessingException {
-        return null;
-    }
+        InventorySecDetailO2MEntity inventorySecDetailO2MEntity = inventorySecDetailO2MRepository.findByInventoryId(inventoryId);
 
+        if(inventorySecDetailO2MEntity == null){
+
+            throw new CustomException(404, "InventoryId Not Found");
+
+        }
+
+        inventoryQtyRecordDTO.setInventoryId(inventorySecDetailO2MEntity.getInventoryId());
+
+        List<OnHandQtyRecordDTO> onHandQtyRecordDTOList;
+        List<AccQtyRecordDTO> accQtyRecordDTOList;
+        List<AvailQtyRecordDTO> availQtyRecordDTOList;
+
+        try {
+
+            onHandQtyRecordDTOList = ConversionUtil.convertM2M(OnHandQtyRecordDTO.class, inventorySecDetailO2MEntity.getOnhandDetailM2OEntity());
+            accQtyRecordDTOList = ConversionUtil.convertM2M(AccQtyRecordDTO.class, inventorySecDetailO2MEntity.getAccountingDetailM2OEntity());
+            availQtyRecordDTOList = ConversionUtil.convertM2M(AvailQtyRecordDTO.class, inventorySecDetailO2MEntity.getAvailableDetailM2OEntity());
+
+        } catch (Exception e) {
+
+            throw new CustomException(500, "Error in InventoryServiceImpl getRecord: ConversionUtil");
+        }
+
+        if(onHandQtyRecordDTOList == null) {
+
+            onHandQtyRecordDTOList = new ArrayList<>();
+        }
+
+        if(accQtyRecordDTOList == null) {
+
+            accQtyRecordDTOList = new ArrayList<>();
+        }
+
+        if(availQtyRecordDTOList == null) {
+
+            availQtyRecordDTOList = new ArrayList<>();
+        }
+
+        inventoryQtyRecordDTO.setOnHandQtyRecordDTOList(onHandQtyRecordDTOList);
+        inventoryQtyRecordDTO.setAccQtyRecordDTOList(accQtyRecordDTOList);
+        inventoryQtyRecordDTO.setAvailQtyRecordDTOList(availQtyRecordDTOList);
+
+
+        return ResponseObject
+                .builder()
+                .setObjectPayLoad(inventoryQtyRecordDTO)
+                .create(200);
+    }
 }

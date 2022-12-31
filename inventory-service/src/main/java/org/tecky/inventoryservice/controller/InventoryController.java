@@ -63,20 +63,28 @@ public class InventoryController implements InventoryAPI {
 
         return res;
     }
-//    @GetMapping(value = "/v1/onhand", params = {"productId"})
-//    public ResponseEntity<?> getOnHandRecord(@RequestParam("productId") Integer productId) {
-//
-//
-//    }
-//    @GetMapping(value = "/v1/avail", params = {"productId"})
-//    public ResponseEntity<?> getAvailRecord(@RequestParam("productId") Integer productId) {
-//
-//
-//    }
-//    @GetMapping(value = "/v1/acc", params = {"productId"})
-//    public ResponseEntity<?> getAccRecord(@RequestParam("productId") Integer productId) {
-//
-//
-//    }
+    @GetMapping(value = "/v1/records", params = {"inventoryId"})
+    public ResponseEntity<?> getRecords(@RequestParam("inventoryId") Integer inventoryId) {
 
+        ResponseEntity<?> res;
+
+        try {
+
+            res = inventoryService.getRecord(inventoryId);
+
+        } catch (Exception e) {
+
+            Integer httpCode = 500;
+
+            if (e instanceof CustomException) {
+
+                httpCode = ((CustomException) e).getCode();
+            }
+            throw new CustomException(httpCode, "/api/v1/records" + "\n" + e.getMessage());
+        }
+
+        return res;
+
+
+    }
 }

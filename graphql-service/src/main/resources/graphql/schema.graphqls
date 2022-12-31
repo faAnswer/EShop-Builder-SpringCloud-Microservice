@@ -66,4 +66,38 @@ type InventoryDTO{
     onhandQty: Int
     availableQty: Int
     accountingQty: Int
+    inventoryQtyRecordDTO: InventoryQtyRecordDTO
+}
+
+type InventoryQtyRecordDTO{
+
+    inventoryId: ID
+    onHandQtyRecordDTOList: [OnHandQtyRecordDTO]
+    accQtyRecordDTOList: [AccQtyRecordDTO]
+    availQtyRecordDTOList: [AvailQtyRecordDTO]
+}
+
+type OnHandQtyRecordDTO{
+
+    refId: ID
+    onhandDiff: Int
+    inventoryId: Int
+    shipmentId: Int
+
+}
+type AccQtyRecordDTO{
+
+    refId: ID
+    inventoryId: Int
+    paymentId: Int
+    accountingDiff: Int
+    orderId: Int
+
+}
+type AvailQtyRecordDTO{
+
+    refId: ID
+    inventoryId: Int
+    availableDiff: Int
+    orderId: Int
 }
