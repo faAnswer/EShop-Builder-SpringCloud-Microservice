@@ -2,6 +2,7 @@ package org.tecky.inventoryservice.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Setter
 @Table(name = "t_inventory")
 @SecondaryTable(name = "t_inventory_detail")
+@Slf4j
 public class InventorySecDetailO2MEntity {
 
     @Id
@@ -53,6 +55,4 @@ public class InventorySecDetailO2MEntity {
 
     @OneToMany(mappedBy= "inventorySecDetailO2MEntity", cascade = CascadeType.ALL)
     private List<AccountingDetailM2OEntity> accountingDetailM2OEntity;
-
-
 }
