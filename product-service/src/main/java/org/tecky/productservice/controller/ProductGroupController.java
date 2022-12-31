@@ -104,4 +104,9 @@ public class ProductGroupController implements ProductGroupAPI {
 
         return response;
     }
+
+    @Override
+    public ResponseEntity<?> getSubProperty(Integer groupId, String p) {
+        return null;
+    }
 }

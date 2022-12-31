@@ -107,17 +107,15 @@ public class ProductController {
     }
 
     @SchemaMapping
-    public List<PropertyDTO> selectionA(ProductGroupDTO categoryTypeDTO) throws JsonProcessingException, ClassNotFoundException {
+    public List<PropertyDTO> property(ProductGroupDTO productGroupDTO) throws JsonProcessingException, ClassNotFoundException {
 
         ResponseEntity<?> res;
-        List<ProductGroupDTO> productGroupDTOList;
+        List<PropertyDTO> propertyDTOList;
 
-        res = new RestTempBuilder(MediaType.APPLICATION_JSON)
-                .setURL(this.productService + "api/v1/products/" + categoryTypeDTO.getClientId() + "/" + categoryTypeDTO.getTypeId())
-                .send(HttpMethod.GET);
+        res = feignProductServiceAPI.getProperty(productGroupDTO.getGroupId());
 
-        productGroupDTOList = (List<ProductGroupDTO>) ResponseListObject.convert2ListObject(res);
+        propertyDTOList = (List<PropertyDTO>) ResponseListObject.convert2ListObject(res);
 
-        return productGroupDTOList;
+        return propertyDTOList;
     }
 }

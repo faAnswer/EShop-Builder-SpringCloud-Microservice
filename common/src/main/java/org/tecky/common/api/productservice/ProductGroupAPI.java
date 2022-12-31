@@ -23,4 +23,8 @@ public interface ProductGroupAPI {
     @GetMapping(value = "/v1/property")
     ResponseEntity<?> getProperty(@RequestParam("groupId") Integer groupId);
 
+    @GetMapping(value = "/v1/subproperty")
+    ResponseEntity<?> getSubProperty(@RequestParam("groupId") Integer groupId, @RequestParam("p") String p);
+
+
 }
