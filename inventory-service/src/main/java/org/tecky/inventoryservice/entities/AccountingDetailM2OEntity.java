@@ -14,6 +14,7 @@ public class AccountingDetailM2OEntity {
 
     @Id
     @Column(name = "ref_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer refId;
 
     @Column(name = "payment_id")

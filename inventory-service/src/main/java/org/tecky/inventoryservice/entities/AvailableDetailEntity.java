@@ -13,6 +13,7 @@ public class AvailableDetailEntity {
 
     @Id
     @Column(name = "ref_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer refId;
 
     @Column(name = "inventory_id")

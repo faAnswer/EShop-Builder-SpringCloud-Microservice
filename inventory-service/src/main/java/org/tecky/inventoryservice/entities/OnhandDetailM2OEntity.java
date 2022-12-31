@@ -13,6 +13,7 @@ public class OnhandDetailM2OEntity {
 
     @Id
     @Column(name = "ref_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer refId;
 
     @Column(name = "onhand_diff")

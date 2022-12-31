@@ -3,10 +3,7 @@ package org.tecky.inventoryservice.entities;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,6 +13,7 @@ public class InventoryDetailEntity {
 
     @Id
     @Column(name = "inventory_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer inventoryId;
 
     @Column(name = "expiry_date")
