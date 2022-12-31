@@ -145,16 +145,19 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    //List<PropertyDTO>
     public ResponseEntity<?> findProductProperties(Integer groupId) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
 
-        List<PropertyDTO> propertyDTOList = new ArrayList<PropertyDTO>();
-        Set<String> properties = new HashSet<String>();
+        List<PropertyDTO> propertyDTOList;
 
-        List<ProductDetailEntity> productDetailEntityList = productDetailEntityRepository.findByGroupIdAndIsvalidIs(groupId, 1);
+        List<ProductDetailEntity> productDetailEntityList = productDetailEntityRepository.findByGroupId(groupId);
 
-        for(ProductDetailEntity productDetailEntity: productDetailEntityList){
+        if(productDetailEntityList == null){
 
-            properties.add(productDetailEntity.getColaValue());
+            propertyDTOList = new ArrayList<>();
+        } else {
+
+            propertyDTOList = ConversionUtil.convertM2M(PropertyDTO.class, productDetailEntityList);
         }
 
         return ResponseListObject

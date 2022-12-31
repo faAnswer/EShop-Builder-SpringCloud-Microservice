@@ -9,4 +9,7 @@ import java.util.List;
 public interface ProductDetailEntityRepository extends JpaRepository<ProductDetailEntity, String> {
 
     public List<ProductDetailEntity> findByGroupIdAndIsvalidIs(Integer groupId, Integer isValidIs);
+
+    public List<ProductDetailEntity> findByGroupId(Integer groupId);
+
 }

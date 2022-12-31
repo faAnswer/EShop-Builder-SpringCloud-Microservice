@@ -86,4 +86,22 @@ public class ProductGroupController implements ProductGroupAPI {
 
         return response;
     }
+
+    @Override
+    @GetMapping(value = "/v1/property")
+    //List<PropertyDTO>
+    public ResponseEntity<?> getProperty(Integer groupId) {
+
+        ResponseEntity<?> response;
+
+        try {
+
+            response = iProductService.findProductProperties(groupId);
+        } catch (Exception e) {
+
+            throw new CustomException(500, "Error GET/api/v1/property" + e.getMessage());
+        }
+
+        return response;
+    }
 }
