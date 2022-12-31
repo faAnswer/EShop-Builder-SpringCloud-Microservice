@@ -5,18 +5,22 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+
 @Entity
 @Getter
 @Setter
-@Table(name = "t_available_detail")
-public class AvailableDetailM2OEntity {
+@Table(name = "t_accounting_detail")
+public class AccountingDetailM2OEntity {
 
     @Id
     @Column(name = "ref_id")
     private Integer refId;
 
-    @Column(name = "available_diff")
-    private Integer availableDiff;
+    @Column(name = "payment_id")
+    private Integer paymentId;
+
+    @Column(name = "accounting_diff")
+    private Integer accountingDiff;
 
     @Column(name = "order_id")
     private Integer orderId;

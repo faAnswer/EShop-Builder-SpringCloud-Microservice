@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @Table(name = "t_inventory")
 @SecondaryTable(name = "t_inventory_detail")
-public class InventorySecDetailO2M {
+public class InventorySecDetailO2MEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,6 +45,14 @@ public class InventorySecDetailO2M {
     @Column(name = "batch_no", table = "t_inventory_detail")
     private String batchNo;
 
-    @OneToMany(mappedBy="inventorySecDetailO2M", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy= "inventorySecDetailO2MEntity", cascade = CascadeType.ALL)
     private List<AvailableDetailM2OEntity> availableDetailM2OEntity;
+
+    @OneToMany(mappedBy= "inventorySecDetailO2MEntity", cascade = CascadeType.ALL)
+    private List<OnhandDetailM2OEntity> onhandDetailM2OEntity;
+
+    @OneToMany(mappedBy= "inventorySecDetailO2MEntity", cascade = CascadeType.ALL)
+    private List<AccountingDetailM2OEntity> accountingDetailM2OEntity;
+
+
 }

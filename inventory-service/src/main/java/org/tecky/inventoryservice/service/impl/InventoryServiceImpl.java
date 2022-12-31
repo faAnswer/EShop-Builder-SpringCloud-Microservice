@@ -92,4 +92,19 @@ public class InventoryServiceImpl implements InventoryService {
                 .create(200);
     }
 
+    @Override
+    public ResponseEntity<?> getAvailRecord(Integer inventoryId) throws JsonProcessingException {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<?> getAccRecord(Integer inventoryId) throws JsonProcessingException {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<?> getOnHandRecord(Integer inventoryId) throws JsonProcessingException {
+        return null;
+    }
+
 }

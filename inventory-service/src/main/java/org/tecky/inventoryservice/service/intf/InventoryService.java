@@ -10,4 +10,13 @@ public interface InventoryService {
 
     public ResponseEntity<?> getSummary(Integer productId) throws JsonProcessingException;
 
+    public ResponseEntity<?> getAvailRecord(Integer inventoryId) throws JsonProcessingException;
+
+    public ResponseEntity<?> getAccRecord(Integer inventoryId) throws JsonProcessingException;
+
+    public ResponseEntity<?> getOnHandRecord(Integer inventoryId) throws JsonProcessingException;
+
+
+
+
 }

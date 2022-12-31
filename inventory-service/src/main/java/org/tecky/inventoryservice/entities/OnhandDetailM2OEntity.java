@@ -8,20 +8,21 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name = "t_available_detail")
-public class AvailableDetailM2OEntity {
+@Table(name = "t_onhand_detail")
+public class OnhandDetailM2OEntity {
 
     @Id
     @Column(name = "ref_id")
     private Integer refId;
 
-    @Column(name = "available_diff")
-    private Integer availableDiff;
+    @Column(name = "onhand_diff")
+    private Integer onhandDiff;
 
-    @Column(name = "order_id")
-    private Integer orderId;
+    @Column(name = "shipment_id")
+    private Integer shipmentId;
 
     @ManyToOne
     @JoinColumn(name = "inventory_id", referencedColumnName = "inventory_id")
     private InventorySecDetailO2MEntity inventorySecDetailO2MEntity;
+
 }
