@@ -6,7 +6,7 @@ type Query{
 }
 type ClientDTO{
     clientId: ID!
-    category(categoryId: ID): [CategoryDTO]
+#    category(categoryId: ID): [CategoryDTO]
     category: [CategoryDTO]
 }
 type CategoryDTO{
