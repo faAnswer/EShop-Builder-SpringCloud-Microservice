@@ -43,12 +43,11 @@ type PropertyDTO{
 type SubPropertyDTO{
     groupId: Int
     colbValue: String
-    product:[ProductDTO]
+    product:ProductDTO
 }
 
 type ProductDTO{
     productId: ID
-    clientId: String
     colaValue: String
     colbValue: String
     inventory: [InventoryDTO]

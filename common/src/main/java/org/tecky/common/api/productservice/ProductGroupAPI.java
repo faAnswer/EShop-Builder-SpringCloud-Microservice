@@ -18,7 +18,7 @@ public interface ProductGroupAPI {
                                           @PathVariable("typeId") Integer typeId);
 
     @GetMapping(value = "/v1/products")
-    ResponseEntity<?> getProduct(@RequestParam("groupId") Integer groupId);
+    ResponseEntity<?> getProducts(@RequestParam("groupId") Integer groupId);
 
     @GetMapping(value = "/v1/property")
     ResponseEntity<?> getProperty(@RequestParam("groupId") Integer groupId);
@@ -26,5 +26,9 @@ public interface ProductGroupAPI {
     @GetMapping(value = "/v1/subproperty")
     ResponseEntity<?> getSubProperty(@RequestParam("groupId") Integer groupId, @RequestParam("p") String p);
 
+    @GetMapping(value = "/v1/product", params = {"groupId", "p", "s"})
+    ResponseEntity<?> getProduct(@RequestParam("groupId") Integer groupId, @RequestParam("p") String p, @RequestParam("s") String s);
 
+    @GetMapping(value = "/v1/product", params = {"productId"})
+    ResponseEntity<?> getProduct(@RequestParam("productId") Integer productId);
 }

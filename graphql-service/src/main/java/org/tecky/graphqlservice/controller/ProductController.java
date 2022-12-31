@@ -118,4 +118,31 @@ public class ProductController {
 
         return propertyDTOList;
     }
+
+    @SchemaMapping
+    public List<SubPropertyDTO> subProperty(PropertyDTO propertyDTO) throws JsonProcessingException, ClassNotFoundException {
+
+        ResponseEntity<?> res;
+        List<SubPropertyDTO> subPropertyDTO;
+
+        res = feignProductServiceAPI.getSubProperty(propertyDTO.getGroupId(), propertyDTO.getColaValue());
+
+        subPropertyDTO = (List<SubPropertyDTO>) ResponseListObject.convert2ListObject(res);
+
+        return subPropertyDTO;
+    }
+
+    @SchemaMapping
+    public ProductDTO product(SubPropertyDTO subPropertyDTO) throws JsonProcessingException {
+
+        ResponseEntity<?> res;
+        ProductDTO productDTO;
+
+        res = feignProductServiceAPI.getProduct(subPropertyDTO.getGroupId(),subPropertyDTO.getColaValue(), subPropertyDTO.getColbValue());
+
+        productDTO = (ProductDTO) ResponseObject.convert2Object(res);
+
+        return productDTO;
+    }
+
 }

@@ -21,4 +21,7 @@ public interface IProductService {
 
     public ResponseEntity<?> findProductSubProperties(Integer groupId, String p) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException;
 
+    public ResponseEntity<?> findProduct(Integer groupId, String p, String s) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException;
+
+
 }

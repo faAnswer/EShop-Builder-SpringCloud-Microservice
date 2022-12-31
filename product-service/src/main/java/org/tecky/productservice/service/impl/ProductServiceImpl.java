@@ -82,7 +82,7 @@ public class ProductServiceImpl implements IProductService {
         productDetailEntity.setColaValue(postProductDTO.getColaValue());
         productDetailEntity.setColbValue(postProductDTO.getColbValue());
         productDetailEntity.setGroupId(groupDetailEntity.getGroupId());
-
+        productDetailEntity.setIsvalid(1);
 
         try{
 
@@ -182,6 +182,25 @@ public class ProductServiceImpl implements IProductService {
         return ResponseListObject
                 .builder()
                 .setObjectPayLoad(subPropertyDTOList)
+                .create(200);
+    }
+
+    @Override
+    //ProductDTO
+    public ResponseEntity<?> findProduct(Integer groupId, String p, String s) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, JsonProcessingException {
+
+        ProductDetailEntity productDetailEntity = productDetailEntityRepository.findByGroupIdAndColaValueAndColbValue(groupId, p, s);
+
+        if(productDetailEntity == null){
+
+            throw new CustomException(404, "Error in ProductServiceImpl findProduct: Validation Product Not Found");
+        }
+
+        ProductDTO productDTO = ConversionUtil.convertS2S(ProductDTO.class, productDetailEntity);
+
+        return ResponseObject
+                .builder()
+                .setObjectPayLoad(productDTO)
                 .create(200);
     }
 }
