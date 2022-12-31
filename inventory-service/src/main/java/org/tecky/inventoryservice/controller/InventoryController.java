@@ -10,11 +10,12 @@ import org.tecky.inventoryservice.service.intf.InventoryService;
 
 @RestController
 @RequestMapping("/api")
-public class InventoryController {
+public class InventoryController implements org.tecky.common.api.inventoryservice.InventoryAPI {
 
     @Autowired
     InventoryService inventoryService;
 
+    @Override
     @PostMapping(value = "/v1/inventory", consumes = "application/json")
     public ResponseEntity<?> postInventory(@RequestBody @Validated PostInventoryDTO postInventoryDTO) {
 
@@ -38,6 +39,7 @@ public class InventoryController {
         return res;
     }
 
+    @Override
     @GetMapping(value = "/v1/product", params = {"productId"})
     public ResponseEntity<?> getSummary(@RequestParam("productId") Integer productId) {
 

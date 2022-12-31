@@ -51,7 +51,7 @@ type ProductDTO{
     productId: ID
     colaValue: String
     colbValue: String
-    inventorySum: [InventorySumDTO]
+    inventorySum: InventorySumDTO
 }
 
 type InventorySumDTO{
