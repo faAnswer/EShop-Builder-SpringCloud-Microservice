@@ -8,9 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.tecky.common.dto.InventorySumDTO;
 import org.tecky.common.dto.ProductDTO;
-import org.tecky.common.dto.SubPropertyDTO;
 import org.tecky.graphqlservice.feign.FeignInventoryServiceAPI;
-import org.tecky.graphqlservice.feign.FeignProductServiceAPI;
 
 @Controller
 public class InventoryController {
@@ -24,7 +22,7 @@ public class InventoryController {
         ResponseEntity<?> res;
         InventorySumDTO inventorySumDTO;
 
-        res = feignInventoryServiceAPI.getSummary(productDTO.getProductId());
+        res = feignInventoryServiceAPI.getQty(productDTO.getProductId());
 
         inventorySumDTO = (InventorySumDTO) ResponseObject.convert2Object(res);
 

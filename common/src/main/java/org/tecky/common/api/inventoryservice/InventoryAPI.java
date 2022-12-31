@@ -12,6 +12,6 @@ public interface InventoryAPI {
     @PostMapping(value = "/v1/inventory", consumes = "application/json")
     ResponseEntity<?> postInventory(@RequestBody @Validated PostInventoryDTO postInventoryDTO);
 
-    @GetMapping(value = "/v1/product", params = {"productId"})
-    ResponseEntity<?> getSummary(@RequestParam("productId") Integer productId);
+    @GetMapping(value = "/v1/qty", params = {"productId"})
+    ResponseEntity<?> getQty(@RequestParam("productId") Integer productId);
 }

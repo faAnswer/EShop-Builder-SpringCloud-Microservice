@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.tecky.common.api.inventoryservice.InventoryAPI;
 import org.tecky.common.dto.PostInventoryDTO;
 import org.tecky.inventoryservice.service.intf.InventoryService;
 
 @RestController
 @RequestMapping("/api")
-public class InventoryController implements org.tecky.common.api.inventoryservice.InventoryAPI {
+public class InventoryController implements InventoryAPI {
 
     @Autowired
     InventoryService inventoryService;
@@ -40,8 +41,8 @@ public class InventoryController implements org.tecky.common.api.inventoryservic
     }
 
     @Override
-    @GetMapping(value = "/v1/product", params = {"productId"})
-    public ResponseEntity<?> getSummary(@RequestParam("productId") Integer productId) {
+    @GetMapping(value = "/v1/qty", params = {"productId"})
+    public ResponseEntity<?> getQty(@RequestParam("productId") Integer productId) {
 
         ResponseEntity<?> res;
 
@@ -62,4 +63,20 @@ public class InventoryController implements org.tecky.common.api.inventoryservic
 
         return res;
     }
+    @GetMapping(value = "/v1/onhand", params = {"productId"})
+    public ResponseEntity<?> getOnHandRecord(@RequestParam("productId") Integer productId) {
+
+
+    }
+    @GetMapping(value = "/v1/avail", params = {"productId"})
+    public ResponseEntity<?> getAvailRecord(@RequestParam("productId") Integer productId) {
+
+
+    }
+    @GetMapping(value = "/v1/acc", params = {"productId"})
+    public ResponseEntity<?> getAccRecord(@RequestParam("productId") Integer productId) {
+
+
+    }
+
 }
