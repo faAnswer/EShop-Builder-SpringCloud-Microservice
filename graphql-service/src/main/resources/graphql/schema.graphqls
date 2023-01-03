@@ -1,5 +1,5 @@
 type Query{
-    clientByClentId(clientId: ID): ClientDTO
+    client(clientId: ID): ClientDTO
     categoryList: [CategoryDTO]
     category(categoryId: ID): CategoryDTO
 

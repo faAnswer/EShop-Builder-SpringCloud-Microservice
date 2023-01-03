@@ -28,7 +28,7 @@ public class ProductController {
     String productService;
 
     @QueryMapping
-    public ClientDTO clientByClentId(@Argument String clientId) {
+    public ClientDTO client(@Argument String clientId) {
 
         ClientDTO client = new ClientDTO();
         client.setClientId(clientId);
