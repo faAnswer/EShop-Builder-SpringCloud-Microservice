@@ -1,16 +1,28 @@
-Gateway
-![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/gateway.puml)
-GraphQL Service
-![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/graphql-service.puml)
-UUA Service
+<h1>UUA Service</h1>
+
 ![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/uua-service.puml)
-Warehouse Service
+
+<h1>Warehouse Service</h1>
+
 ![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/warehouse-service.puml)
-Inventory Service
+
+<h1>Inventory Service</h1>
+
 ![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/inventory-service.puml)
-Order Service
+
+<h1>Order Service</h1>
+
 ![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/order-service.puml)
-Product Service
+
+<h1>Product Service</h1>
+
 ![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/product-service.puml)
 
+<h1>Gateway</h1>
+
+![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/gateway.puml)
+
+<h1>GraphQL Service</h1>
+
+![uncached image](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/faAnswer/EShop-Builder-SpringCloud-Microservice/master/graphql-service.puml)
 
