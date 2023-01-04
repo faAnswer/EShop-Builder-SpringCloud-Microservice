@@ -19,6 +19,7 @@ import org.tecky.orderservice.mapper.OrderS2MDetailEntityRepository;
 import org.tecky.orderservice.service.intf.IOrderService;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 @Service
 @Slf4j
