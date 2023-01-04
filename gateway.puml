@@ -1,6 +1,6 @@
 @startuml
-class org.tecty.gateway.nacosdiscovery.NacosDiscoveryConfiguration {
-}
+left to right direction
+
 class org.tecty.gateway.GatewayApplication {
 + {static} void main(String[])
 }
@@ -9,15 +9,6 @@ class org.tecty.gateway.security.config.GatewayCorsConfiguration {
 }
 class org.tecty.gateway.GatewayApplicationTests {
 ~ void contextLoads()
-}
-class MavenWrapperDownloader {
-- {static} String WRAPPER_VERSION
-- {static} String DEFAULT_DOWNLOAD_URL
-- {static} String MAVEN_WRAPPER_PROPERTIES_PATH
-- {static} String MAVEN_WRAPPER_JAR_PATH
-- {static} String PROPERTY_NAME_WRAPPER_URL
-+ {static} void main(String[])
-- {static} void downloadFileFromURL(String,File)
 }
 class org.tecty.gateway.security.config.WebSecurityConfig {
 + SecurityWebFilterChain webFluxSecurityFilterChain(ServerHttpSecurity)

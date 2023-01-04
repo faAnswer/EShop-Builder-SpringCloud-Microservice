@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 interface org.tecky.warehouseservice.mapper.OutDetailEntityRepository {
 }
 interface org.tecky.warehouseservice.mapper.WarehouseEntityRepository {

@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 interface org.tecky.productservice.mapper.CategoryDetailEntityRepository {
 + List<CategoryDetailEntity> findAllCategoryByClientId(String)
 + List<CategoryDetailEntity> findAll()

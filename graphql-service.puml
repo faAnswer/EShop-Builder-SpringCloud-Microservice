@@ -1,15 +1,7 @@
 @startuml
-class org.tecky.graphqlservice.config.MyLoadBalancerConfig {
-~ NacosDiscoveryProperties nacosDiscoveryProperties
-~ ReactorLoadBalancer<ServiceInstance> randomLoadBalancer(Environment,LoadBalancerClientFactory)
-}
-class org.tecky.graphqlservice.GraphqlServiceApplicationTests {
-~ void contextLoads()
-}
+left to right direction
+
 interface org.tecky.graphqlservice.feign.FeignProductServiceAPI {
-}
-class org.tecky.graphqlservice.controller.HelloController {
-+ String getHello()
 }
 class org.tecky.graphqlservice.controller.InventoryController {
 ~ FeignInventoryServiceAPI feignInventoryServiceAPI
@@ -34,7 +26,6 @@ class org.tecky.graphqlservice.controller.ProductController {
 class org.tecky.graphqlservice.GraphqlServiceApplication {
 + {static} void main(String[])
 }
-
 
 org.tecky.common.api.productservice.ProductServiceAPI <|-- org.tecky.graphqlservice.feign.FeignProductServiceAPI
 org.tecky.common.api.inventoryservice.InventoryAPI <|-- org.tecky.graphqlservice.feign.FeignInventoryServiceAPI

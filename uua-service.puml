@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 class org.tecky.uuaservice.UuaServiceApplication {
 + {static} void main(String[])
 }

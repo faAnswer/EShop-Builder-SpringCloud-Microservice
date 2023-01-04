@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 interface org.tecky.inventoryservice.mapper.InventorySecDetailEntityRepository {
 + InventorySecDetailEntity findByProductIdAndBatchNo(Integer,String)
 + List<InventorySecDetailEntity> findByProductId(Integer)
@@ -45,18 +46,8 @@ class org.tecky.inventoryservice.service.impl.InventoryServiceImpl {
 + ResponseEntity<?> getSummary(Integer)
 + ResponseEntity<?> getRecord(Integer)
 }
-class org.tecky.inventoryservice.nacosconfig.NacosConfigConfiguration {
-}
+
 interface org.tecky.inventoryservice.mapper.AvailableDetailEntityRepository {
-}
-class MavenWrapperDownloader {
-- {static} String WRAPPER_VERSION
-- {static} String DEFAULT_DOWNLOAD_URL
-- {static} String MAVEN_WRAPPER_PROPERTIES_PATH
-- {static} String MAVEN_WRAPPER_JAR_PATH
-- {static} String PROPERTY_NAME_WRAPPER_URL
-+ {static} void main(String[])
-- {static} void downloadFileFromURL(String,File)
 }
 class org.tecky.inventoryservice.InventoryServiceApplication {
 + {static} void main(String[])
@@ -87,9 +78,6 @@ class org.tecky.inventoryservice.entities.AvailableDetailEntity {
 }
 interface org.tecky.inventoryservice.mapper.OnhandDetailEntityRepository {
 }
-class org.tecky.inventoryservice.InventoryServiceApplicationTests {
-~ void contextLoads()
-}
 class org.tecky.inventoryservice.entities.InventorySecDetailEntity {
 - Integer inventoryId
 - Integer productId
@@ -102,8 +90,7 @@ class org.tecky.inventoryservice.entities.InventorySecDetailEntity {
 - String supplierContact
 - String batchNo
 }
-class org.tecky.inventoryservice.nacosdiscovery.NacosDiscoveryConfiguration {
-}
+
 class org.tecky.inventoryservice.security.WebSecurityConfig {
 + SecurityFilterChain securityWebFilterChain(HttpSecurity)
 }
@@ -127,25 +114,19 @@ interface org.tecky.inventoryservice.mapper.InventoryDetailEntityRepository {
 interface org.tecky.inventoryservice.mapper.InventorySecDetailO2MRepository {
 + InventorySecDetailO2MEntity findByInventoryId(Integer)
 }
-class org.tecky.inventoryservice.controller.TestContoller {
-~ InventorySecDetailO2MRepository inventorySecDetailO2MRepository
-+ String test()
-}
+
 class org.tecky.inventoryservice.config.SeataRestTemplateConfiguration {
 - Collection<RestTemplate> restTemplates
 + SeataFilter seataFilter()
 + SeataRestTemplateInterceptor seataRestTemplateInterceptor()
 + void init()
 }
-class org.tecky.inventoryservice.controller.HelloController {
-+ String hello()
-}
+
 class org.tecky.inventoryservice.controller.WebControllerAdvice {
 + ResponseEntity<?> errorHandler(Exception)
 }
 interface org.tecky.inventoryservice.mapper.AvailableDetailM2OEntityRepository {
 }
-
 
 org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.inventoryservice.mapper.InventorySecDetailEntityRepository
 org.tecky.inventoryservice.service.intf.InventoryService <|.. org.tecky.inventoryservice.service.impl.InventoryServiceImpl

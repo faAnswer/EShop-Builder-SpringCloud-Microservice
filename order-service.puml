@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 interface org.tecky.orderservice.mapper.OrderS2MDetailEntityRepository {
 }
 interface org.tecky.orderservice.service.intf.IOrderService {
