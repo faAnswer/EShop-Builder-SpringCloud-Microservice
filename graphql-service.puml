@@ -1,0 +1,41 @@
+@startuml
+class org.tecky.graphqlservice.config.MyLoadBalancerConfig {
+~ NacosDiscoveryProperties nacosDiscoveryProperties
+~ ReactorLoadBalancer<ServiceInstance> randomLoadBalancer(Environment,LoadBalancerClientFactory)
+}
+class org.tecky.graphqlservice.GraphqlServiceApplicationTests {
+~ void contextLoads()
+}
+interface org.tecky.graphqlservice.feign.FeignProductServiceAPI {
+}
+class org.tecky.graphqlservice.controller.HelloController {
++ String getHello()
+}
+class org.tecky.graphqlservice.controller.InventoryController {
+~ FeignInventoryServiceAPI feignInventoryServiceAPI
++ InventorySumDTO inventorySum(ProductDTO)
++ InventoryQtyRecordDTO inventoryQtyRecordDTO(InventoryDTO)
+}
+interface org.tecky.graphqlservice.feign.FeignInventoryServiceAPI {
+}
+class org.tecky.graphqlservice.controller.ProductController {
+~ FeignProductServiceAPI feignProductServiceAPI
+~ String productService
++ ClientDTO client(String)
++ List<CategoryDTO> categoryList()
++ CategoryDTO category(Integer)
++ List<CategoryDTO> category(ClientDTO)
++ List<CategoryTypeDTO> categoryType(CategoryDTO)
++ List<ProductGroupDTO> productGroup(CategoryTypeDTO)
++ List<PropertyDTO> property(ProductGroupDTO)
++ List<SubPropertyDTO> subProperty(PropertyDTO)
++ ProductDTO product(SubPropertyDTO)
+}
+class org.tecky.graphqlservice.GraphqlServiceApplication {
++ {static} void main(String[])
+}
+
+
+org.tecky.common.api.productservice.ProductServiceAPI <|-- org.tecky.graphqlservice.feign.FeignProductServiceAPI
+org.tecky.common.api.inventoryservice.InventoryAPI <|-- org.tecky.graphqlservice.feign.FeignInventoryServiceAPI
+@enduml

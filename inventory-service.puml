@@ -1,0 +1,159 @@
+@startuml
+interface org.tecky.inventoryservice.mapper.InventorySecDetailEntityRepository {
++ InventorySecDetailEntity findByProductIdAndBatchNo(Integer,String)
++ List<InventorySecDetailEntity> findByProductId(Integer)
+}
+class org.tecky.inventoryservice.entities.OnhandDetailEntity {
+- Integer refId
+- Integer onhandDiff
+- Integer inventoryId
+- Integer shipmentId
+}
+class org.tecky.inventoryservice.entities.InventoryDetailEntity {
+- Integer inventoryId
+- String expiryDate
+- String additionMsg
+- String supplier
+- String supplierContact
+- String batchNo
+}
+class org.tecky.inventoryservice.entities.AvailableDetailM2OEntity {
+- Integer refId
+- Integer availableDiff
+- Integer orderId
+- InventorySecDetailO2MEntity inventorySecDetailO2MEntity
+}
+class org.tecky.inventoryservice.entities.InventorySecDetailO2MEntity {
+- Integer inventoryId
+- Integer productId
+- Integer accountingQty
+- Integer availableQty
+- Integer onhandQty
+- String expiryDate
+- String additionMsg
+- String supplier
+- String supplierContact
+- String batchNo
+- List<AvailableDetailM2OEntity> availableDetailM2OEntity
+- List<OnhandDetailM2OEntity> onhandDetailM2OEntity
+- List<AccountingDetailM2OEntity> accountingDetailM2OEntity
+}
+class org.tecky.inventoryservice.service.impl.InventoryServiceImpl {
+~ InventorySecDetailEntityRepository inventorySecDetailEntityRepository
+~ InventorySecDetailO2MRepository inventorySecDetailO2MRepository
++ ResponseEntity<?> createInventory(PostInventoryDTO)
++ ResponseEntity<?> getSummary(Integer)
++ ResponseEntity<?> getRecord(Integer)
+}
+class org.tecky.inventoryservice.nacosconfig.NacosConfigConfiguration {
+}
+interface org.tecky.inventoryservice.mapper.AvailableDetailEntityRepository {
+}
+class MavenWrapperDownloader {
+- {static} String WRAPPER_VERSION
+- {static} String DEFAULT_DOWNLOAD_URL
+- {static} String MAVEN_WRAPPER_PROPERTIES_PATH
+- {static} String MAVEN_WRAPPER_JAR_PATH
+- {static} String PROPERTY_NAME_WRAPPER_URL
++ {static} void main(String[])
+- {static} void downloadFileFromURL(String,File)
+}
+class org.tecky.inventoryservice.InventoryServiceApplication {
++ {static} void main(String[])
+}
+interface org.tecky.inventoryservice.service.intf.InventoryService {
++ ResponseEntity<?> createInventory(PostInventoryDTO)
++ ResponseEntity<?> getSummary(Integer)
++ ResponseEntity<?> getRecord(Integer)
+}
+class org.tecky.inventoryservice.controller.InventoryController {
+~ InventoryService inventoryService
++ ResponseEntity<?> postInventory(PostInventoryDTO)
++ ResponseEntity<?> getQty(Integer)
++ ResponseEntity<?> getRecords(Integer)
+}
+class org.tecky.inventoryservice.entities.AccountingDetailM2OEntity {
+- Integer refId
+- Integer paymentId
+- Integer accountingDiff
+- Integer orderId
+- InventorySecDetailO2MEntity inventorySecDetailO2MEntity
+}
+class org.tecky.inventoryservice.entities.AvailableDetailEntity {
+- Integer refId
+- Integer inventoryId
+- Integer availableDiff
+- Integer orderId
+}
+interface org.tecky.inventoryservice.mapper.OnhandDetailEntityRepository {
+}
+class org.tecky.inventoryservice.InventoryServiceApplicationTests {
+~ void contextLoads()
+}
+class org.tecky.inventoryservice.entities.InventorySecDetailEntity {
+- Integer inventoryId
+- Integer productId
+- Integer accountingQty
+- Integer availableQty
+- Integer onhandQty
+- String expiryDate
+- String additionMsg
+- String supplier
+- String supplierContact
+- String batchNo
+}
+class org.tecky.inventoryservice.nacosdiscovery.NacosDiscoveryConfiguration {
+}
+class org.tecky.inventoryservice.security.WebSecurityConfig {
++ SecurityFilterChain securityWebFilterChain(HttpSecurity)
+}
+class org.tecky.inventoryservice.entities.OnhandDetailM2OEntity {
+- Integer refId
+- Integer onhandDiff
+- Integer shipmentId
+- InventorySecDetailO2MEntity inventorySecDetailO2MEntity
+}
+interface org.tecky.inventoryservice.mapper.AccountingDetailEntityRepository {
+}
+class org.tecky.inventoryservice.entities.AccountingDetailEntity {
+- Integer refId
+- Integer inventoryId
+- Integer paymentId
+- Integer accountingDiff
+- Integer orderId
+}
+interface org.tecky.inventoryservice.mapper.InventoryDetailEntityRepository {
+}
+interface org.tecky.inventoryservice.mapper.InventorySecDetailO2MRepository {
++ InventorySecDetailO2MEntity findByInventoryId(Integer)
+}
+class org.tecky.inventoryservice.controller.TestContoller {
+~ InventorySecDetailO2MRepository inventorySecDetailO2MRepository
++ String test()
+}
+class org.tecky.inventoryservice.config.SeataRestTemplateConfiguration {
+- Collection<RestTemplate> restTemplates
++ SeataFilter seataFilter()
++ SeataRestTemplateInterceptor seataRestTemplateInterceptor()
++ void init()
+}
+class org.tecky.inventoryservice.controller.HelloController {
++ String hello()
+}
+class org.tecky.inventoryservice.controller.WebControllerAdvice {
++ ResponseEntity<?> errorHandler(Exception)
+}
+interface org.tecky.inventoryservice.mapper.AvailableDetailM2OEntityRepository {
+}
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.inventoryservice.mapper.InventorySecDetailEntityRepository
+org.tecky.inventoryservice.service.intf.InventoryService <|.. org.tecky.inventoryservice.service.impl.InventoryServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.inventoryservice.mapper.AvailableDetailEntityRepository
+org.tecky.common.api.inventoryservice.InventoryAPI <|.. org.tecky.inventoryservice.controller.InventoryController
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.inventoryservice.mapper.OnhandDetailEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.inventoryservice.mapper.AccountingDetailEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.inventoryservice.mapper.InventoryDetailEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.inventoryservice.mapper.InventorySecDetailO2MRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.inventoryservice.mapper.AvailableDetailM2OEntityRepository
+@enduml
