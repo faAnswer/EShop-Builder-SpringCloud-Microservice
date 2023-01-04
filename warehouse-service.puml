@@ -1,0 +1,129 @@
+@startuml
+interface org.tecky.warehouseservice.mapper.OutDetailEntityRepository {
+}
+interface org.tecky.warehouseservice.mapper.WarehouseEntityRepository {
++ WarehouseEntity findByWarehouseNameAndClientUid(String,Integer)
++ WarehouseEntity findByWarehouseId(Integer)
+}
+interface org.tecky.warehouseservice.mapper.ShipmentEntityRepository {
+}
+interface org.tecky.warehouseservice.mapper.InDetailM2SShipmentEntityRepository {
+}
+class org.tecky.warehouseservice.controller.ShipmentController {
+~ IShipmentService iShipmentService
++ ResponseEntity<?> createInShipment(PostWarehouseInShipmentDTO)
+}
+class org.tecky.warehouseservice.controller.TestController {
+~ ShipmentS2MInDetailEntityRepository shipmentS2MInDetailEntityRepository
++ String getTest()
+}
+interface org.tecky.warehouseservice.mapper.ShipmentS2MInDetailEntityRepository {
+}
+class org.tecky.warehouseservice.service.impl.WarehouseServiceImpl {
+~ WarehouseEntityRepository warehouseEntityRepository
++ ResponseEntity<?> createWarehouse(PostWarehouseDTO)
+}
+class org.tecky.warehouseservice.controller.WebControllerAdvice {
++ ResponseEntity<?> errorHandler(Exception)
+}
+class org.tecky.warehouseservice.security.WebSecurityConfig {
+- String jwtSecret
++ OncePerRequestFilter oncePerRequestFilter()
++ SecurityFilterChain securityWebFilterChain(HttpSecurity)
+}
+class org.tecky.warehouseservice.entities.InDetailM2SShipmentEntity {
+- Integer recordId
+- String refPic
+- Integer inventoryId
+- Integer qty
+- String recordRef
+- Integer handlerUid
+- String additionMsg
+- ShipmentS2MInDetailEntity shipmentS2MInDetailEntity
+}
+class org.tecky.warehouseservice.WarehouseServiceApplication {
++ {static} void main(String[])
+}
+class org.tecky.warehouseservice.entities.WarehouseEntity {
+- Integer warehouseId
+- String warehouseName
+- Integer warehouseTel
+- String warehouseAddress
+- Integer clientUid
+}
+class org.tecky.warehouseservice.service.impl.ShipmentServiceImpl {
+~ WarehouseEntityRepository warehouseEntityRepository
+~ ShipmentS2MInDetailEntityRepository shipmentS2MInDetailEntityRepository
++ ResponseEntity<?> createInShipment(PostWarehouseInShipmentDTO)
+}
+class org.tecky.warehouseservice.entities.ShipmentS2MInDetailEntity {
+- Integer shippmentId
+- String shippmentCompany
+- int warehouserId
+- String shippmentNum
+- String progressStatus
+- String directionType
+- List<InDetailM2SShipmentEntity> inDetailM2SShipmentEntityList
+}
+class org.tecky.warehouseservice.entities.ShipmentEntity {
+- int shippmentId
+- String shippmentCompany
+- int warehouserId
+- String shippmentNum
+- String progressStatus
+- String directionType
+}
+interface org.tecky.warehouseservice.service.intf.IWarehouseService {
++ ResponseEntity<?> createWarehouse(PostWarehouseDTO)
+}
+interface org.tecky.warehouseservice.service.intf.IShipmentService {
++ ResponseEntity<?> createInShipment(PostWarehouseInShipmentDTO)
+}
+class org.tecky.warehouseservice.entities.StockEntity {
+- int inventoryId
+- int stockQty
+- int warehouserId
+}
+class org.tecky.warehouseservice.entities.InDetailEntity {
+- int recordId
+- String refPic
+- int inventoryId
+- int qty
+- String recordRef
+- int handlerUid
+- String additionMsg
+- String shippmentId
+}
+class org.tecky.warehouseservice.entities.OutDetailEntity {
+- int recordId
+- String refPic
+- int inventoryId
+- int qty
+- int handlerUid
+- int orderId
+- String additionMsg
+}
+interface org.tecky.warehouseservice.mapper.InDetailEntityRepository {
+}
+interface org.tecky.warehouseservice.mapper.StockEntityRepository {
+}
+class org.tecky.warehouseservice.WarehouseServiceApplicationTests {
+~ void contextLoads()
+}
+class org.tecky.warehouseservice.controller.WarehouseController {
+~ IWarehouseService iWarehouseService
++ ResponseEntity<?> createWarehouse(PostWarehouseDTO)
+}
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.warehouseservice.mapper.OutDetailEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.warehouseservice.mapper.WarehouseEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.warehouseservice.mapper.ShipmentEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.warehouseservice.mapper.InDetailM2SShipmentEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.warehouseservice.mapper.ShipmentS2MInDetailEntityRepository
+org.tecky.warehouseservice.service.intf.IWarehouseService <|.. org.tecky.warehouseservice.service.impl.WarehouseServiceImpl
+java.io.Serializable <|.. org.tecky.warehouseservice.entities.WarehouseEntity
+org.tecky.warehouseservice.service.intf.IShipmentService <|.. org.tecky.warehouseservice.service.impl.ShipmentServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.warehouseservice.mapper.InDetailEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.warehouseservice.mapper.StockEntityRepository
+@enduml

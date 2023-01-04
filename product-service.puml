@@ -1,0 +1,185 @@
+@startuml
+interface org.tecky.productservice.mapper.CategoryDetailEntityRepository {
++ List<CategoryDetailEntity> findAllCategoryByClientId(String)
++ List<CategoryDetailEntity> findAll()
+}
+class org.tecky.productservice.service.impl.ProductServiceImpl {
+~ GroupDetailEntityRepository groupDetailEntityRepository
+~ CategoryChecker categoryChecker
+~ ProductDetailEntityRepository productDetailEntityRepository
++ ResponseEntity<?> insertProductGroup(PostGroupDTO)
++ ResponseEntity<?> insertProduct(PostProductDTO)
++ ResponseEntity<?> findProductGroup(Integer)
++ ResponseEntity<?> findProductGroupList(String,Integer)
++ ResponseEntity<?> findProductProperties(Integer)
++ ResponseEntity<?> findProductSubProperties(Integer,String)
++ ResponseEntity<?> findProduct(Integer,String,String)
+}
+class org.tecky.productservice.controller.ProductController {
+}
+class org.tecky.productservice.entities.comprimarykey.GroupEntityPK {
+- Integer groupId
+- Integer productId
+}
+class org.tecky.productservice.entities.ProductDetailEntity {
+- Integer productId
+- String colbValue
+- String colaValue
+- Integer groupId
+- Integer isvalid
+}
+interface org.tecky.productservice.service.intf.IProductService {
++ ResponseEntity<?> insertProductGroup(PostGroupDTO)
++ ResponseEntity<?> insertProduct(PostProductDTO)
++ ResponseEntity<?> findProductGroup(Integer)
++ ResponseEntity<?> findProductGroupList(String,Integer)
++ ResponseEntity<?> findProductProperties(Integer)
++ ResponseEntity<?> findProductSubProperties(Integer,String)
++ ResponseEntity<?> findProduct(Integer,String,String)
+}
+class org.tecky.productservice.entities.TypeEntity {
+- Integer typeId
+- Integer categoryId
+}
+class org.tecky.productservice.controller.CategoryController {
+~ ICategoryService iCategoryService
++ ResponseEntity<?> getCategories(String)
++ ResponseEntity<?> getCategories()
++ ResponseEntity<?> getCategory(Integer)
+}
+class org.tecky.productservice.config.CategoryCheckerConfig {
+~ TypeEntityRepository typeEntityRepository
+~ TypeDetailEntityRepository typeDetailEntityRepository
+~ CategoryDetailEntityRepository categoryDetailEntityRepository
++ CategoryChecker categoryChecker()
+}
+class org.tecky.productservice.entities.TypeDetailEntity {
+- Integer typeId
+- String typeName
+}
+class org.tecky.productservice.controller.ProductGroupController {
+~ IProductService iProductService
++ ResponseEntity<?> postGroup(PostGroupDTO)
++ ResponseEntity<?> postProduct(PostProductDTO)
++ ResponseEntity<?> getProductGroupList(String,Integer)
++ ResponseEntity<?> getProducts(Integer)
++ ResponseEntity<?> getProperty(Integer)
++ ResponseEntity<?> getSubProperty(Integer,String)
++ ResponseEntity<?> getProduct(Integer,String,String)
++ ResponseEntity<?> getProduct(Integer)
+}
+class org.tecky.productservice.controller.TestController {
+~ ProductDetailEntityRepository productDetailEntityRepository
++ String getTest()
+}
+class org.tecky.productservice.controller.TypeController {
+~ ICategoryService iCategoryService
++ ResponseEntity<?> getTypes(Integer)
++ ResponseEntity<?> getType(Integer,String)
+}
+interface org.tecky.productservice.mapper.TypeEntityRepository {
++ List<TypeEntity> findAllValidType()
+}
+class org.tecky.productservice.service.impl.CategoryServiceImpl {
+~ CategoryDetailEntityRepository categoryDetailEntityRepository
+~ TypeDetailEntityRepository typeDetailEntityRepository
+~ CategoryChecker categoryChecker
++ List<CategoryDTO> getCategories(String)
++ List<CategoryDTO> getCategories()
++ CategoryDTO getCategory(Integer)
++ List<CategoryTypeDTO> getTypeByCategoryId(Integer)
++ List<CategoryTypeDTO> getTypeByCategoryId(Integer,String)
+}
+interface org.tecky.productservice.mapper.ProductDetailEntityRepository {
++ List<ProductDetailEntity> findByGroupIdAndIsvalidIs(Integer,Integer)
++ List<ProductDetailEntity> findByGroupIdAndColaValue(Integer,String)
++ List<ProductDetailEntity> findDistinctColaValueByGroupId(Integer)
++ ProductDetailEntity findByGroupIdAndColaValueAndColbValue(Integer,String,String)
+}
+class org.tecky.productservice.config.SeataRestTemplateConfiguration {
+- Collection<RestTemplate> restTemplates
++ SeataFilter seataFilter()
++ SeataRestTemplateInterceptor seataRestTemplateInterceptor()
++ void init()
+}
+class org.tecky.productservice.entities.CategoryDetailEntity {
+- Integer categoryId
+- String categoryName
+}
+class org.tecky.productservice.controller.WebControllerAdvice {
++ ResponseEntity<?> errorHandler(Exception)
+}
+class org.tecky.productservice.entities.GroupDetailEntity {
+- Integer groupId
+- String colbKey
+- String groupName
+- String colaKey
+- Integer typeId
+- String picUrl
+- String groupDescription
+- String clientId
+- Integer isvalid
+}
+class org.tecky.productservice.security.WebSecurityConfig {
++ SecurityFilterChain securityWebFilterChain(HttpSecurity)
+}
+class org.tecky.productservice.entities.comprimarykey.TypeEntityPK {
+- Integer typeId
+- Integer categoryId
+}
+interface org.tecky.productservice.mapper.GroupDetailEntityRepository {
++ GroupDetailEntity findByGroupId(Integer)
++ List<GroupDetailEntity> findByTypeIdAndClientId(Integer,String)
+}
+interface org.tecky.productservice.mapper.TypeDetailEntityRepository {
++ List<TypeDetailEntity> findAll()
++ List<TypeDetailEntity> findAllByCategoryIdAndClientId(Integer,String)
+}
+interface org.tecky.productservice.service.intf.ICategoryService {
++ List<CategoryDTO> getCategories(String)
++ List<CategoryDTO> getCategories()
++ CategoryDTO getCategory(Integer)
++ List<CategoryTypeDTO> getTypeByCategoryId(Integer)
++ List<CategoryTypeDTO> getTypeByCategoryId(Integer,String)
+}
+class org.tecky.productservice.ProductServiceApplication {
++ {static} void main(String[])
+}
+class org.tecky.productservice.service.CategoryChecker {
+- TypeEntityRepository typeEntityRepository
+- TypeDetailEntityRepository typeDetailEntityRepository
+- CategoryDetailEntityRepository categoryDetailEntityRepository
+- Map<Integer,Integer> typeMap
+- Map<Integer,String> typeNameMap
+- Map<Integer,String> categoryNameMap
+- Map<String,List<String>> categoryTypeNameMap
+- Map<Integer,List<Integer>> categoryTypeIdMap
+- Map<Integer,Map<Integer,String>> categoryTypeFullMap
++ boolean containsTypeId(Integer)
++ boolean containsCategoryId(Integer)
++ String typeName(Integer)
++ String categoryName(Integer)
+}
+class org.tecky.productservice.ProductServiceApplicationTests {
+~ void contextLoads()
+}
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.productservice.mapper.CategoryDetailEntityRepository
+org.tecky.productservice.service.intf.IProductService <|.. org.tecky.productservice.service.impl.ProductServiceImpl
+java.io.Serializable <|.. org.tecky.productservice.entities.comprimarykey.GroupEntityPK
+java.io.Serializable <|.. org.tecky.productservice.entities.ProductDetailEntity
+java.io.Serializable <|.. org.tecky.productservice.entities.TypeEntity
+org.tecky.common.api.productservice.CategoryAPI <|.. org.tecky.productservice.controller.CategoryController
+java.io.Serializable <|.. org.tecky.productservice.entities.TypeDetailEntity
+org.tecky.common.api.productservice.ProductGroupAPI <|.. org.tecky.productservice.controller.ProductGroupController
+org.tecky.common.api.productservice.TypeAPI <|.. org.tecky.productservice.controller.TypeController
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.productservice.mapper.TypeEntityRepository
+org.tecky.productservice.service.intf.ICategoryService <|.. org.tecky.productservice.service.impl.CategoryServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.productservice.mapper.ProductDetailEntityRepository
+java.io.Serializable <|.. org.tecky.productservice.entities.CategoryDetailEntity
+java.io.Serializable <|.. org.tecky.productservice.entities.GroupDetailEntity
+java.io.Serializable <|.. org.tecky.productservice.entities.comprimarykey.TypeEntityPK
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.productservice.mapper.GroupDetailEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.productservice.mapper.TypeDetailEntityRepository
+@enduml

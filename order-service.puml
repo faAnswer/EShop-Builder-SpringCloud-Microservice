@@ -1,0 +1,88 @@
+@startuml
+interface org.tecky.orderservice.mapper.OrderS2MDetailEntityRepository {
+}
+interface org.tecky.orderservice.service.intf.IOrderService {
++ ResponseEntity<?> createOrder(PostOrderDTO)
+}
+class org.tecky.orderservice.config.RestTemplateConfig {
+~ SeataRestTemplateInterceptor seataRestTemplateInterceptor
++ RestTemplate restTemplate()
+}
+interface org.tecky.orderservice.mapper.DetailM2SOrderEntityRepository {
+}
+class org.tecky.orderservice.entities.OrderDetailEntity {
+- Integer detailId
+- String amount
+- Integer productId
+- Integer qty
+- Integer orderId
+}
+class org.tecky.orderservice.OrderServiceApplicationTests {
+~ void contextLoads()
+}
+class org.tecky.orderservice.service.impl.OrderServiceImpl {
+~ RestTemplate restTemplate
+~ OrderS2MDetailEntityRepository orderS2MDetailEntityRepository
++ ResponseEntity<?> createOrder(PostOrderDTO)
+}
+interface org.tecky.orderservice.mapper.OrderDetailEntityRepository {
+}
+interface org.tecky.orderservice.mapper.OrderEntityRepository {
+}
+class org.tecky.orderservice.entities.OrderEntity {
+- Integer orderId
+- String shippingAmount
+- Integer uid
+- String orderStatus
+- Integer couponId
+- String totalAmount
+- String subtotal
+- String discountAmount
+- Integer clientUid
+}
+class org.tecky.orderservice.config.SeataRestTemplateConfiguration {
++ SeataFilter seataFilter()
++ SeataRestTemplateInterceptor seataRestTemplateInterceptor()
+}
+class org.tecky.orderservice.controller.OrderController {
+~ IOrderService iOrderService
++ ResponseEntity<?> postOrder(PostOrderDTO)
+}
+class org.tecky.orderservice.entities.OrderS2MDetailEntity {
+- Integer orderId
+- String shippingAmount
+- Integer uid
+- String orderStatus
+- Integer couponId
+- String totalAmount
+- String subtotal
+- String discountAmount
+- Integer clientUid
+- List<DetailM2SOrderEntity> detailM2SOrderEntityList
+}
+class org.tecky.orderservice.OrderServiceApplication {
++ {static} void main(String[])
+}
+class org.tecky.orderservice.controller.WebControllerAdvice {
++ ResponseEntity<?> errorHandler(Exception)
+}
+class org.tecky.orderservice.security.WebSecurityConfig {
+- String jwtSecret
++ OncePerRequestFilter oncePerRequestFilter()
++ SecurityFilterChain securityWebFilterChain(HttpSecurity)
+}
+class org.tecky.orderservice.entities.DetailM2SOrderEntity {
+- Integer detailId
+- String amount
+- Integer productId
+- Integer qty
+- OrderS2MDetailEntity orderS2MDetailEntity
+}
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.orderservice.mapper.OrderS2MDetailEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.orderservice.mapper.DetailM2SOrderEntityRepository
+org.tecky.orderservice.service.intf.IOrderService <|.. org.tecky.orderservice.service.impl.OrderServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.orderservice.mapper.OrderDetailEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.orderservice.mapper.OrderEntityRepository
+@enduml

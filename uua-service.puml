@@ -1,0 +1,178 @@
+@startuml
+class org.tecky.uuaservice.UuaServiceApplication {
++ {static} void main(String[])
+}
+class org.tecky.uuaservice.controller.ClientController {
+~ IUserService iUserService
++ ResponseEntity<?> register(PostClientRegDTO)
++ ResponseEntity<?> login(PostClientLoginDTO)
+}
+interface org.tecky.uuaservice.service.intf.IAdminService {
++ ResponseEntity<?> adminRegister(PostAdminRegDTO)
++ ResponseEntity<?> createRole(PostRoleDTO)
++ ResponseEntity<?> createScope(PostRoleDTO)
++ ResponseEntity<?> delScope(PostRoleDTO)
+}
+class org.tecky.uuaservice.security.WebSecurityConfig {
+- String jwtSecret
+~ CustomUserDetailsService customUserDetailsService
++ PasswordEncoder passwordEncoder()
++ OncePerRequestFilter oncePerRequestFilter()
++ AuthenticationManager authenticationProvider()
++ SecurityFilterChain securityWebFilterChain(HttpSecurity)
+}
+class org.tecky.uuaservice.entities.RoleAuthEntity {
+- int roleId
+- int scopeId
+}
+class org.tecky.uuaservice.service.impl.UserServiceImpl {
+- String jwtSecret
+~ PasswordEncoder passwordEncoder
+~ UserEntityRepository userEntityRepository
+~ ClientEntityRepository clientEntityRepository
+~ ClientSecUserEntityRepository clientSecUserEntityRepository
+~ CustomUserDetailsService customUserDetailsService
+~ RoleEntityRepository roleEntityRepository
+~ AuthenticationManager authenticationManager
++ ResponseEntity<?> rootRegister(PostClientRegDTO)
++ ResponseEntity<?> clientLogin(PostClientLoginDTO)
+}
+class org.tecky.uuaservice.service.impl.AdminServiceImpl {
+~ PasswordEncoder passwordEncoder
+~ ClientEntityRepository clientEntityRepository
+~ UserEntityRepository userEntityRepository
+~ ClientSecUserEntityRepository clientSecUserEntityRepository
+~ RoleEntityRepository roleEntityRepository
+~ RoleAuthEntityRepository roleAuthEntityRepository
+~ ScopeEntityRepository scopeEntityRepository
++ ResponseEntity<?> adminRegister(PostAdminRegDTO)
++ ResponseEntity<?> createRole(PostRoleDTO)
++ ResponseEntity<?> createScope(PostRoleDTO)
++ ResponseEntity<?> delScope(PostRoleDTO)
++ void createScope(PostRoleDTO,Integer)
+}
+interface org.tecky.uuaservice.mapper.UserEntityRepository {
++ UserEntity findByEmailAndRoleId(String,Integer)
++ UserEntity findByUsernameAndRoleId(String,Integer)
++ UserEntity findByEmailAndClientUid(String,Integer)
+}
+interface org.tecky.uuaservice.mapper.ScopeEntityRepository {
++ ScopeEntity findByScopeId(Integer)
+}
+class org.tecky.uuaservice.entities.ClientEntity {
+- int clientUid
+- String clientName
+- String clientId
+}
+class org.tecky.uuaservice.UuaServiceApplicationTests {
+~ void contextLoads()
+}
+class org.tecky.uuaservice.config.UserDetailsServiceConfig {
+}
+interface org.tecky.uuaservice.service.intf.IUserService {
++ ResponseEntity<?> rootRegister(PostClientRegDTO)
++ ResponseEntity<?> clientLogin(PostClientLoginDTO)
+}
+interface org.tecky.uuaservice.mapper.RoleAuthS2OScopeEntityRepository {
++ List<RoleAuthS2OScopeEntity> findByRoleId(Integer)
+}
+interface org.tecky.uuaservice.mapper.ClientSecUserEntityRepository {
++ ClientSecUserEntity findByClientIdAndEmail(String,String)
++ ClientSecUserEntity findByClientIdAndUsername(String,String)
+}
+interface org.tecky.uuaservice.mapper.RoleEntityRepository {
++ RoleEntity findByRoleId(Integer)
++ RoleEntity findByRoleNameAndClientUid(String,Integer)
+}
+class org.tecky.uuaservice.entities.RoleEntity {
+- int roleId
+- String roleName
+- int clientUid
+}
+interface org.tecky.uuaservice.mapper.ClientEntityRepository {
++ ClientEntity findByClientId(String)
++ ClientEntity findByClientName(String)
+}
+class org.tecky.uuaservice.entities.ScopeEntity {
+- int scopeId
+- String scopeDescription
+- String scopeName
+}
+class org.tecky.uuaservice.entities.compk.RoleAuthEntityEmbeddable {
+- int scopeId
+- int roleId
+}
+class org.tecky.uuaservice.controller.WebControllerAdvice {
++ ResponseEntity<?> errorHandler(Exception)
+}
+class org.tecky.uuaservice.entities.UserEntity {
+- int uid
+- int roleId
+- int clientUid
+- String shapassword
+- String email
+- String username
+}
+class org.tecky.uuaservice.entities.compk.RoleAuthEntityPK {
+- int roleId
+- int scopeId
+}
+class org.tecky.uuaservice.controller.AdminController {
+~ IAdminService iAdminService
++ ResponseEntity<?> registerAdmin(PostAdminRegDTO)
++ ResponseEntity<?> createRole(PostRoleDTO)
++ ResponseEntity<?> createScope(PostRoleDTO)
++ ResponseEntity<?> delScope(PostRoleDTO)
+}
+class org.tecky.uuaservice.security.CustomUserDetailsService {
+~ ClientSecUserEntityRepository clientSecUserEntityRepository
+~ RoleAuthS2OScopeEntityRepository roleAuthS2OScopeEntityRepository
+- String clientId
++ void setClientId(String)
++ UserDetails loadUserByUsername(String)
+}
+class org.tecky.uuaservice.entities.ClientSecUserEntity {
+- int clientUid
+- String clientName
+- String clientId
+- int uid
+- int roleId
+- String shapassword
+- String email
+- String username
+}
+class org.tecky.uuaservice.controller.HelloController {
++ String hello()
+}
+class org.tecky.uuaservice.controller.TestController {
+~ RoleAuthS2OScopeEntityRepository roleAuthS2OScopeEntityRepository
+~ RoleAuthEntityRepository roleAuthEntityRepository
++ String getTest()
++ String security()
+}
+interface org.tecky.uuaservice.mapper.RoleAuthEntityRepository {
++ List<RoleAuthEntity> findByRoleId(Integer)
++ List<RoleAuthEntity> findAllByRoleId(Integer)
++ void deleteByRoleIdAndScopeIdIn(Integer,List<Integer>)
+}
+class org.tecky.uuaservice.entities.RoleAuthS2OScopeEntity {
+- int roleId
+- int scopeId
+- ScopeEntity scopeEntity
+}
+
+
+org.tecky.uuaservice.service.intf.IUserService <|.. org.tecky.uuaservice.service.impl.UserServiceImpl
+org.tecky.uuaservice.service.intf.IAdminService <|.. org.tecky.uuaservice.service.impl.AdminServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.uuaservice.mapper.UserEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.uuaservice.mapper.ScopeEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.uuaservice.mapper.RoleAuthS2OScopeEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.uuaservice.mapper.ClientSecUserEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.uuaservice.mapper.RoleEntityRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.uuaservice.mapper.ClientEntityRepository
+java.io.Serializable <|.. org.tecky.uuaservice.entities.ScopeEntity
+java.io.Serializable <|.. org.tecky.uuaservice.entities.compk.RoleAuthEntityEmbeddable
+java.io.Serializable <|.. org.tecky.uuaservice.entities.compk.RoleAuthEntityPK
+org.springframework.security.core.userdetails.UserDetailsService <|.. org.tecky.uuaservice.security.CustomUserDetailsService
+org.springframework.data.jpa.repository.JpaRepository <|-- org.tecky.uuaservice.mapper.RoleAuthEntityRepository
+@enduml
